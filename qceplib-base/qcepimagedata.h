@@ -17,6 +17,11 @@
 
 typedef struct tiff TIFF;
 
+struct QcepInterval {
+  double minValue;
+  double maxValue;
+};
+
 class QcepImageDataBase : public QObject
 {
   Q_OBJECT
@@ -133,6 +138,8 @@ public slots:
   virtual int pixelsInRange(double min, double max) = 0;
 
   virtual int overflowCount(double level) const;
+
+  QcepInterval percentileRange(double lowpct, double highpct);
 
 public:
 //  int get_Width() const

@@ -360,6 +360,74 @@ int QcepImageDataBase::overflowCount(double level) const
   return nPix;
 }
 
+QcepInterval QcepImageDataBase::percentileRange(double lowpct, double highpct)
+{
+  QcepInterval res;
+
+  const int histSize = 65536;
+  QVector<int> histogramVec(histSize+1);
+  histogramVec.fill(0.0);
+  int *histogram = histogramVec.data();
+
+  double minVal = get_MinValue();
+  double maxVal = get_MaxValue();
+
+  double histStep=(maxVal - minVal + 2)/histSize;
+  int nAbove = 0, nBelow = 0, nTotal = 0;
+
+  int ncols = this -> get_Width();
+  int nrows = this -> get_Height();
+
+  for (int row=0; row<nrows; row++) {
+    for (int col=0; col<ncols; col++) {
+      double val = this->getImageData(col, row);
+
+      if (val==val) {
+        double bin = (val - minVal)/histStep;
+
+        if (bin < 0) {
+          nBelow += 1;
+        } else if (bin > histSize) {
+          nAbove += 1;
+        } else {
+          histogram[((int)bin)] += 1;
+        }
+
+        nTotal += 1;
+      }
+    }
+  }
+
+
+  double lowCount = ((double) nTotal) * lowpct / 100.0;
+  double highCount = ((double) nTotal) * highpct / 100.0;
+  double count = nBelow;
+
+  for (int i=0; i<histSize; i++) {
+    double binVal = minVal + i*histStep;
+
+//      if (histogram[i]>100) {
+//        printf("%g\t%d\t%g\n", binVal, histogram[i], count);
+//      }
+
+    count += histogram[i];
+
+    if (count < lowCount) {
+      res.minValue = binVal;
+    }
+
+    if (count < highCount) {
+      res.maxValue = binVal;
+    }
+  }
+
+  if (res.maxValue <= res.minValue) {
+    res.maxValue = res.minValue+1;
+  }
+
+  return res;
+}
+
 template <typename T>
 QcepImageData<T>::QcepImageData(QcepSettingsSaverWPtr saver, int width, int height, T def)
   : QcepImageDataBase(saver, width, height),
