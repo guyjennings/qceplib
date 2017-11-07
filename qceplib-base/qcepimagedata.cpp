@@ -137,8 +137,8 @@ void QcepImageDataBase::copyProperties(QcepImageDataBase *dest)
   dest -> set_Normalization(get_Normalization());
   dest -> set_ExtraInputs(get_ExtraInputs());
   dest -> set_Used(get_Used());
-//  dest -> set_MinValue(get_MinValue());
-//  dest -> set_MaxValue(get_MaxValue());
+  dest -> set_MinimumValue(get_MinimumValue());
+  dest -> set_MaximumValue(get_MaximumValue());
 
   QByteArray name;
 
@@ -175,8 +175,8 @@ void QcepImageDataBase::copyPropertiesFrom(QSharedPointer<QcepImageDataBase> src
   set_Normalization(src -> get_Normalization());
   set_ExtraInputs(src -> get_ExtraInputs());
   set_Used(src -> get_Used());
-//  set_MinValue(src -> get_MinValue());
-//  set_MaxValue(src -> get_MaxValue());
+  set_MinimumValue(src -> get_MinimumValue());
+  set_MaximumValue(src -> get_MaximumValue());
 
   QByteArray name;
 
