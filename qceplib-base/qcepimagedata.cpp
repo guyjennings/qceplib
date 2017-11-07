@@ -48,8 +48,8 @@ QcepImageDataBase::QcepImageDataBase(QcepSettingsSaverWPtr saver, int width, int
     m_Normalization(saver, this, "normalization", QcepDoubleList(), "Normalization Values"),
     m_ExtraInputs(saver, this, "extraInputs", QcepDoubleList(), "Extra Input Values"),
     m_Used(saver, this, "used", true, "Image Used?"),
-    m_MinValue(saver, this, "minValue", 0, "Minimum Value"),
-    m_MaxValue(saver, this, "maxValue", 0, "Maximum Value"),
+    m_MinimumValue(saver, this, "minimumValue", 0, "Minimum Value"),
+    m_MaximumValue(saver, this, "maximumValue", 0, "Maximum Value"),
     m_ImageCounter(allocCount.fetchAndAddOrdered(1)),
     m_Mutex(QMutex::Recursive),
     m_Saver(saver)
@@ -137,8 +137,8 @@ void QcepImageDataBase::copyProperties(QcepImageDataBase *dest)
   dest -> set_Normalization(get_Normalization());
   dest -> set_ExtraInputs(get_ExtraInputs());
   dest -> set_Used(get_Used());
-  dest -> set_MinValue(get_MinValue());
-  dest -> set_MaxValue(get_MaxValue());
+//  dest -> set_MinValue(get_MinValue());
+//  dest -> set_MaxValue(get_MaxValue());
 
   QByteArray name;
 
@@ -175,8 +175,8 @@ void QcepImageDataBase::copyPropertiesFrom(QSharedPointer<QcepImageDataBase> src
   set_Normalization(src -> get_Normalization());
   set_ExtraInputs(src -> get_ExtraInputs());
   set_Used(src -> get_Used());
-  set_MinValue(src -> get_MinValue());
-  set_MaxValue(src -> get_MaxValue());
+//  set_MinValue(src -> get_MinValue());
+//  set_MaxValue(src -> get_MaxValue());
 
   QByteArray name;
 
@@ -289,51 +289,51 @@ QString QcepImageDataBase::get_DataTypeName() const
   }
 }
 
-//double QcepImageDataBase::findMin() const
-//{
-//  int ncols = this -> get_Width();
-//  int nrows = this -> get_Height();
-//  int first = true;
-//  double minv = 0;
+double QcepImageDataBase::minValue() const
+{
+  int ncols = this -> get_Width();
+  int nrows = this -> get_Height();
+  int first = true;
+  double minv = 0;
 
-//  for (int row=0; row<nrows; row++) {
-//    for (int col=0; col<ncols; col++) {
-//      double val = this->getImageData(col, row);
+  for (int row=0; row<nrows; row++) {
+    for (int col=0; col<ncols; col++) {
+      double val = this->getImageData(col, row);
 
-//      if (first) {
-//        minv = val;
-//        first = false;
-//      } else if (val < minv){
-//        minv = val;
-//      }
-//    }
-//  }
+      if (first) {
+        minv = val;
+        first = false;
+      } else if (val < minv){
+        minv = val;
+      }
+    }
+  }
 
-//  return minv;
-//}
+  return minv;
+}
 
-//double QcepImageDataBase::findMax() const
-//{
-//  int ncols = this -> get_Width();
-//  int nrows = this -> get_Height();
-//  int first = true;
-//  double maxv = 0;
+double QcepImageDataBase::maxValue() const
+{
+  int ncols = this -> get_Width();
+  int nrows = this -> get_Height();
+  int first = true;
+  double maxv = 0;
 
-//  for (int row=0; row<nrows; row++) {
-//    for (int col=0; col<ncols; col++) {
-//      double val = this->getImageData(col, row);
+  for (int row=0; row<nrows; row++) {
+    for (int col=0; col<ncols; col++) {
+      double val = this->getImageData(col, row);
 
-//      if (first) {
-//        maxv = val;
-//        first = false;
-//      } else if (val > maxv){
-//        maxv = val;
-//      }
-//    }
-//  }
+      if (first) {
+        maxv = val;
+        first = false;
+      } else if (val > maxv){
+        maxv = val;
+      }
+    }
+  }
 
-//  return maxv;
-//}
+  return maxv;
+}
 
 int QcepImageDataBase::overflowCount(double level) const
 {
@@ -369,8 +369,8 @@ QcepInterval QcepImageDataBase::percentileRange(double lowpct, double highpct)
   histogramVec.fill(0.0);
   int *histogram = histogramVec.data();
 
-  double minVal = get_MinValue();
-  double maxVal = get_MaxValue();
+  double minVal = get_MinimumValue();
+  double maxVal = get_MaximumValue();
 
   double histStep=(maxVal - minVal + 2)/histSize;
   int nAbove = 0, nBelow = 0, nTotal = 0;
@@ -653,8 +653,8 @@ void QcepImageData<T>::calculateRange()
     }
   }
 
-  set_MinValue(minValue);
-  set_MaxValue(maxValue);
+  set_MinimumValue(minValue);
+  set_MaximumValue(maxValue);
 }
 
 template <typename T>
@@ -690,8 +690,8 @@ void QcepImageData<T>::calculateRangeInCircle()
     }
   }
 
-  set_MinValue(minValue);
-  set_MaxValue(maxValue);
+  set_MinimumValue(minValue);
+  set_MaximumValue(maxValue);
 }
 
 template <typename T>
