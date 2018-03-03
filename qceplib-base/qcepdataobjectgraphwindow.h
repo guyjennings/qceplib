@@ -24,6 +24,7 @@ public:
       QString name,
       QcepExperimentWPtr expt,
       QcepDataObjectWPtr  obj);
+  void initialize(QcepObjectWPtr parent);
   virtual ~QcepDataObjectGraphWindow();
 
   void closeEvent (QCloseEvent * event);

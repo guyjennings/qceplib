@@ -71,12 +71,20 @@ QcepDataObjectGraphWindow::QcepDataObjectGraphWindow(QString name, QcepExperimen
   m_SliceVSkipped(NULL, "sliceVSkipped", 0,     "Vertical Slice Skipped"),
   m_SliceVRepeats(NULL, "sliceVRepeats", 100,   "Vertical Slice Repeats")
 {
+}
+
+void QcepDataObjectGraphWindow::initialize(QcepObjectWPtr parent)
+{
+  inherited::initialize(parent);
+
   setupUi(this);
+
+  setupMenus(m_FileMenu, m_EditMenu, m_WindowMenu);
 
   QcepExperimentPtr e(m_Experiment);
   QcepDataObjectPtr objp(m_Object);
 
-  if (objp && expt) {
+  if (objp && e) {
     setWindowTitle(tr("%1 Graph from %2")
                    .arg(objp->pathName())
                    .arg(e->get_ExperimentName()));

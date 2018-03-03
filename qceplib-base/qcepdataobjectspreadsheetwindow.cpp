@@ -34,7 +34,15 @@ QcepDataObjectSpreadsheetWindow::QcepDataObjectSpreadsheetWindow(QString name, Q
   m_Object(obj),
   m_Model()
 {
+}
+
+void QcepDataObjectSpreadsheetWindow::initialize(QcepObjectWPtr parent)
+{
+  inherited::initialize(parent);
+
   setupUi(this);
+
+  setupMenus(m_FileMenu, m_EditMenu, m_WindowMenu);
 
   QcepExperimentPtr e(m_Experiment);
   QcepDataObjectPtr objp(m_Object);
