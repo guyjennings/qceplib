@@ -11,13 +11,24 @@ QcepDataObjectSurfacePlotWindow::QcepDataObjectSurfacePlotWindow(
     QString            name,
     QcepExperimentWPtr /*expt*/,
     QcepDataObjectWPtr obj)
-  : inherited(name)
+  : inherited(name),
+    m_Object(obj)
 {
+}
+
+void QcepDataObjectSurfacePlotWindow::initialize(QcepObjectWPtr parent)
+{
+  GUI_THREAD_CHECK;
+
+  inherited::initialize(parent);
+
   setupUi(this);
+
+  setupMenus(m_FileMenu, m_EditMenu, m_WindowMenu);
 
   setAttribute(Qt::WA_DeleteOnClose);
 
-  QcepDoubleImageDataWPtr img = qSharedPointerDynamicCast<QcepDoubleImageData>(obj);
+  QcepDoubleImageDataWPtr img = qSharedPointerDynamicCast<QcepDoubleImageData>(m_Object);
 
   onNewImageAvailable(img);
 }

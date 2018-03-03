@@ -12,7 +12,15 @@ QcepDataObjectPropertiesWindow::QcepDataObjectPropertiesWindow
   m_Experiment(expt),
   m_Object(obj)
 {
+}
+
+void QcepDataObjectPropertiesWindow::initialize(QcepObjectWPtr parent)
+{
+  inherited::initialize(parent);
+
   setupUi(this);
+
+  setupMenus(m_FileMenu, m_EditMenu, m_WindowMenu);
 
   QcepExperimentPtr e(m_Experiment);
   QcepDataObjectPtr objp(m_Object);

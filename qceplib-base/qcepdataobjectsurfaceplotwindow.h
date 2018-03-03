@@ -21,7 +21,7 @@ public:
       QString name,
       QcepExperimentWPtr expt,
       QcepDataObjectWPtr  obj);
-
+  void initialize(QcepObjectWPtr parent);
   virtual ~QcepDataObjectSurfacePlotWindow();
 
   void closeEvent (QCloseEvent * event);
@@ -31,6 +31,9 @@ signals:
 
 public slots:
   void onNewImageAvailable(QcepDoubleImageDataWPtr img);
+
+private:
+  QcepDataObjectWPtr m_Object;
 };
 
 #endif // HAVE_DATAVIS

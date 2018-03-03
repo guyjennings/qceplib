@@ -9,6 +9,7 @@
 #include "qcepobject.h"
 #include "qapplication-ptr.h"
 #include "qcepapplication-ptr.h"
+#include "qcepexperiment-ptr.h"
 
 class QCEP_EXPORT QcepApplication : public QcepObject
 {
@@ -47,6 +48,8 @@ public:
   virtual void writeApplicationSettings() = 0;
 
   virtual void possiblyQuit() = 0;
+
+  virtual QcepExperimentPtr experiment(int i) const = 0;
 
 public slots:
   void openObjectBrowserWindow(QcepObjectWPtr obj);

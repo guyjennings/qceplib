@@ -9,6 +9,8 @@
 #include <QProgressBar>
 #include <QTimer>
 #include "qcepmainwindowsettings-ptr.h"
+#include "qcepexperiment-ptr.h"
+#include "qcepapplication-ptr.h"
 
 class QCEP_EXPORT QcepMainWindow : public QMainWindow
 {
@@ -19,6 +21,9 @@ public:
   virtual ~QcepMainWindow();
 
   virtual void initialize(QcepObjectWPtr parent);
+
+  virtual QcepExperimentPtr  findExperiment();
+  virtual QcepApplicationPtr findApplication();
 
   void possiblyClose();
   bool wantToClose();
@@ -35,7 +40,7 @@ public:
 signals:
 
 public slots:
-  void newWindow(QcepMainWindowSettingsWPtr set);
+  void newWindow(QcepMainWindowSettings *set);
 
   void shrinkPanels(int fontSize, int spacing);
   void setFontSize(int fontSize);

@@ -339,6 +339,8 @@ void QcepDatasetBrowserView::openGraph(const QModelIndexList &idx)
       if (obj && expt) {
         QcepDataObjectGraphWindow *gw = new QcepDataObjectGraphWindow(expt->get_ExperimentName(), expt, obj);
 
+        gw->initialize(expt);
+
         gw->show();
       }
     }
@@ -359,6 +361,8 @@ void QcepDatasetBrowserView::surfacePlot(const QModelIndexList &idx)
 
       if (obj && expt) {
         QcepDataObjectSurfacePlotWindow *sp = new QcepDataObjectSurfacePlotWindow(expt->get_ExperimentName(), expt, obj);
+
+        sp->initialize(expt);
 
         sp->show();
       }
@@ -381,6 +385,8 @@ void QcepDatasetBrowserView::openSpreadsheet(const QModelIndexList &idx)
       if (obj && expt) {
         QcepDataObjectSpreadsheetWindow *sw = new QcepDataObjectSpreadsheetWindow(expt->get_ExperimentName(), expt, obj);
 
+        sw->initialize(expt);
+
         sw->show();
       }
     }
@@ -399,6 +405,8 @@ void QcepDatasetBrowserView::openProperties(const QModelIndexList &idx)
 
       if (obj && expt) {
         QcepDataObjectPropertiesWindow *pw = new QcepDataObjectPropertiesWindow(expt->get_ExperimentName(), expt, obj);
+
+        pw->initialize(expt);
 
         pw->show();
       }
