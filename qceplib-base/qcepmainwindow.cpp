@@ -56,6 +56,28 @@ void QcepMainWindow::initialize(QcepObjectWPtr parent)
   m_Parent      = parent;
 }
 
+QcepExperimentPtr QcepMainWindow::findExperiment()
+{
+  QcepExperimentPtr res(QcepExperiment::findExperiment(m_Parent));
+
+  if (res == NULL) {
+    QcepApplicationPtr app(findApplication());
+
+    if (app) {
+      res = app->experiment(0);
+    }
+  }
+
+  return res;
+}
+
+QcepApplicationPtr QcepMainWindow::findApplication()
+{
+  QcepApplicationPtr res(QcepApplication::findApplication(m_Parent));
+
+  return res;
+}
+
 #ifndef QT_NO_DEBUG
 void QcepMainWindow::checkObjectInitialization() const
 {
@@ -261,7 +283,7 @@ void QcepMainWindow::populateWindowsMenu()
 {
   INIT_CHECK;
 
-  QcepExperimentPtr expt(QcepExperiment::findExperiment(m_Parent));
+  QcepExperimentPtr expt(findExperiment());
 
   if (m_WindowMenuP) {
     m_WindowMenuP->clear();
@@ -286,14 +308,16 @@ void QcepMainWindow::appendToWindowMenu(
 
     QAction *act = NULL;
 
+    QcepMainWindowSettings *settings = set.data();
+
     if (win) {
       act = wmenu ->
           addAction(tr("Show %1").arg(set->get_Description()),
-                    this, [=]() { newWindow(set); });
+                    this, [=]() { newWindow(settings); });
     } else {
       act = wmenu ->
           addAction(tr("New %1").arg(set->get_Description()),
-                    this, [=]() { newWindow(set); });
+                    this, [=]() { newWindow(settings); });
     }
   }
 }
@@ -323,20 +347,18 @@ void QcepMainWindow::populateRecentExperimentsMenu()
   }
 }
 
-void QcepMainWindow::newWindow(QcepMainWindowSettingsWPtr set)
+void QcepMainWindow::newWindow(QcepMainWindowSettings *set)
 {
   INIT_CHECK;
 
-  QcepMainWindowSettingsPtr setp(set);
-
-  if (setp) {
-    QcepMainWindowPtr win = setp->window();
+  if (set) {
+    QcepMainWindowPtr win = set->window();
 
     if (!win) {
-      win = setp->newWindow();
+      win = set->newWindow();
 
       if (win) {
-        win->initialize(set);
+        win->initialize(set->sharedFromThis());
       }
     }
 
