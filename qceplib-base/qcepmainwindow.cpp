@@ -34,6 +34,9 @@ QcepMainWindow::QcepMainWindow(QString name)
 
 QcepMainWindow::~QcepMainWindow()
 {
+  if (QThread::currentThread() != thread()) {
+    printMessage("Deleting window from different thread");
+  }
 }
 
 void QcepMainWindow::initialize(QcepObjectWPtr parent)
@@ -54,6 +57,58 @@ void QcepMainWindow::initialize(QcepObjectWPtr parent)
 
   m_Initialized = true;
   m_Parent      = parent;
+}
+
+void QcepMainWindow::printLine(QString line)
+{
+  QcepObjectPtr p(m_Parent);
+
+  if (p) {
+    p->printLine(line);
+  } else if (g_Application) {
+    g_Application->printLine(line);
+  } else {
+    printf("LINE: %s\n", qPrintable(line));
+  }
+}
+
+void QcepMainWindow::printMessage(QString msg, QDateTime ts)
+{
+  QcepObjectPtr p(m_Parent);
+
+  if (p) {
+    p->printMessage(msg, ts);
+  } else if (g_Application) {
+    g_Application->printMessage(msg, ts);
+  } else {
+    printf("MESSAGE: %s\n", qPrintable(msg));
+  }
+}
+
+void QcepMainWindow::criticalMessage(QString msg, QDateTime ts)
+{
+  QcepObjectPtr p(m_Parent);
+
+  if (p) {
+    p->criticalMessage(msg, ts);
+  } else if (g_Application) {
+    g_Application->criticalMessage(msg, ts);
+  } else {
+    printf("CRITICAL: %s\n", qPrintable(msg));
+  }
+}
+
+void QcepMainWindow::statusMessage(QString msg, QDateTime ts)
+{
+  QcepObjectPtr p(m_Parent);
+
+  if (p) {
+    p->statusMessage(msg, ts);
+  } else if (g_Application) {
+    g_Application->statusMessage(msg, ts);
+  } else {
+    printf("STATUS: %s\n", qPrintable(msg));
+  }
 }
 
 QcepExperimentPtr QcepMainWindow::findExperiment()

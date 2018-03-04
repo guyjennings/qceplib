@@ -22,13 +22,13 @@ public:
 
   virtual QcepMainWindowPtr newWindow() = 0;
 
-  QcepMainWindowPtr  window();
+  QcepMainWindowPtr window();
 
   void openWindow();
   void closeWindow();
 
 protected:
-  QcepMainWindowPtr   m_Window;
+  QcepMainWindowPtr m_Window;
 
 public:
   Q_PROPERTY(QString description READ get_Description WRITE set_Description STORED false)
