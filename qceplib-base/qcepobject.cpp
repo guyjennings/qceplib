@@ -1222,7 +1222,6 @@ void QcepObject::openWindows()
 
       if (set) {
         set   -> openWindow();
-        g_Application->processEvents();
       } else if (child) {
         child -> openWindows();
       }

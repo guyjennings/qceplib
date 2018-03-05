@@ -64,8 +64,10 @@ void QcepMainWindowSettings::openWindow()
 
     if (m_Window) {
       m_Window->show();
-      m_Window->raise();
-      m_Window->activateWindow();
+//      m_Window->raise();
+//      m_Window->activateWindow();
+
+      printMessage(tr("Opening window %1").arg(get_Description()));
     }
   }
 }

@@ -99,7 +99,7 @@ QVariant QcepObjectPropertiesModel::data(const QModelIndex &index, int role) con
         break;
 
       case 2:
-        res = obj->property(metaproperty.name());
+        res = convertToString(obj->property(metaproperty.name()));
         break;
       }
     }
@@ -108,6 +108,32 @@ QVariant QcepObjectPropertiesModel::data(const QModelIndex &index, int role) con
   return res;
 }
 
+QString QcepObjectPropertiesModel::convertToString(QVariant val) const
+{
+  QString res;
+
+  if (val.canConvert(QMetaType::QRect)) {
+    QRect r = val.toRect();
+
+    res = tr("[%1,%2,%3,%4]")
+        .arg(r.left())
+        .arg(r.top())
+        .arg(r.right())
+        .arg(r.bottom());
+  } else if (val.canConvert(QMetaType::QRectF)) {
+    QRectF r = val.toRectF();
+
+    res = tr("[%1,%2,%3,%4]")
+        .arg(r.left())
+        .arg(r.top())
+        .arg(r.right())
+        .arg(r.bottom());
+  } else {
+    res = val.toString();
+  }
+
+  return res;
+}
 void QcepObjectPropertiesModel::deselect()
 {
   beginResetModel();

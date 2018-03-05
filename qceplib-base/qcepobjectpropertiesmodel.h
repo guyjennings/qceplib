@@ -29,6 +29,9 @@ public:
   void select(QcepObjectWPtr obj);
 
 private:
+  QString convertToString(QVariant val) const;
+
+private:
   QcepObjectWPtr m_Object;
 };
 
