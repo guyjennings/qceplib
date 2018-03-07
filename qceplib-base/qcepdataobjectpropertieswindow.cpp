@@ -5,6 +5,7 @@
 
 #include <QCloseEvent>
 #include <QMessageBox>
+#include <QThread>
 
 QcepDataObjectPropertiesWindow::QcepDataObjectPropertiesWindow
   (QString name, QcepExperimentWPtr expt, QcepDataObjectWPtr obj) :
@@ -16,9 +17,11 @@ QcepDataObjectPropertiesWindow::QcepDataObjectPropertiesWindow
 
 void QcepDataObjectPropertiesWindow::initialize(QcepObjectWPtr parent)
 {
-  inherited::initialize(parent);
+  GUI_THREAD_CHECK;
 
   setupUi(this);
+
+  inherited::initialize(parent);
 
   setupMenus(m_FileMenu, m_EditMenu, m_WindowMenu);
 

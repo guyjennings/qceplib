@@ -57,6 +57,31 @@ void QcepMainWindow::initialize(QcepObjectWPtr parent)
 
   m_Initialized = true;
   m_Parent      = parent;
+
+  m_StatusMsg = new QLabel(NULL);
+  m_StatusMsg -> setMinimumWidth(200);
+  m_StatusMsg -> setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+  m_StatusMsg -> setToolTip(tr("Status Messages"));
+
+  statusBar() -> addPermanentWidget(m_StatusMsg);
+
+  m_Progress = new QProgressBar(NULL);
+  m_Progress -> setMinimumWidth(150);
+  m_Progress -> setMinimum(0);
+  m_Progress -> setMaximum(100);
+  m_Progress -> setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+  m_Progress -> setToolTip(tr("Acquisition progress"));
+
+  statusBar() -> addPermanentWidget(m_Progress);
+
+  m_AllocationStatus = new QProgressBar(NULL);
+  m_AllocationStatus -> setMinimumWidth(100);
+  m_AllocationStatus -> setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+  m_AllocationStatus -> setFormat("%v/%m");
+  m_AllocationStatus -> setTextVisible(true);
+  m_AllocationStatus -> setToolTip(tr("Memory usage"));
+
+  statusBar() -> addPermanentWidget(m_AllocationStatus);
 }
 
 void QcepMainWindow::printLine(QString line)
@@ -147,31 +172,6 @@ void QcepMainWindow::checkObjectInitialization() const
 void QcepMainWindow::setupMenus(QMenu *file, QMenu *edit, QMenu *window)
 {
   INIT_CHECK;
-
-  m_StatusMsg = new QLabel(NULL);
-  m_StatusMsg -> setMinimumWidth(200);
-  m_StatusMsg -> setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-  m_StatusMsg -> setToolTip(tr("Status Messages"));
-
-  statusBar() -> addPermanentWidget(m_StatusMsg);
-
-  m_Progress = new QProgressBar(NULL);
-  m_Progress -> setMinimumWidth(150);
-  m_Progress -> setMinimum(0);
-  m_Progress -> setMaximum(100);
-  m_Progress -> setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-  m_Progress -> setToolTip(tr("Acquisition progress"));
-
-  statusBar() -> addPermanentWidget(m_Progress);
-
-  m_AllocationStatus = new QProgressBar(NULL);
-  m_AllocationStatus -> setMinimumWidth(100);
-  m_AllocationStatus -> setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-  m_AllocationStatus -> setFormat("%v/%m");
-  m_AllocationStatus -> setTextVisible(true);
-  m_AllocationStatus -> setToolTip(tr("Memory usage"));
-
-  statusBar() -> addPermanentWidget(m_AllocationStatus);
 
   m_FileMenuP = file;
   m_EditMenuP = edit;

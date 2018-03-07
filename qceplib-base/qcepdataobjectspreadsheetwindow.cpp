@@ -27,6 +27,7 @@
 #include "qcepdatagroup.h"
 #include "qcepdatagroup-ptr.h"
 #include "qcepdatagroupspreadsheetmodel.h"
+#include <QThread>
 
 QcepDataObjectSpreadsheetWindow::QcepDataObjectSpreadsheetWindow(QString name, QcepExperimentWPtr expt, QcepDataObjectWPtr obj) :
   inherited(name),
@@ -38,9 +39,11 @@ QcepDataObjectSpreadsheetWindow::QcepDataObjectSpreadsheetWindow(QString name, Q
 
 void QcepDataObjectSpreadsheetWindow::initialize(QcepObjectWPtr parent)
 {
-  inherited::initialize(parent);
+  GUI_THREAD_CHECK;
 
   setupUi(this);
+
+  inherited::initialize(parent);
 
   setupMenus(m_FileMenu, m_EditMenu, m_WindowMenu);
 
