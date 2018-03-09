@@ -42,9 +42,9 @@ signals:
 public slots:
   void newWindow(QcepMainWindowSettings *set);
 
-  void shrinkPanels(int fontSize, int spacing);
-  void setFontSize(int fontSize);
-  void setSpacing(int spacing);
+//  void shrinkPanels(int fontSize, int spacing);
+//  void setFontSize(int fontSize);
+//  void setSpacing(int spacing);
   virtual void printLine(QString line);
   virtual void printMessage(QString msg, QDateTime ts=QDateTime::currentDateTime());
   virtual void criticalMessage(QString msg, QDateTime ts=QDateTime::currentDateTime());
@@ -53,9 +53,9 @@ public slots:
   void displayStatusMessage(QString msg);
 
 protected:
-  void shrinkDockWidget(QDockWidget *dockWidget, int fontSize, int spacing);
-  void shrinkObject(QObject *obj, int fontSize, int spacing);
-  void setObjectSpacing(QObject *obj, int spacing);
+//  void shrinkDockWidget(QDockWidget *dockWidget, int fontSize, int spacing);
+//  void shrinkObject(QObject *obj, int fontSize, int spacing);
+//  void setObjectSpacing(QObject *obj, int spacing);
 
 #ifndef QT_NO_DEBUG
   void checkObjectInitialization() const;
