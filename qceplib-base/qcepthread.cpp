@@ -3,9 +3,9 @@
 #include "qnewthread.h"
 
 //TODO: change to name arg in constructor?
-QcepThread::QcepThread(QcepObjectWPtr parent) :
-  inherited("thread"),
-  m_Parent(parent),
+QcepThread::QcepThread(QString name) :
+  inherited(name),
+  m_Parent(),
   m_Thread()
 {
   m_Thread =
@@ -17,6 +17,13 @@ QcepThread::QcepThread(QcepObjectWPtr parent) :
 //          this,
 //          &QcepThread::run,
 //          Qt::DirectConnection);
+}
+
+void QcepThread::initialize(QcepObjectWPtr parent)
+{
+  inherited::initialize(parent);
+
+  m_Parent = parent;
 }
 
 QcepThread::~QcepThread()

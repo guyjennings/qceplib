@@ -4,9 +4,10 @@
 #include <QScriptValueIterator>
 #include "qcepobject.h"
 
-QcepScriptEngine::QcepScriptEngine(QObject *parent) :
-  QScriptEngine(parent)
+QcepScriptEngine::QcepScriptEngine(QString name) :
+  QScriptEngine()
 {
+  setObjectName(name);
 }
 
 QString QcepScriptEngine::documentationLink(QString base, QString subItem)

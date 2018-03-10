@@ -3,8 +3,8 @@
 #include "qcepimagedata.h"
 #include "levmar.h"
 
-QcepFixupGainMapCommand::QcepFixupGainMapCommand()
-  : inherited("fixupGainMapCommand"),
+QcepFixupGainMapCommand::QcepFixupGainMapCommand(QString name)
+  : inherited(name),
     m_AverageSubTiles(this, "averageSubTiles", false, "Pre-smooth image"),
     m_AverageWidth(this, "averageWidth", 10, "Pre-smooth width"),
     m_AverageHeight(this, "averageHeight", 10, "Pre-smooth height"),

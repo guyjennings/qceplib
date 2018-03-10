@@ -10,7 +10,7 @@ class QCEP_EXPORT QcepSetDataValueRangeCommand : public QcepObject
   Q_OBJECT
 
 public:
-  QcepSetDataValueRangeCommand();
+  Q_INVOKABLE QcepSetDataValueRangeCommand(QString name);
 
 public slots:
   void onImageAvailable(QcepDoubleImageDataPtr img);
@@ -45,5 +45,7 @@ public:
   Q_PROPERTY(double newValue READ get_NewValue WRITE set_NewValue)
   QCEP_DOUBLE_PROPERTY(NewValue)
 };
+
+Q_DECLARE_METATYPE(QcepSetDataValueRangeCommand*)
 
 #endif // QCEPSETDATAVALUERANGECOMMAND_H

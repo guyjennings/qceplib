@@ -14,7 +14,7 @@ private:
   typedef QcepObject inherited;
 
 public:
-  QcepFixupGainMapCommand();
+  Q_INVOKABLE QcepFixupGainMapCommand(QString name);
 
 public slots:
   void onImageAvailable(QcepDoubleImageDataPtr img);
@@ -84,5 +84,7 @@ public:
   Q_PROPERTY(double fittedHeight READ get_FittedHeight WRITE set_FittedHeight)
   QCEP_DOUBLE_PROPERTY(FittedHeight)
 };
+
+Q_DECLARE_METATYPE(QcepFixupGainMapCommand*)
 
 #endif // QCEPFIXUPGAINMAPCOMMAND_H

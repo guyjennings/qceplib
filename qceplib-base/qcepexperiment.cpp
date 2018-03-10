@@ -7,14 +7,22 @@
 #include "qcepsetrangeofimagecommand.h"
 #include "qcepfixupgainmapcommand.h"
 #include "qcepmainwindowsettings.h"
+#include "qcepdataset.h"
+#include "qcepdatacolumn.h"
+#include "qcepdataarray.h"
+#include "qcepimagedata.h"
+#include "qcepmaskdata.h"
+#include "qcepdatacolumnscan.h"
+#include "qcepintegrateddata.h"
 
-QcepExperiment::QcepExperiment(QString path, QString name) :
+QcepExperiment::QcepExperiment(QString name) :
   QcepObject(name),
 //  m_SettingsSaver(new QcepSettingsSaver(this)),
   m_ExperimentKind        (this, "experimentKind", -1, "Kind of Experiment"),
-  m_ExperimentDirectory   (this, "experimentDirectory", defaultExperimentDirectory(path), "Experiment Directory"),
-  m_ExperimentFileName    (this, "experimentFileName", defaultExperimentFileName(path), "Experiment File"),
-  m_ExperimentName        (this, "experimentName", defaultExperimentName(path), "Experiment Name"),
+  m_ExperimentPath        (this, "experimentPath", QString(), "Experiment Path"),
+  m_ExperimentDirectory   (this, "experimentDirectory", QString(), "Experiment Directory"),
+  m_ExperimentFileName    (this, "experimentFileName", QString(), "Experiment File"),
+  m_ExperimentName        (this, "experimentName", QString(), "Experiment Name"),
   m_ExperimentDescription (this, "experimentDescription", "", "Experiment Description"),
   m_NewGroupName          (this, "newGroupName", "group", "Default name of newly created data group"),
   m_NewScanName           (this, "newScanName", "scan", "Default name of newly created scans"),
@@ -39,17 +47,22 @@ QcepExperiment::QcepExperiment(QString path, QString name) :
         new QcepDataImportParameters("importParameters"));
 
   m_SetDataValueRangeCommand = QcepSetDataValueRangeCommandPtr(
-        new QcepSetDataValueRangeCommand());
+        new QcepSetDataValueRangeCommand("setDataValueRangeCommand"));
 
   m_SetRangeOfImageCommand = QcepSetRangeOfImageCommandPtr(
-        new QcepSetRangeOfImageCommand());
+        new QcepSetRangeOfImageCommand("setRangeOfImageCommand"));
 
   m_FixupGainMapCommand = QcepFixupGainMapCommandPtr(
-        new QcepFixupGainMapCommand());
+        new QcepFixupGainMapCommand("fixupGainMapCommand"));
 }
 
-void QcepExperiment::initialize(QcepObjectWPtr parent)
+void QcepExperiment::initialize(QcepObjectWPtr parent, QString path)
 {
+  set_ExperimentPath(path),
+  set_ExperimentDirectory(defaultExperimentDirectory(path));
+  set_ExperimentFileName(defaultExperimentFileName(path));
+  set_ExperimentName(defaultExperimentName(path));
+
   inherited::initialize(parent);
 
   m_DataExportParameters -> initialize(sharedFromThis());
@@ -87,6 +100,28 @@ void QcepExperiment::initialize(QcepObjectWPtr parent)
       set -> set_WindowOpen(true);
     }
   }
+}
+
+void QcepExperiment::registerMetaTypes()
+{
+  qRegisterMetaType<QcepDataset*>("QcepDataset*");
+  qRegisterMetaType<QcepDataColumn*>("QcepDataColumn*");
+  qRegisterMetaType<QcepDataGroup*>("QcepDataGroup*");
+  qRegisterMetaType<QcepDataArray*>("QcepDataArray*");
+  qRegisterMetaType<QcepDoubleImageData*>("QcepDoubleImageData*");
+  qRegisterMetaType<QcepFloatImageData*>("QcepFloatImageData*");
+  qRegisterMetaType<QcepInt32ImageData*>("QcepInt32ImageData*");
+  qRegisterMetaType<QcepUInt32ImageData*>("QcepUInt32ImageData*");
+  qRegisterMetaType<QcepInt16ImageData*>("QcepInt16ImageData*");
+  qRegisterMetaType<QcepUInt16ImageData*>("QcepUInt16ImageData*");
+  qRegisterMetaType<QcepMaskData*>("QcepMaskData*");
+  qRegisterMetaType<QcepIntegratedData*>("QcepIntegratedData*");
+  qRegisterMetaType<QcepDataColumnScan*>("QcepDataColumnScan*");
+  qRegisterMetaType<QcepDataExportParameters*>("QcepDataExportParameters*");
+  qRegisterMetaType<QcepDataImportParameters*>("QcepDataImportParameters*");
+  qRegisterMetaType<QcepSetDataValueRangeCommand*>("QcepSetDataValueRangeCommand*");
+  qRegisterMetaType<QcepSetRangeOfImageCommand*>("QcepSetRangeOfImageCommand*");
+  qRegisterMetaType<QcepFixupGainMapCommand*>("QcepFixupGainMapCommand*");
 }
 
 QcepExperimentWPtr QcepExperiment::findExperiment(QcepObjectWPtr p)

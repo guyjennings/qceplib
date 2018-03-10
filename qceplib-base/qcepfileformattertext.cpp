@@ -46,7 +46,7 @@ void QcepFileFormatterText::beginWriteObject(QString objectName, QString classNa
   int typeId = QMetaType::type(qPrintable(className+"*"));
 
   if (typeId == QMetaType::UnknownType) {
-    className = "<<unknown>>";
+    className = tr("<<unknown>> : %1").arg(className);
   }
 
   if (qcepDebug(DEBUG_EXPORT)) {

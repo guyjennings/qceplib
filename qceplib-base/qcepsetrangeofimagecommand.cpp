@@ -2,8 +2,8 @@
 #include "qcepallocator.h"
 #include "qcepimagedata.h"
 
-QcepSetRangeOfImageCommand::QcepSetRangeOfImageCommand()
-  : QcepObject("setRangeOfImageCommand"),
+QcepSetRangeOfImageCommand::QcepSetRangeOfImageCommand(QString name)
+  : QcepObject(name),
     m_RangeChoice(this, "rangeChoice", 0, "Range Choices\n"
                                           "0=outside both\n"
                                           "1=inside both\n"

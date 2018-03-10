@@ -24,15 +24,17 @@ private:
   typedef QcepObject inherited;
 
 public:
-  explicit QcepExperiment(QString path,
-                          QString name);
-  void initialize(QcepObjectWPtr parent);
+  QcepExperiment(QString name);
+  void initialize(QcepObjectWPtr parent,
+                  QString path);
 
   static QcepExperimentWPtr findExperiment(QcepObjectWPtr p);
 
   virtual void saveExperiment() = 0;
   virtual void saveExperimentAs(QString path) = 0;
   virtual void saveExperimentCopyAs(QString path) = 0;
+
+  static void registerMetaTypes();
 
 signals:
 
@@ -72,6 +74,9 @@ private:
 public:
   Q_PROPERTY(int experimentKind READ get_ExperimentKind WRITE set_ExperimentKind)
   QCEP_INTEGER_PROPERTY(ExperimentKind)
+
+  Q_PROPERTY(QString experimentPath  READ get_ExperimentPath WRITE set_ExperimentPath STORED false)
+  QCEP_STRING_PROPERTY(ExperimentPath)
 
   Q_PROPERTY(QString experimentDirectory     READ get_ExperimentDirectory WRITE set_ExperimentDirectory STORED false)
   QCEP_STRING_PROPERTY(ExperimentDirectory)

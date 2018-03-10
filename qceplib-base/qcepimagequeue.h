@@ -59,16 +59,69 @@ private:
   QQueue< QSharedPointer<T> >  m_Queue;
 };
 
-typedef QcepImageQueue<QcepImageDataBase>    QcepImageBaseQueue;
-typedef QcepImageQueue<QcepUInt16ImageData>  QcepInt16ImageQueue;
-typedef QcepImageQueue<QcepUInt32ImageData>  QcepInt32ImageQueue;
-typedef QcepImageQueue<QcepDoubleImageData>  QcepDoubleImageQueue;
-typedef QcepImageQueue<QcepMaskData>         QcepMaskQueue;
+class QCEP_EXPORT QcepImageBaseQueue : public QcepImageQueue<QcepImageDataBase> {
+  Q_OBJECT
 
-typedef QSharedPointer<QcepImageBaseQueue>   QcepImageBaseQueuePtr;
-typedef QSharedPointer<QcepInt16ImageQueue>  QcepInt16ImageQueuePtr;
-typedef QSharedPointer<QcepInt32ImageQueue>  QcepInt32ImageQueuePtr;
-typedef QSharedPointer<QcepDoubleImageQueue> QcepDoubleImageQueuePtr;
-typedef QSharedPointer<QcepMaskQueue>        QcepMaskQueuePtr;
+public:
+  Q_INVOKABLE QcepImageBaseQueue(QString name);
+};
+
+class QCEP_EXPORT QcepUInt16ImageQueue : public QcepImageQueue<QcepUInt16ImageData> {
+  Q_OBJECT
+
+public:
+  Q_INVOKABLE QcepUInt16ImageQueue(QString name);
+};
+
+class QCEP_EXPORT QcepInt16ImageQueue : public QcepImageQueue<QcepInt16ImageData> {
+  Q_OBJECT
+
+public:
+  Q_INVOKABLE QcepInt16ImageQueue(QString name);
+};
+
+class QCEP_EXPORT QcepUInt32ImageQueue : public QcepImageQueue<QcepUInt32ImageData> {
+  Q_OBJECT
+
+public:
+  Q_INVOKABLE QcepUInt32ImageQueue(QString name);
+};
+
+class QCEP_EXPORT QcepInt32ImageQueue : public QcepImageQueue<QcepInt32ImageData> {
+  Q_OBJECT
+
+public:
+  Q_INVOKABLE QcepInt32ImageQueue(QString name);
+};
+
+class QCEP_EXPORT QcepDoubleImageQueue : public QcepImageQueue<QcepDoubleImageData> {
+  Q_OBJECT
+
+public:
+  Q_INVOKABLE QcepDoubleImageQueue(QString name);
+};
+
+class QCEP_EXPORT QcepFloatImageQueue : public QcepImageQueue<QcepFloatImageData> {
+  Q_OBJECT
+
+public:
+  Q_INVOKABLE QcepFloatImageQueue(QString name);
+};
+
+class QCEP_EXPORT QcepMaskQueue : public QcepImageQueue<QcepMaskData> {
+  Q_OBJECT
+
+public:
+  Q_INVOKABLE QcepMaskQueue(QString name);
+};
+
+Q_DECLARE_METATYPE(QcepImageBaseQueue*)
+Q_DECLARE_METATYPE(QcepUInt16ImageQueue*)
+Q_DECLARE_METATYPE(QcepInt16ImageQueue*)
+Q_DECLARE_METATYPE(QcepUInt32ImageQueue*)
+Q_DECLARE_METATYPE(QcepInt32ImageQueue*)
+Q_DECLARE_METATYPE(QcepDoubleImageQueue*)
+Q_DECLARE_METATYPE(QcepFloatImageQueue*)
+Q_DECLARE_METATYPE(QcepMaskQueue*)
 
 #endif

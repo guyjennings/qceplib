@@ -125,6 +125,45 @@ void QcepImageQueue<T>::enqueue(QSharedPointer<T> data)
 
 //  return m_Queue.size();
 //}
+QcepImageBaseQueue::QcepImageBaseQueue(QString name)
+  : QcepImageQueue<QcepImageDataBase>(name)
+{
+}
+
+QcepUInt16ImageQueue::QcepUInt16ImageQueue(QString name)
+  : QcepImageQueue<QcepUInt16ImageData>(name)
+{
+}
+
+QcepInt16ImageQueue::QcepInt16ImageQueue(QString name)
+  : QcepImageQueue<QcepInt16ImageData>(name)
+{
+}
+
+QcepUInt32ImageQueue::QcepUInt32ImageQueue(QString name)
+  : QcepImageQueue<QcepUInt32ImageData>(name)
+{
+}
+
+QcepInt32ImageQueue::QcepInt32ImageQueue(QString name)
+  : QcepImageQueue<QcepInt32ImageData>(name)
+{
+}
+
+QcepDoubleImageQueue::QcepDoubleImageQueue(QString name)
+  : QcepImageQueue<QcepDoubleImageData>(name)
+{
+}
+
+QcepFloatImageQueue::QcepFloatImageQueue(QString name)
+  : QcepImageQueue<QcepFloatImageData>(name)
+{
+}
+
+QcepMaskQueue::QcepMaskQueue(QString name)
+  : QcepImageQueue<QcepMaskData>(name)
+{
+}
 
 template class QcepImageQueue<QcepImageDataBase>;
 template class QcepImageQueue<QcepUInt16ImageData>;

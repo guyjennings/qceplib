@@ -11,7 +11,7 @@ class QCEP_EXPORT QcepScriptEngine : public QScriptEngine
   Q_OBJECT
 
 public:
-  QcepScriptEngine(QObject *parent = 0);
+  QcepScriptEngine(QString name);
 
 public slots:
   QString documentationLink(QString base, QString subItem);

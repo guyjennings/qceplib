@@ -2,8 +2,8 @@
 #include "qcepallocator.h"
 #include "qcepimagedata.h"
 
-QcepSetDataValueRangeCommand::QcepSetDataValueRangeCommand() :
-  QcepObject("setDataValueRangeCommand"),
+QcepSetDataValueRangeCommand::QcepSetDataValueRangeCommand(QString name) :
+  QcepObject(name),
   m_RegionType(this, "regionType", 0, "Region Type\n"
                                       "0 = Inside Rectangle\n"
                                       "1 = Outside Rectangle\n"

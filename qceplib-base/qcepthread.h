@@ -16,7 +16,9 @@ private:
   typedef QcepObject inherited;
 
 public:
-  QcepThread(QcepObjectWPtr parent);
+  QcepThread(QString name);
+
+  void initialize(QcepObjectWPtr parent);
 
   virtual ~QcepThread();
 
