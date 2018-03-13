@@ -16,6 +16,9 @@ class QCEP_EXPORT QcepMainWindow : public QMainWindow
 {
   Q_OBJECT
 
+private:
+  typedef QMainWindow inherited;
+
 public:
   explicit QcepMainWindow(QString name);
   virtual ~QcepMainWindow();
@@ -52,6 +55,9 @@ public slots:
 
   void displayStatusMessage(QString msg);
 
+  void resizeEvent(QResizeEvent *event);
+  void moveEvent(QMoveEvent *event);
+
 protected:
 //  void shrinkDockWidget(QDockWidget *dockWidget, int fontSize, int spacing);
 //  void shrinkObject(QObject *obj, int fontSize, int spacing);
@@ -64,11 +70,12 @@ protected:
   virtual void populateWindowsMenu();
   void appendToWindowMenu(QMenu* wmenu, QcepMainWindowSettingsWPtr s);
 
+  virtual QString windowName() const;
+  virtual void updateTitle();
+
 private:
   void doTimerUpdate();
   void clearStatusMessage();
-  void setBasicTitle(QString t);
-  virtual void updateTitle();
   void onUpdateIntervalMsecChanged(int newVal);
   void allocatedMemoryChanged();
 

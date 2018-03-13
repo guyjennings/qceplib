@@ -434,31 +434,26 @@ void QcepMainWindow::closeEvent(QCloseEvent *event)
   }
 }
 
-void QcepMainWindow::setBasicTitle(QString t)
+QString QcepMainWindow::windowName() const
 {
-  m_Name = t;
-
-  updateTitle();
+  return m_Name;
 }
 
 void QcepMainWindow::updateTitle()
 {
   INIT_CHECK;
 
-//  QxrdExperimentPtr exper(m_Experiment);
+  QcepExperimentPtr exper(findExperiment());
 
-  QString title = m_Name;
+  QString title = windowName();
 
-//  title = m_Name;
+  if (exper) {
+    title.append(" - ");
+    title.append(exper->experimentFilePath());
+  }
 
-//  if (exper) {
-//    title.append(" - ");
-//    title.append(exper->experimentFilePath());
-
-//    exper -> prop_CompletionPercentage() -> linkTo(m_Progress);
-//  }
-
-  title.append(" - QXRD");
+  title.append(" - ");
+  title.append(g_Application->applicationName());
 
   if (sizeof(void*) == 4) {
     title.append(" - 32 bit - v");
@@ -466,11 +461,11 @@ void QcepMainWindow::updateTitle()
     title.append(" - 64 bit - v");
   }
 
-  title.append(STR(QXRD_VERSION));
+  title.append(g_Application->applicationVersion());
 
-//  if (exper && exper->isChanged()) {
-//    title.append(tr(" [%1]").arg(exper->isChanged()));
-//  }
+  if (exper && exper->isChanged()) {
+    title.append(tr(" [%1]").arg(exper->isChanged()));
+  }
 
   setWindowTitle(title);
 }
@@ -735,6 +730,30 @@ bool QcepMainWindow::wantToClose()
   return QMessageBox::question(this, tr("Really Close?"),
                                tr("Do you really want to close the window?"),
                                QMessageBox::Ok | QMessageBox::Cancel) == QMessageBox::Ok;
+}
+
+void QcepMainWindow::resizeEvent(QResizeEvent *event)
+{
+  inherited::resizeEvent(event);
+
+  QcepMainWindowSettingsPtr set(
+        qSharedPointerDynamicCast<QcepMainWindowSettings>(m_Parent));
+
+  if (set) {
+    set -> set_WindowRect(geometry());
+  }
+}
+
+void QcepMainWindow::moveEvent(QMoveEvent *event)
+{
+  inherited::moveEvent(event);
+
+  QcepMainWindowSettingsPtr set(
+        qSharedPointerDynamicCast<QcepMainWindowSettings>(m_Parent));
+
+  if (set) {
+    set -> set_WindowRect(geometry());
+  }
 }
 
 //void QcepMainWindow::setFontSize(int fontSize)

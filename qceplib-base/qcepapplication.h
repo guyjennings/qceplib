@@ -34,6 +34,8 @@ public:
   virtual void openStartupWindow() = 0;
   virtual void closeStartupWindow() = 0;
 
+  virtual QString applicationName() = 0;
+  virtual QString applicationVersion() = 0;
   virtual QString applicationDescription() = 0;
   virtual QIcon   applicationIcon() = 0;
 

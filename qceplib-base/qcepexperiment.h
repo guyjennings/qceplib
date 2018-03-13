@@ -25,6 +25,7 @@ private:
 
 public:
   QcepExperiment(QString name);
+  void initialize(QcepObjectWPtr parent);
   void initialize(QcepObjectWPtr parent,
                   QString path);
 
@@ -39,6 +40,8 @@ public:
 signals:
 
 public slots:
+  virtual QString experimentFilePath() const = 0;
+  virtual void setExperimentFilePath(QString path) = 0;
 
   QString defaultExperimentDirectory(QString path) const;
   QString defaultExperimentFileName(QString path) const;

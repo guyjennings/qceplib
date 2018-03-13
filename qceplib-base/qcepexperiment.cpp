@@ -56,14 +56,19 @@ QcepExperiment::QcepExperiment(QString name) :
         new QcepFixupGainMapCommand("fixupGainMapCommand"));
 }
 
+void QcepExperiment::initialize(QcepObjectWPtr parent)
+{
+  inherited::initialize(parent);
+}
+
 void QcepExperiment::initialize(QcepObjectWPtr parent, QString path)
 {
-  set_ExperimentPath(path),
+  set_ExperimentPath(path);
   set_ExperimentDirectory(defaultExperimentDirectory(path));
   set_ExperimentFileName(defaultExperimentFileName(path));
   set_ExperimentName(defaultExperimentName(path));
 
-  inherited::initialize(parent);
+  initialize(parent);
 
   m_DataExportParameters -> initialize(sharedFromThis());
 
