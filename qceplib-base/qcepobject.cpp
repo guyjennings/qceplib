@@ -415,6 +415,8 @@ void QcepObject::propertyChanged(QcepProperty *prop)
 
     QcepObjectPtr parent(m_Parent);
 
+    emit propertyWasChanged(prop);
+
     if (parent) {
       parent->propertyChanged(prop);
     }

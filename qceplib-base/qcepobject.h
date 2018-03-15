@@ -49,6 +49,7 @@ public:
   virtual void closeWindows();
 
 signals:
+  void propertyWasChanged(QcepProperty *prop);
 
 public slots:
   virtual void printLine(QString line) const;
