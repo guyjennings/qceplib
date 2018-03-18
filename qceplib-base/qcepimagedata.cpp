@@ -2243,6 +2243,8 @@ template void QcepImageData<double>::copyFrom<double>(QSharedPointer<QcepImageDa
 //template void QcepImageData<quint32>::copyFrom<quint32>(QSharedPointer<QcepImageData<quint32> >);
 
 template void QcepImageData<double>::accumulateImage<double>(QSharedPointer<QcepImageData<double> >);
+template void QcepImageData<quint32>::accumulateImage<quint16>(QSharedPointer<QcepImageData<quint16> >);
+template void QcepImageData<quint32>::accumulateImage<quint32>(QSharedPointer<QcepImageData<quint32> >);
 
 template void QcepImageData<double>::add<double>(QSharedPointer<QcepImageData<double> >);
 template void QcepImageData<double>::subtract<double>(QSharedPointer<QcepImageData<double> >);
