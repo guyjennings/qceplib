@@ -2075,6 +2075,16 @@ QcepUInt32ImageData::QcepUInt32ImageData(QString name,
 {
 }
 
+void QcepUInt32ImageData::accumulateImage(QcepUInt16ImageDataPtr img)
+{
+  QcepImageData<quint32>::accumulateImage<quint16>(img);
+}
+
+void QcepUInt32ImageData::accumulateImage(QcepUInt32ImageDataPtr img)
+{
+  QcepImageData<quint32>::accumulateImage<quint32>(img);
+}
+
 QcepInt32ImageData::QcepInt32ImageData(QString name,
                                        int width,
                                        int height,

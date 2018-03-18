@@ -490,6 +490,9 @@ public:
       int width = 0,
       int height = 0,
       quint32 def = 0);
+
+  void accumulateImage(QcepUInt16ImageDataPtr img);
+  void accumulateImage(QcepUInt32ImageDataPtr img);
 };
 
 Q_DECLARE_METATYPE(QcepUInt32ImageData*)
