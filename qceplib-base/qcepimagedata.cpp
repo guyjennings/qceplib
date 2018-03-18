@@ -40,6 +40,7 @@ QcepImageDataBase::QcepImageDataBase(QString name, int width, int height, int si
     m_ExposureTime(this, "exposureTime", 0, "Image Exposure Time"),
     m_SummedExposures(this, "summedExposures", 0, "Summed Exposures in Image"),
     m_ImageSequenceNumber(this, "imageSequenceNumber", -1, "Image Sequence Number"),
+    m_DetectorNumber(this, "detectorNumber", 0, "Detector Number"),
     m_ImageNumber(this, "imageNumber", 0, "Image Number"),
     m_PhaseNumber(this, "phaseNumber", -1, "Image Phase Number"),
     m_NPhases(this, "nPhases", -1, "Number of Image Phases"),
@@ -136,6 +137,7 @@ void QcepImageDataBase::copyProperties(QcepImageDataBase *dest)
   dest -> set_ExposureTime(get_ExposureTime());
   dest -> set_SummedExposures(get_SummedExposures());
   dest -> set_ImageSequenceNumber(get_ImageSequenceNumber());
+  dest -> set_DetectorNumber(get_DetectorNumber());
   dest -> set_ImageNumber(get_ImageNumber());
   dest -> set_PhaseNumber(get_PhaseNumber());
   dest -> set_NPhases(get_NPhases());
@@ -175,6 +177,7 @@ void QcepImageDataBase::copyPropertiesFrom(QSharedPointer<QcepImageDataBase> src
   set_ExposureTime(src -> get_ExposureTime());
   set_SummedExposures(src -> get_SummedExposures());
   set_ImageSequenceNumber(src -> get_ImageSequenceNumber());
+  set_DetectorNumber(src -> get_DetectorNumber());
   set_ImageNumber(src -> get_ImageNumber());
   set_PhaseNumber(src -> get_PhaseNumber());
   set_NPhases(src -> get_NPhases());

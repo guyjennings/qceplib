@@ -91,6 +91,9 @@ public:
   Q_PROPERTY(int imageSequenceNumber READ get_ImageSequenceNumber WRITE set_ImageSequenceNumber)
   QCEP_INTEGER_PROPERTY(ImageSequenceNumber)
 
+  Q_PROPERTY(int detectorNumber READ get_DetectorNumber WRITE set_DetectorNumber)
+  QCEP_INTEGER_PROPERTY(DetectorNumber)
+
   Q_PROPERTY(int imageNumber READ get_ImageNumber WRITE set_ImageNumber)
   QCEP_INTEGER_PROPERTY(ImageNumber)
 
