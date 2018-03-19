@@ -15,14 +15,17 @@ QcepDataObject::QcepDataObject(QString name, qint64 byteSize) :
   inherited(name),
 //  m_Saver(saver),
 //  m_Mutex(QMutex::Recursive),
-  m_ByteSize   (this, "size", byteSize, "Object Size"),
-  m_Creator    (this, "creator", "Unknown", "QXRD Version Number"),
-  m_Version    (this, "version", "Unknown", "QXRD Version Number"),
-  m_QtVersion  (this, "qtVersion", QT_VERSION_STR, "QT Version Number"),
-  m_Description(this, "description", "", "Object Description"),
-  m_FileName   (this, "fileName", "", "File Name of Image"),
-  m_ObjectSaved(this, "objectSaved",0, "Object is Saved?"),
-  m_Index      (this, "index", 0, "Object Index Number")
+  m_ByteSize     (this, "size", byteSize, "Object Size"),
+  m_Creator      (this, "creator", "Unknown", "QXRD Version Number"),
+  m_Version      (this, "version", "Unknown", "QXRD Version Number"),
+  m_QtVersion    (this, "qtVersion", QT_VERSION_STR, "QT Version Number"),
+  m_Description  (this, "description", "", "Object Description"),
+  m_FileBase     (this, "fileBase", "", "File Base of Image"),
+  m_FileExtension(this, "fileExtension", "", "File Extension of Image"),
+  m_FileName     (this, "fileName", "", "File Name of Image"),
+  m_FilePath     (this, "filePath", "", "File Path of Image"),
+  m_ObjectSaved  (this, "objectSaved",0, "Object is Saved?"),
+  m_Index        (this, "index", 0, "Object Index Number")
 {
   s_ObjectAllocateCount.fetchAndAddOrdered(1);
 

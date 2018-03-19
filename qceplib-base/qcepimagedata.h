@@ -38,6 +38,11 @@ public:
   void readSettings(QSettings *settings);
   void writeSettings(QSettings *settings);
 
+  int isDark();
+  int isRaw();
+  int isSubtracted();
+  int isMultiphase();
+
   Q_PROPERTY(int width READ get_Width WRITE set_Width)
   QCEP_INTEGER_PROPERTY(Width)
 
@@ -73,9 +78,6 @@ public:
 
   Q_PROPERTY(QString dataTypeName READ get_DataTypeName WRITE set_DataTypeName)
 
-  Q_PROPERTY(QString fileBase READ get_FileBase WRITE set_FileBase)
-  QCEP_STRING_PROPERTY(FileBase)
-
 //  Q_PROPERTY(QString title READ get_Title WRITE set_Title)
 //  QCEP_STRING_PROPERTY(Title)
 
@@ -96,6 +98,9 @@ public:
 
   Q_PROPERTY(int imageNumber READ get_ImageNumber WRITE set_ImageNumber)
   QCEP_INTEGER_PROPERTY(ImageNumber)
+
+  Q_PROPERTY(int nImages READ get_NImages WRITE set_NImages)
+  QCEP_INTEGER_PROPERTY(NImages)
 
   Q_PROPERTY(int phaseNumber READ get_PhaseNumber WRITE set_PhaseNumber)
   QCEP_INTEGER_PROPERTY(PhaseNumber)

@@ -34,7 +34,6 @@ QcepImageDataBase::QcepImageDataBase(QString name, int width, int height, int si
     m_VLabel(this, "vLabel", "Y", "V Label"),
     m_VUnits(this, "vUnits", "pix", "V Units"),
     m_DataType(this, "dataType", UndefinedData, "Data Type of Image"),
-    m_FileBase(this, "fileBase", "", "File Base of Image"),
 //    m_Title(saver, this, "title", "", "Title of Image"),
     m_ReadoutMode(this, "readoutMode", 0, "Image Readout Mode"),
     m_ExposureTime(this, "exposureTime", 0, "Image Exposure Time"),
@@ -42,6 +41,7 @@ QcepImageDataBase::QcepImageDataBase(QString name, int width, int height, int si
     m_ImageSequenceNumber(this, "imageSequenceNumber", -1, "Image Sequence Number"),
     m_DetectorNumber(this, "detectorNumber", 0, "Detector Number"),
     m_ImageNumber(this, "imageNumber", 0, "Image Number"),
+    m_NImages(this, "nImages", 0, "Number of Images in Acquisition Op"),
     m_PhaseNumber(this, "phaseNumber", -1, "Image Phase Number"),
     m_NPhases(this, "nPhases", -1, "Number of Image Phases"),
     m_DateTime(this, "dateTime", QDateTime::currentDateTime(), "Image Creation Date and Time"),
@@ -132,13 +132,17 @@ void QcepImageDataBase::copyProperties(QcepImageDataBase *dest)
   dest -> set_DataType(get_DataType());
   dest -> set_FileBase(get_FileBase());
   dest -> set_FileName(get_FileName());
+  dest -> set_FileExtension(get_FileExtension());
+  dest -> set_FilePath(get_FilePath());
   dest -> set_Name(get_Name()+" copy");
+  dest -> set_Index(get_Index());
   dest -> set_ReadoutMode(get_ReadoutMode());
   dest -> set_ExposureTime(get_ExposureTime());
   dest -> set_SummedExposures(get_SummedExposures());
   dest -> set_ImageSequenceNumber(get_ImageSequenceNumber());
   dest -> set_DetectorNumber(get_DetectorNumber());
   dest -> set_ImageNumber(get_ImageNumber());
+  dest -> set_NImages(get_NImages());
   dest -> set_PhaseNumber(get_PhaseNumber());
   dest -> set_NPhases(get_NPhases());
   dest -> set_DateTime(get_DateTime());
@@ -172,13 +176,17 @@ void QcepImageDataBase::copyPropertiesFrom(QSharedPointer<QcepImageDataBase> src
   set_DataType(src -> get_DataType());
   set_FileBase(src -> get_FileBase());
   set_FileName(src -> get_FileName());
+  set_FileExtension(src -> get_FileExtension());
+  set_FilePath(src -> get_FilePath());
   set_Name(src -> get_Name()+" copy");
+  set_Index(src -> get_Index());
   set_ReadoutMode(src -> get_ReadoutMode());
   set_ExposureTime(src -> get_ExposureTime());
   set_SummedExposures(src -> get_SummedExposures());
   set_ImageSequenceNumber(src -> get_ImageSequenceNumber());
   set_DetectorNumber(src -> get_DetectorNumber());
   set_ImageNumber(src -> get_ImageNumber());
+  set_NImages(src -> get_NImages());
   set_PhaseNumber(src -> get_PhaseNumber());
   set_NPhases(src -> get_NPhases());
   set_DateTime(src -> get_DateTime());
@@ -272,8 +280,31 @@ void QcepImageDataBase::saveMetaData(QString name)
 
 void QcepImageDataBase::setDefaultFileName(QString path)
 {
-  set_FileName(path);
-  set_Name(QFileInfo(path).fileName());
+  set_FilePath(path);
+  set_FileName(QFileInfo(path).fileName());
+  set_Name(get_FileName());
+}
+
+int QcepImageDataBase::isDark()
+{
+  return get_DataType() == DarkData;
+}
+
+int QcepImageDataBase::isRaw()
+{
+  int typ = get_DataType();
+
+  return typ == Raw16Data || typ == Raw32Data;
+}
+
+int QcepImageDataBase::isSubtracted()
+{
+  return get_DataType() == SubtractedData;
+}
+
+int QcepImageDataBase::isMultiphase()
+{
+  return get_NPhases() > 1;
 }
 
 QString QcepImageDataBase::get_DataTypeName() const
@@ -664,11 +695,11 @@ bool QcepImageData<T>::readImage(QString path)
     bool res = loader -> loadFile(path, this);
 
     if (res) {
-      QString fileBase = QFileInfo(path).fileName();
+      QString fileName = QFileInfo(path).fileName();
 
-      set_Name(fileBase);
-      set_FileBase(fileBase);
-      set_FileName(path);
+      set_Name(fileName);
+      set_FilePath(path);
+      set_FileName(fileName);
       set_ObjectSaved(true);
     }
 

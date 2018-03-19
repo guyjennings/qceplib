@@ -47,8 +47,8 @@ QcepImageDataFormat<T>* QcepImageDataFormatMar345<T>::loadFile(QString path, Qce
   FILE *file = fopen(qPrintable(path), "rb");
 
   if (file) {
-    img -> set_FileName(path);
-    img -> set_Name(QFileInfo(path).fileName());
+    img -> set_FilePath(path);
+    img -> set_FileName(QFileInfo(path).fileName());
 
     readMar345Header(file, img);
 
