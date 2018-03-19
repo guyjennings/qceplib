@@ -132,6 +132,7 @@ void QcepImageDataBase::copyProperties(QcepImageDataBase *dest)
   dest -> set_DataType(get_DataType());
   dest -> set_FileBase(get_FileBase());
   dest -> set_FileName(get_FileName());
+  dest -> set_FileTypeName(get_FileTypeName());
   dest -> set_FileExtension(get_FileExtension());
   dest -> set_FilePath(get_FilePath());
   dest -> set_Name(get_Name()+" copy");
@@ -176,6 +177,7 @@ void QcepImageDataBase::copyPropertiesFrom(QSharedPointer<QcepImageDataBase> src
   set_DataType(src -> get_DataType());
   set_FileBase(src -> get_FileBase());
   set_FileName(src -> get_FileName());
+  set_FileTypeName(src -> get_FileTypeName());
   set_FileExtension(src -> get_FileExtension());
   set_FilePath(src -> get_FilePath());
   set_Name(src -> get_Name()+" copy");
@@ -240,11 +242,6 @@ void QcepImageDataBase::loadMetaData()
   }
 //
 //  printf("QcepImageDataBase::loadMetaData for file %s took %d msec\n",  qPrintable(get_FileName()), tic.elapsed());
-}
-
-void QcepImageDataBase::saveMetaData()
-{
-  saveMetaData(get_FileName());
 }
 
 void QcepImageDataBase::saveMetaData(QString name)
@@ -699,7 +696,6 @@ bool QcepImageData<T>::readImage(QString path)
 
       set_Name(fileName);
       set_FilePath(path);
-      set_FileName(fileName);
       set_ObjectSaved(true);
     }
 
@@ -1405,10 +1401,9 @@ void QcepImageData<double>::saveTIFFData(QString name)
 
     TIFFClose(tif);
 
-    set_FileName(name);
     set_ObjectSaved(true);
 
-    saveMetaData();
+    saveMetaData(name);
   }
 #else
   printMessage("Unable to save TIFF data, TIFF support not configured");
@@ -1484,10 +1479,9 @@ void QcepImageData<T>::saveTIFFData(QString name)
 
     TIFFClose(tif);
 
-    set_FileName(name);
     set_ObjectSaved(true);
 
-    saveMetaData();
+    saveMetaData(name);
   }
 #else
   printMessage("Unable to save TIFF data, TIFF support not configured");

@@ -20,10 +20,11 @@ QcepDataObject::QcepDataObject(QString name, qint64 byteSize) :
   m_Version      (this, "version", "Unknown", "QXRD Version Number"),
   m_QtVersion    (this, "qtVersion", QT_VERSION_STR, "QT Version Number"),
   m_Description  (this, "description", "", "Object Description"),
-  m_FileBase     (this, "fileBase", "", "File Base of Image"),
-  m_FileExtension(this, "fileExtension", "", "File Extension of Image"),
-  m_FileName     (this, "fileName", "", "File Name of Image"),
-  m_FilePath     (this, "filePath", "", "File Path of Image"),
+  m_FileBase     (this, "fileBase", "", "File Base of Data Object"),
+  m_FileName     (this, "fileName", "", "File Name of Data Object"),
+  m_FileTypeName (this, "fileTypeName", "", "File Type Name of Data Object"),
+  m_FileExtension(this, "fileExtension", "", "File Extension of Data Object"),
+  m_FilePath     (this, "filePath", "", "File Path of Data Object"),
   m_ObjectSaved  (this, "objectSaved",0, "Object is Saved?"),
   m_Index        (this, "index", 0, "Object Index Number")
 {

@@ -273,7 +273,7 @@ QcepImageDataFormat<T>* QcepImageDataFormatTiff<T>::saveFile(QString path, QcepI
       img -> set_FileName(path);
       img -> set_ObjectSaved(true);
 
-      img -> saveMetaData();
+      img -> saveMetaData(path);
 
       return this;
     }

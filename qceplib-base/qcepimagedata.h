@@ -234,7 +234,6 @@ public:
   void copyPropertiesFrom(QSharedPointer<QcepImageDataBase> src);
 
   void loadMetaData();
-  void saveMetaData();
   void saveMetaData(QString name);
   void saveTextData(QString name, QString sep, bool transp=false);
 
