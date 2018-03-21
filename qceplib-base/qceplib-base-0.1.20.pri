@@ -148,6 +148,7 @@ HEADERS += \
   $${PWD}/qcepdocumentationdictionary.h \
   $${PWD}/qcepimagedata.h \
   $${PWD}/qcepimagedata-ptr.h \
+  $${PWD}/qcepimagequeue-ptr.h \
   $${PWD}/qcepimagequeue.h \
   $${PWD}/qcepimagedataformatfactory.h \
   $${PWD}/qcepimagedataformatfactory-ptr.h \
