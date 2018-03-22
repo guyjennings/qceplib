@@ -1308,7 +1308,7 @@ void QcepStringProperty::linkTo(QLineEdit *lineEdit)
 
   copyTo(lineEdit);
 
-  connect(this,   &QcepStringProperty::valueChanged, helper, &QcepStringPropertyLineEditHelper::setText);
+  connect(this,   &QcepStringProperty::valueChanged, helper, &QcepStringPropertyLineEditHelper::setText2);
   connect(helper, &QcepStringPropertyLineEditHelper::textEdited,   this,   &QcepStringProperty::setValue);
 }
 

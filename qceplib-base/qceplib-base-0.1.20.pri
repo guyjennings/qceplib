@@ -251,7 +251,8 @@ HEADERS += \
     $$PWD/qnewthread-ptr.h \
     $$PWD/qcepthread-ptr.h \
     $$PWD/qapplication-ptr.h \
-    $$PWD/qceprunguard.h
+    $$PWD/qceprunguard.h \
+    $$PWD/qcepdataobjectpropertiesmodel-ptr.h
 
 contains (DEFINES, HAVE_DATAVIS) {
  HEADERS += \
