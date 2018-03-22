@@ -12,6 +12,8 @@ QcepThread::QcepThread(QString name) :
       QNewThreadPtr(
         new QNewThread(this));
 
+  m_Thread -> setObjectName(name);
+
 //  connect(m_Thread.data(),
 //          &QThread::started,
 //          this,
