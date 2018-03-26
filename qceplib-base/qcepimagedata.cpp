@@ -21,6 +21,7 @@
 
 QAtomicInt allocCount = 0;
 
+//TODO: handle fileName, filePath and fileDirectory properties
 QcepImageDataBase::QcepImageDataBase(QString name, int width, int height, int size)
   : inherited(name, size),
     m_Width(this, "width", width, "Image Width"),
