@@ -51,6 +51,10 @@ public:
   static QScriptValue toIntegratedDataScriptValue(QScriptEngine *engine, const QcepIntegratedDataPtr &data);
   static void fromIntegratedDataScriptValue(const QScriptValue &obj, QcepIntegratedDataPtr &data);
 
+public:
+  Q_PROPERTY(int scanNumber READ get_ScanNumber WRITE set_ScanNumber)
+  QCEP_INTEGER_PROPERTY(ScanNumber)
+
 private:
   int                        m_MaxSize;
   int                        m_Size;

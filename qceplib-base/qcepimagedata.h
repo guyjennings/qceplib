@@ -78,9 +78,6 @@ public:
 
   Q_PROPERTY(QString dataTypeName READ get_DataTypeName WRITE set_DataTypeName)
 
-//  Q_PROPERTY(QString title READ get_Title WRITE set_Title)
-//  QCEP_STRING_PROPERTY(Title)
-
   Q_PROPERTY(int readoutMode READ get_ReadoutMode WRITE set_ReadoutMode)
   QCEP_INTEGER_PROPERTY(ReadoutMode)
 
@@ -89,9 +86,6 @@ public:
 
   Q_PROPERTY(int summedExposures READ get_SummedExposures WRITE set_SummedExposures)
   QCEP_INTEGER_PROPERTY(SummedExposures)
-
-  Q_PROPERTY(int imageSequenceNumber READ get_ImageSequenceNumber WRITE set_ImageSequenceNumber)
-  QCEP_INTEGER_PROPERTY(ImageSequenceNumber)
 
   Q_PROPERTY(int detectorNumber READ get_DetectorNumber WRITE set_DetectorNumber)
   QCEP_INTEGER_PROPERTY(DetectorNumber)

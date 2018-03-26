@@ -34,11 +34,9 @@ QcepImageDataBase::QcepImageDataBase(QString name, int width, int height, int si
     m_VLabel(this, "vLabel", "Y", "V Label"),
     m_VUnits(this, "vUnits", "pix", "V Units"),
     m_DataType(this, "dataType", UndefinedData, "Data Type of Image"),
-//    m_Title(saver, this, "title", "", "Title of Image"),
     m_ReadoutMode(this, "readoutMode", 0, "Image Readout Mode"),
     m_ExposureTime(this, "exposureTime", 0, "Image Exposure Time"),
     m_SummedExposures(this, "summedExposures", 0, "Summed Exposures in Image"),
-    m_ImageSequenceNumber(this, "imageSequenceNumber", -1, "Image Sequence Number"),
     m_DetectorNumber(this, "detectorNumber", 0, "Detector Number"),
     m_ImageNumber(this, "imageNumber", 0, "Image Number"),
     m_NImages(this, "nImages", 0, "Number of Images in Acquisition Op"),
@@ -131,16 +129,16 @@ void QcepImageDataBase::copyProperties(QcepImageDataBase *dest)
   dest -> set_QtVersion(get_QtVersion());
   dest -> set_DataType(get_DataType());
   dest -> set_FileBase(get_FileBase());
-  dest -> set_FileName(get_FileName());
+  dest -> set_FileIndex(get_FileIndex());
   dest -> set_FileTypeName(get_FileTypeName());
   dest -> set_FileExtension(get_FileExtension());
+  dest -> set_FileName(get_FileName());
+  dest -> set_FileDirectory(get_FileDirectory());
   dest -> set_FilePath(get_FilePath());
-  dest -> set_Name(get_Name()+" copy");
-  dest -> set_Index(get_Index());
+  dest -> set_Description(get_Description()+" copy");
   dest -> set_ReadoutMode(get_ReadoutMode());
   dest -> set_ExposureTime(get_ExposureTime());
   dest -> set_SummedExposures(get_SummedExposures());
-  dest -> set_ImageSequenceNumber(get_ImageSequenceNumber());
   dest -> set_DetectorNumber(get_DetectorNumber());
   dest -> set_ImageNumber(get_ImageNumber());
   dest -> set_NImages(get_NImages());
@@ -176,16 +174,16 @@ void QcepImageDataBase::copyPropertiesFrom(QSharedPointer<QcepImageDataBase> src
   set_QtVersion(src->get_QtVersion());
   set_DataType(src -> get_DataType());
   set_FileBase(src -> get_FileBase());
-  set_FileName(src -> get_FileName());
+  set_FileIndex(src -> get_FileIndex());
   set_FileTypeName(src -> get_FileTypeName());
   set_FileExtension(src -> get_FileExtension());
+  set_FileName(src -> get_FileName());
+  set_FileDirectory(src -> get_FileDirectory());
   set_FilePath(src -> get_FilePath());
-  set_Name(src -> get_Name()+" copy");
-  set_Index(src -> get_Index());
+  set_Description(src -> get_Description()+" copy");
   set_ReadoutMode(src -> get_ReadoutMode());
   set_ExposureTime(src -> get_ExposureTime());
   set_SummedExposures(src -> get_SummedExposures());
-  set_ImageSequenceNumber(src -> get_ImageSequenceNumber());
   set_DetectorNumber(src -> get_DetectorNumber());
   set_ImageNumber(src -> get_ImageNumber());
   set_NImages(src -> get_NImages());

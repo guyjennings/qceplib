@@ -1,6 +1,7 @@
 #include "qcepintegrateddata.h"
 #include "qcepallocator.h"
 #include <QScriptEngine>
+#include "qcepproperty.h"
 
 QcepIntegratedData::QcepIntegratedData(QString name,
                                        int maxSize) :
@@ -13,7 +14,8 @@ QcepIntegratedData::QcepIntegratedData(QString name,
   m_cx(0),
   m_cy(0),
   m_XUnitsLabel("TTH"),
-  m_Oversample(1)
+  m_Oversample(1),
+  m_ScanNumber(this, "scanNumber", 0, "Scan Number")
 {
   QcepAllocator::allocate(sizeof(double), 2, m_MaxSize);
 }

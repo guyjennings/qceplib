@@ -105,8 +105,8 @@ public:
   Q_PROPERTY(QString fileBase READ get_FileBase WRITE set_FileBase)
   QCEP_STRING_PROPERTY(FileBase)
 
-  Q_PROPERTY(QString fileName READ get_FileName WRITE set_FileName)
-  QCEP_STRING_PROPERTY(FileName)
+  Q_PROPERTY(int fileIndex READ get_FileIndex WRITE set_FileIndex)
+  QCEP_INTEGER_PROPERTY(FileIndex)
 
   Q_PROPERTY(QString fileTypeName READ get_FileTypeName WRITE set_FileTypeName)
   QCEP_STRING_PROPERTY(FileTypeName)
@@ -114,14 +114,17 @@ public:
   Q_PROPERTY(QString fileExtension READ get_FileExtension WRITE set_FileExtension)
   QCEP_STRING_PROPERTY(FileExtension)
 
+  Q_PROPERTY(QString fileName READ get_FileName WRITE set_FileName)
+  QCEP_STRING_PROPERTY(FileName)
+
+  Q_PROPERTY(QString fileDirectory READ get_FileDirectory WRITE set_FileDirectory)
+  QCEP_STRING_PROPERTY(FileDirectory)
+
   Q_PROPERTY(QString filePath READ get_FilePath WRITE set_FilePath)
   QCEP_STRING_PROPERTY(FilePath)
 
   Q_PROPERTY(int objectSaved READ get_ObjectSaved WRITE set_ObjectSaved STORED false)
   QCEP_INTEGER_PROPERTY(ObjectSaved)
-
-  Q_PROPERTY(int index READ get_Index WRITE set_Index)
-  QCEP_INTEGER_PROPERTY(Index)
 };
 
 #endif // QCEPDATAOBJECT_H
