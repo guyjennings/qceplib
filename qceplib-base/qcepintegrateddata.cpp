@@ -3,6 +3,7 @@
 #include <QScriptEngine>
 #include "qcepproperty.h"
 
+//TODO: handle scanNumber property...
 QcepIntegratedData::QcepIntegratedData(QString name,
                                        int maxSize) :
   inherited(name, 2*maxSize*sizeof(double)),
