@@ -78,9 +78,6 @@ public:
 
   Q_PROPERTY(QString dataTypeName READ get_DataTypeName WRITE set_DataTypeName)
 
-  Q_PROPERTY(int readoutMode READ get_ReadoutMode WRITE set_ReadoutMode)
-  QCEP_INTEGER_PROPERTY(ReadoutMode)
-
   Q_PROPERTY(double exposureTime READ get_ExposureTime WRITE set_ExposureTime)
   QCEP_DOUBLE_PROPERTY(ExposureTime)
 
@@ -134,6 +131,36 @@ public:
 
   Q_PROPERTY(QString userComment4 READ get_UserComment4 WRITE set_UserComment4)
   QCEP_STRING_PROPERTY(UserComment4)
+
+  Q_PROPERTY(int    fileIndexWidth        READ get_FileIndexWidth WRITE set_FileIndexWidth)
+  QCEP_INTEGER_PROPERTY(FileIndexWidth)
+
+  Q_PROPERTY(int    filePhaseWidth        READ get_FilePhaseWidth WRITE set_FilePhaseWidth)
+  QCEP_INTEGER_PROPERTY(FilePhaseWidth)
+
+  Q_PROPERTY(int    fileOverflowWidth        READ get_FileOverflowWidth WRITE set_FileOverflowWidth)
+  QCEP_INTEGER_PROPERTY(FileOverflowWidth)
+
+  Q_PROPERTY(int    fileNumberWidth  READ get_FileNumberWidth WRITE set_FileNumberWidth)
+  QCEP_INTEGER_PROPERTY(FileNumberWidth)
+
+  Q_PROPERTY(int detectorNumberWidth READ get_DetectorNumberWidth WRITE set_DetectorNumberWidth)
+  QCEP_INTEGER_PROPERTY(DetectorNumberWidth)
+
+  Q_PROPERTY(int    fileNameFormat1   READ get_FileNameFormat1 WRITE set_FileNameFormat1)
+  QCEP_INTEGER_PROPERTY(FileNameFormat1)
+
+  Q_PROPERTY(int    fileNameFormat2   READ get_FileNameFormat2 WRITE set_FileNameFormat2)
+  QCEP_INTEGER_PROPERTY(FileNameFormat2)
+
+  Q_PROPERTY(int    fileNameFormat3   READ get_FileNameFormat3 WRITE set_FileNameFormat3)
+  QCEP_INTEGER_PROPERTY(FileNameFormat3)
+
+  Q_PROPERTY(int    fileNameFormat4   READ get_FileNameFormat4 WRITE set_FileNameFormat4)
+  QCEP_INTEGER_PROPERTY(FileNameFormat4)
+
+  Q_PROPERTY(int    overflowLevel     READ get_OverflowLevel WRITE set_OverflowLevel)
+  QCEP_INTEGER_PROPERTY(OverflowLevel)
 
   Q_PROPERTY(QcepDoubleList normalization READ get_Normalization WRITE set_Normalization)
   QCEP_DOUBLE_LIST_PROPERTY(Normalization)

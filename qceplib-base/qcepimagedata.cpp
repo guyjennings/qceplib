@@ -35,7 +35,6 @@ QcepImageDataBase::QcepImageDataBase(QString name, int width, int height, int si
     m_VLabel(this, "vLabel", "Y", "V Label"),
     m_VUnits(this, "vUnits", "pix", "V Units"),
     m_DataType(this, "dataType", UndefinedData, "Data Type of Image"),
-    m_ReadoutMode(this, "readoutMode", 0, "Image Readout Mode"),
     m_ExposureTime(this, "exposureTime", 0, "Image Exposure Time"),
     m_SummedExposures(this, "summedExposures", 0, "Summed Exposures in Image"),
     m_DetectorNumber(this, "detectorNumber", 0, "Detector Number"),
@@ -53,6 +52,16 @@ QcepImageDataBase::QcepImageDataBase(QString name, int width, int height, int si
     m_UserComment2(this,"userComment2","", "User Comment 2"),
     m_UserComment3(this,"userComment3","", "User Comment 3"),
     m_UserComment4(this,"userComment4","", "User Comment 4"),
+    m_FileIndexWidth(this, "fileIndexWidth", -1, "Digits in File Index Field"),
+    m_FilePhaseWidth(this, "filePhaseWidth", -1, "Digits in Phase Number Field"),
+    m_FileOverflowWidth(this, "fileOverflowWidth", -1, "Digits in Overflow Index Field"),
+    m_FileNumberWidth(this, "fileNumberWidth", -1, "Digits in File Number Field"),
+    m_DetectorNumberWidth(this, "detectorNumberWidth", -1, "Digits in detector number field"),
+    m_FileNameFormat1(this, "fileNameFormat1", -1, "File name format 1st Item"),
+    m_FileNameFormat2(this, "fileNameFormat2", -1, "File name format 2nd Item"),
+    m_FileNameFormat3(this, "fileNameFormat3", -1, "File name format 3rd Item"),
+    m_FileNameFormat4(this, "fileNameFormat4", -1, "File name format 4th Item"),
+    m_OverflowLevel(this, "overflowLevel", -1, "Overflow Level"), //TODO: use this instead of acq
     m_Normalization(this, "normalization", QcepDoubleList(), "Normalization Values"),
     m_ExtraInputs(this, "extraInputs", QcepDoubleList(), "Extra Input Values"),
     m_Used(this, "used", true, "Image Used?"),
@@ -137,7 +146,6 @@ void QcepImageDataBase::copyProperties(QcepImageDataBase *dest)
   dest -> set_FileDirectory(get_FileDirectory());
   dest -> set_FilePath(get_FilePath());
   dest -> set_Description(get_Description()+" copy");
-  dest -> set_ReadoutMode(get_ReadoutMode());
   dest -> set_ExposureTime(get_ExposureTime());
   dest -> set_SummedExposures(get_SummedExposures());
   dest -> set_DetectorNumber(get_DetectorNumber());
@@ -154,6 +162,15 @@ void QcepImageDataBase::copyProperties(QcepImageDataBase *dest)
   dest -> set_UserComment2(get_UserComment2());
   dest -> set_UserComment3(get_UserComment3());
   dest -> set_UserComment4(get_UserComment4());
+  dest -> set_FileIndexWidth(get_FileIndexWidth());
+  dest -> set_FilePhaseWidth(get_FilePhaseWidth());
+  dest -> set_FileOverflowWidth(get_FileOverflowWidth());
+  dest -> set_FileNumberWidth(get_FileNumberWidth());
+  dest -> set_DetectorNumberWidth(get_DetectorNumberWidth());
+  dest -> set_FileNameFormat1(get_FileNameFormat1());
+  dest -> set_FileNameFormat2(get_FileNameFormat2());
+  dest -> set_FileNameFormat3(get_FileNameFormat3());
+  dest -> set_FileNameFormat4(get_FileNameFormat4());
   dest -> set_ObjectSaved(get_ObjectSaved());
   dest -> set_Normalization(get_Normalization());
   dest -> set_ExtraInputs(get_ExtraInputs());
@@ -182,7 +199,6 @@ void QcepImageDataBase::copyPropertiesFrom(QSharedPointer<QcepImageDataBase> src
   set_FileDirectory(src -> get_FileDirectory());
   set_FilePath(src -> get_FilePath());
   set_Description(src -> get_Description()+" copy");
-  set_ReadoutMode(src -> get_ReadoutMode());
   set_ExposureTime(src -> get_ExposureTime());
   set_SummedExposures(src -> get_SummedExposures());
   set_DetectorNumber(src -> get_DetectorNumber());
@@ -199,6 +215,15 @@ void QcepImageDataBase::copyPropertiesFrom(QSharedPointer<QcepImageDataBase> src
   set_UserComment2(src -> get_UserComment2());
   set_UserComment3(src -> get_UserComment3());
   set_UserComment4(src -> get_UserComment4());
+  set_FileIndexWidth(src -> get_FileIndexWidth());
+  set_FilePhaseWidth(src -> get_FilePhaseWidth());
+  set_FileOverflowWidth(src -> get_FileOverflowWidth());
+  set_FileNumberWidth(src -> get_FileNumberWidth());
+  set_DetectorNumberWidth(src -> get_DetectorNumberWidth());
+  set_FileNameFormat1(src -> get_FileNameFormat1());
+  set_FileNameFormat2(src -> get_FileNameFormat2());
+  set_FileNameFormat3(src -> get_FileNameFormat3());
+  set_FileNameFormat4(src -> get_FileNameFormat4());
   set_ObjectSaved(src -> get_ObjectSaved());
   set_Normalization(src -> get_Normalization());
   set_ExtraInputs(src -> get_ExtraInputs());
