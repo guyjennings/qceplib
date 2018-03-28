@@ -117,6 +117,16 @@ void QcepImageDataBase::writeSettings(QSettings *settings)
   QcepDataObject::writeSettings(settings);
 }
 
+//TODO: write this...
+QString QcepImageDataBase::possibleFileName(QString extension, int uniqueIndex)
+{
+  criticalMessage(tr("QcepImageDataBase::possibleFileName(\"%1\",%2) not yet written")
+                  .arg(extension)
+                  .arg(uniqueIndex));
+
+  return "===+++ not implemented +++===";
+}
+
 QString QcepImageDataBase::description() const
 {
   return tr("[%1 x %2] elements").arg(get_Width()).arg(get_Height());

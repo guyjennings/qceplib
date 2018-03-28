@@ -41,6 +41,8 @@ public slots:
   virtual QcepDataGroupPtr parentItem();
   virtual const QcepDataGroupPtr parentItem() const;
 
+  virtual QString possibleFileName(QString extension = QString(), int uniqueIndex = -1);
+
 public:
   typedef enum {
     NoOverwrite,
@@ -75,6 +77,7 @@ public:
 
   virtual void saveData(QString &name, QString filter, Overwrite canOverwrite=NoOverwrite);
 
+
 protected:
   void mkPath(QString filePath);
   QString uniqueFileName(QString name);
@@ -107,6 +110,9 @@ public:
 
   Q_PROPERTY(int fileIndex READ get_FileIndex WRITE set_FileIndex)
   QCEP_INTEGER_PROPERTY(FileIndex)
+
+  Q_PROPERTY(int fileUniqueIndex READ get_FileUniqueIndex WRITE set_FileUniqueIndex)
+  QCEP_INTEGER_PROPERTY(FileUniqueIndex)
 
   Q_PROPERTY(QString fileTypeName READ get_FileTypeName WRITE set_FileTypeName)
   QCEP_STRING_PROPERTY(FileTypeName)

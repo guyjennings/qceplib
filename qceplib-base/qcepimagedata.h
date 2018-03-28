@@ -180,6 +180,8 @@ public:
 public slots:
   virtual QString description() const;
 
+  virtual QString possibleFileName(QString extension = QString(), int uniqueIndex = -1);
+
   virtual double getImageData(int x, int y) const = 0;
   virtual double getImageData(double x, double y) const = 0;
   virtual QVector<double> getImageData(int x0, int y0, int x1, int y1) const = 0;
@@ -272,7 +274,8 @@ public:
     MaskData,
     SubtractedData,
     GainData,
-    BadPixelsData
+    BadPixelsData,
+    IdleData
   };
 
   QMutex *mutex();
