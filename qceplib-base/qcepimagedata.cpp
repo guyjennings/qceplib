@@ -38,6 +38,7 @@ QcepImageDataBase::QcepImageDataBase(QString name, int width, int height, int si
     m_ExposureTime(this, "exposureTime", 0, "Image Exposure Time"),
     m_SummedExposures(this, "summedExposures", 0, "Summed Exposures in Image"),
     m_DetectorNumber(this, "detectorNumber", 0, "Detector Number"),
+    m_DetectorCount(this, "detectorCount", 0, "Detector Count"),
     m_ImageNumber(this, "imageNumber", 0, "Image Number"),
     m_NImages(this, "nImages", 0, "Number of Images in Acquisition Op"),
     m_PhaseNumber(this, "phaseNumber", -1, "Image Phase Number"),
@@ -120,11 +121,123 @@ void QcepImageDataBase::writeSettings(QSettings *settings)
 //TODO: write this...
 QString QcepImageDataBase::possibleFileName(QString extension, int uniqueIndex)
 {
-  criticalMessage(tr("QcepImageDataBase::possibleFileName(\"%1\",%2) not yet written")
-                  .arg(extension)
-                  .arg(uniqueIndex));
+  QString res  = QString();
 
-  return "===+++ not implemented +++===";
+  int imgType  = get_DataType();
+
+  int idxWidth = get_FileIndexWidth();
+  int detWidth = get_DetectorNumberWidth();
+  int phsWidth = get_FilePhaseWidth();
+  int numWidth = get_FileNumberWidth();
+  int unqWidth = get_FileOverflowWidth();
+
+
+  int idxNum   = get_FileIndex();
+  int detNum   = get_DetectorNumber();
+  int detCnt   = get_DetectorCount();
+  int phsNum   = get_PhaseNumber();
+  int imgNum   = get_ImageNumber();
+  int nPhases  = get_NPhases();
+  int nImages  = get_NImages();
+
+  QVector<QString> str;
+
+  str.append("");
+  str.append(tr("_i%1").arg(idxNum, idxWidth, 10, QChar('0')));
+  str.append(tr("_d%1").arg(detNum, detWidth, 10, QChar('0')));
+  str.append(tr("_p%1").arg(phsNum, phsWidth, 10, QChar('0')));
+  str.append(tr("_n%1").arg(imgNum, numWidth, 10, QChar('0')));
+
+  QString uniqueString = "";
+
+  if (uniqueIndex > 0) {
+    uniqueString = tr("_%1").arg(uniqueIndex, unqWidth, 10, QChar('0'));
+  }
+
+  switch (imgType) {
+  case QcepImageDataBase::MaskData:
+  case QcepImageDataBase::BadPixelsData:
+  case QcepImageDataBase::GainData:
+  case QcepImageDataBase::IdleData:
+    res = get_FileBase();
+    break;
+
+  case QcepImageDataBase::DarkData: // No phase
+    if (detCnt <= 1) {
+      res = get_FileBase()+str.value(1);
+    } else {
+      res = get_FileBase()
+          + selectField(0,str,IndexFormatItem,DetectorFormatItem)
+          + selectField(1,str,IndexFormatItem,DetectorFormatItem);
+    }
+    break;
+
+  case QcepImageDataBase::SubtractedData:
+  case QcepImageDataBase::Raw16Data:
+  case QcepImageDataBase::Raw32Data:
+    if (detCnt <= 1) {
+      if (nPhases <= 1) {
+        res = get_FileBase()
+            + selectField(0,str,IndexFormatItem,NumberFormatItem)
+            + selectField(1,str,IndexFormatItem,NumberFormatItem);
+      } else {
+        res = get_FileBase()
+            + selectField(0,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem)
+            + selectField(1,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem)
+            + selectField(2,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem);
+      }
+    } else {
+      if (nPhases <= 1) {
+        res = get_FileBase()
+            + selectField(0,str,IndexFormatItem,NumberFormatItem,DetectorFormatItem)
+            + selectField(1,str,IndexFormatItem,NumberFormatItem,DetectorFormatItem)
+            + selectField(2,str,IndexFormatItem,NumberFormatItem,DetectorFormatItem);
+      } else {
+        res = get_FileBase()
+            + selectField(0,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem,DetectorFormatItem)
+            + selectField(1,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem,DetectorFormatItem)
+            + selectField(2,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem,DetectorFormatItem)
+            + selectField(3,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem,DetectorFormatItem);
+      }
+    }
+    break;
+  }
+
+  if (res.length() > 0) {
+    res += uniqueString+get_FileTypeName()+extension;
+  }
+
+  return res;
+}
+
+QString QcepImageDataBase::selectField(
+    int  fNum, QVector<QString> s, int f1, int f2, int f3, int f4)
+{
+  QString res = "";
+
+  int fmt[4];
+
+  fmt[0] = get_FileNameFormat1();
+  fmt[1] = get_FileNameFormat2();
+  fmt[2] = get_FileNameFormat3();
+  fmt[3] = get_FileNameFormat4();
+
+  int n = 0;
+  for (int i=0; i<4; i++) {
+    if ((f1 >= 0 && fmt[i] == f1) ||
+        (f2 >= 0 && fmt[i] == f2) ||
+        (f3 >= 0 && fmt[i] == f3) ||
+        (f4 >= 0 && fmt[i] == f4)) {
+      if (fNum == n) {
+        res = s.value(fmt[i]);
+        break;
+      } else {
+        n++;
+      }
+    }
+  }
+
+  return res;
 }
 
 QString QcepImageDataBase::description() const
@@ -159,6 +272,7 @@ void QcepImageDataBase::copyProperties(QcepImageDataBase *dest)
   dest -> set_ExposureTime(get_ExposureTime());
   dest -> set_SummedExposures(get_SummedExposures());
   dest -> set_DetectorNumber(get_DetectorNumber());
+  dest -> set_DetectorCount(get_DetectorCount());
   dest -> set_ImageNumber(get_ImageNumber());
   dest -> set_NImages(get_NImages());
   dest -> set_PhaseNumber(get_PhaseNumber());
@@ -212,6 +326,7 @@ void QcepImageDataBase::copyPropertiesFrom(QSharedPointer<QcepImageDataBase> src
   set_ExposureTime(src -> get_ExposureTime());
   set_SummedExposures(src -> get_SummedExposures());
   set_DetectorNumber(src -> get_DetectorNumber());
+  set_DetectorCount(src -> get_DetectorCount());
   set_ImageNumber(src -> get_ImageNumber());
   set_NImages(src -> get_NImages());
   set_PhaseNumber(src -> get_PhaseNumber());

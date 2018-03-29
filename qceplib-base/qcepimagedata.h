@@ -43,6 +43,15 @@ public:
   int isSubtracted();
   int isMultiphase();
 
+  enum {
+    EmptyFormatItem,
+    IndexFormatItem,
+    DetectorFormatItem,
+    PhaseFormatItem,
+    NumberFormatItem,
+    FormatItemCount
+  };
+
   Q_PROPERTY(int width READ get_Width WRITE set_Width)
   QCEP_INTEGER_PROPERTY(Width)
 
@@ -86,6 +95,9 @@ public:
 
   Q_PROPERTY(int detectorNumber READ get_DetectorNumber WRITE set_DetectorNumber)
   QCEP_INTEGER_PROPERTY(DetectorNumber)
+
+  Q_PROPERTY(int detectorCount READ get_DetectorCount WRITE set_DetectorCount)
+  QCEP_INTEGER_PROPERTY(DetectorCount)
 
   Q_PROPERTY(int imageNumber READ get_ImageNumber WRITE set_ImageNumber)
   QCEP_INTEGER_PROPERTY(ImageNumber)
@@ -144,7 +156,7 @@ public:
   Q_PROPERTY(int    fileNumberWidth  READ get_FileNumberWidth WRITE set_FileNumberWidth)
   QCEP_INTEGER_PROPERTY(FileNumberWidth)
 
-  Q_PROPERTY(int detectorNumberWidth READ get_DetectorNumberWidth WRITE set_DetectorNumberWidth)
+  Q_PROPERTY(int    detectorNumberWidth READ get_DetectorNumberWidth WRITE set_DetectorNumberWidth)
   QCEP_INTEGER_PROPERTY(DetectorNumberWidth)
 
   Q_PROPERTY(int    fileNameFormat1   READ get_FileNameFormat1 WRITE set_FileNameFormat1)
@@ -221,6 +233,9 @@ public slots:
 
   double hValue(int n) const;
   double vValue(int n) const;
+
+private:
+  QString selectField(int fNum, QVector<QString> s, int f1, int f2, int f3=-1, int f4=-1);
 
 public:
 //  int get_Width() const
