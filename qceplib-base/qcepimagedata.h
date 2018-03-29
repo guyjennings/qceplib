@@ -235,7 +235,7 @@ public slots:
   double vValue(int n) const;
 
 private:
-  QString selectField(int fNum, QVector<QString> s, int f1, int f2, int f3=-1, int f4=-1);
+  QString selectField(int fNum, QVector<QString> s, int f1, int f2=-1, int f3=-1, int f4=-1);
 
 public:
 //  int get_Width() const

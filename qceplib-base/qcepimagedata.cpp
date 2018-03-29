@@ -163,7 +163,8 @@ QString QcepImageDataBase::possibleFileName(QString extension, int uniqueIndex)
 
   case QcepImageDataBase::DarkData: // No phase
     if (detCnt <= 1) {
-      res = get_FileBase()+str.value(1);
+      res = get_FileBase()
+          + selectField(0,str,IndexFormatItem);
     } else {
       res = get_FileBase()
           + selectField(0,str,IndexFormatItem,DetectorFormatItem)
@@ -176,27 +177,51 @@ QString QcepImageDataBase::possibleFileName(QString extension, int uniqueIndex)
   case QcepImageDataBase::Raw32Data:
     if (detCnt <= 1) {
       if (nPhases <= 1) {
-        res = get_FileBase()
-            + selectField(0,str,IndexFormatItem,NumberFormatItem)
-            + selectField(1,str,IndexFormatItem,NumberFormatItem);
+        if (nImages <= 1) {
+          res = get_FileBase()
+              + selectField(0,str,IndexFormatItem);
+        } else {
+          res = get_FileBase()
+              + selectField(0,str,IndexFormatItem,NumberFormatItem)
+              + selectField(1,str,IndexFormatItem,NumberFormatItem);
+        }
       } else {
-        res = get_FileBase()
-            + selectField(0,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem)
-            + selectField(1,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem)
-            + selectField(2,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem);
+        if (nImages <= 1) {
+          res = get_FileBase()
+              + selectField(0,str,IndexFormatItem,PhaseFormatItem)
+              + selectField(1,str,IndexFormatItem,PhaseFormatItem);
+        } else {
+          res = get_FileBase()
+              + selectField(0,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem)
+              + selectField(1,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem)
+              + selectField(2,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem);
+        }
       }
     } else {
       if (nPhases <= 1) {
-        res = get_FileBase()
-            + selectField(0,str,IndexFormatItem,NumberFormatItem,DetectorFormatItem)
-            + selectField(1,str,IndexFormatItem,NumberFormatItem,DetectorFormatItem)
-            + selectField(2,str,IndexFormatItem,NumberFormatItem,DetectorFormatItem);
+        if (nImages <= 1) {
+          res = get_FileBase()
+              + selectField(0,str,IndexFormatItem,DetectorFormatItem)
+              + selectField(1,str,IndexFormatItem,DetectorFormatItem);
+        } else {
+          res = get_FileBase()
+              + selectField(0,str,IndexFormatItem,NumberFormatItem,DetectorFormatItem)
+              + selectField(1,str,IndexFormatItem,NumberFormatItem,DetectorFormatItem)
+              + selectField(2,str,IndexFormatItem,NumberFormatItem,DetectorFormatItem);
+        }
       } else {
-        res = get_FileBase()
-            + selectField(0,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem,DetectorFormatItem)
-            + selectField(1,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem,DetectorFormatItem)
-            + selectField(2,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem,DetectorFormatItem)
-            + selectField(3,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem,DetectorFormatItem);
+        if (nImages <= 1) {
+          res = get_FileBase()
+              + selectField(0,str,IndexFormatItem,PhaseFormatItem,DetectorFormatItem)
+              + selectField(1,str,IndexFormatItem,PhaseFormatItem,DetectorFormatItem)
+              + selectField(2,str,IndexFormatItem,PhaseFormatItem,DetectorFormatItem);
+        } else {
+          res = get_FileBase()
+              + selectField(0,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem,DetectorFormatItem)
+              + selectField(1,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem,DetectorFormatItem)
+              + selectField(2,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem,DetectorFormatItem)
+              + selectField(3,str,IndexFormatItem,PhaseFormatItem,NumberFormatItem,DetectorFormatItem);
+        }
       }
     }
     break;
