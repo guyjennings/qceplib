@@ -631,20 +631,20 @@ void QcepObject::writeSettings(QSettings *settings)
     settings->beginGroup("properties");
     QcepProperty::writeSettings(this, settings);
     settings->endGroup();
-  }
 
-  settings->beginWriteArray("windowSettings");
+    settings->beginWriteArray("windowSettings");
 
-  for (int i=0; i<m_WindowSettings.count(); i++) {
-    settings->setArrayIndex(i);
-    QcepMainWindowSettingsPtr set = windowSettings(i);
+    for (int i=0; i<m_WindowSettings.count(); i++) {
+      settings->setArrayIndex(i);
+      QcepMainWindowSettingsPtr set = windowSettings(i);
 
-    if (set) {
-      set->writeSettings(settings);
+      if (set) {
+        set->writeSettings(settings);
+      }
     }
-  }
 
-  settings->endArray();
+    settings->endArray();
+  }
 
   m_ChangeCount.fetchAndStoreOrdered(0);
   m_LastChanged.store(NULL);
