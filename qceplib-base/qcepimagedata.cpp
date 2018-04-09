@@ -88,7 +88,7 @@ QcepImageDataBase::QcepImageDataBase(QString name, int width, int height, int si
 
 void QcepImageDataBase::initialize(QcepObjectWPtr parent)
 {
-  inherited::initialize(parent);
+  inherited::initialize(QcepObjectWPtr());
 }
 
 QcepImageDataBase::~QcepImageDataBase()

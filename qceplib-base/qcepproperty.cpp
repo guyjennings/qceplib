@@ -74,7 +74,7 @@ QString QcepProperty::parentName() const
   if (m_Parent) {
     return m_Parent->objectName();
   } else {
-    return QString();
+    return QString("");
   }
 }
 
