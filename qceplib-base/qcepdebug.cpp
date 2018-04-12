@@ -27,6 +27,14 @@ QcepDebugDictionary::QcepDebugDictionary() :
   setMessage(DEBUG_OBJECTBROWSER,  "Object Browser Operations");
   setMessage(DEBUG_DRAGDROP,     "Drag and Drop Operations");
   setMessage(DEBUG_PANEL_SHOW,   "Visualize PE Panel Boundaries");
+  setMessage(DEBUG_CALIBRANT,    "Powder Calibrant Calculations");
+  setMessage(DEBUG_ROI,          "Debug ROI Operations");
+  setMessage(DEBUG_FITTING,      "Curve Fitting");
+  setMessage(DEBUG_NOPARALLEL,   "Serialize Various Algorithms");
+  setMessage(DEBUG_PERFORM,      "Performance Measurement");
+  setMessage(DEBUG_FILES,        "File Operations");
+  setMessage(DEBUG_IMAGES,       "Image Operations");
+  setMessage(DEBUG_EXITWAIT,     "Halt at exit");
 }
 
 qint64 qcepDebug(int cond)

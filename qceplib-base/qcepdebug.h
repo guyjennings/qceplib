@@ -12,6 +12,9 @@ namespace QcepDebug {
   enum QcepDebugFlags {
     DEBUG_NOMESSAGES         = 0,
     DEBUG_APP,
+    DEBUG_FILES,
+    DEBUG_IMAGES,
+    DEBUG_EXITWAIT,
     DEBUG_PROPERTIES,
     DEBUG_DYNPROPS,
     DEBUG_WINDOW,
@@ -30,6 +33,11 @@ namespace QcepDebug {
     DEBUG_OBJECTBROWSER,
     DEBUG_DRAGDROP,
     DEBUG_PANEL_SHOW,
+    DEBUG_CALIBRANT,
+    DEBUG_ROI,
+    DEBUG_FITTING,
+    DEBUG_NOPARALLEL,
+    DEBUG_PERFORM,
     LAST_QCEP_DEBUG
   };
 
