@@ -1244,3 +1244,32 @@ void QcepObject::closeWindows()
     }
   }
 }
+
+#ifndef QT_NO_DEBUG
+
+bool QcepObject::guiThreadCheck(QObject *obj, const char *file, int line)
+{
+  bool res = true;
+
+  if(!(qApp && qApp ->thread() == QThread::currentThread())) {
+    printf("Called from non-GUI thread, file %s, line %d\n", file, line);
+    res = false;
+  }
+
+  return res;
+}
+
+bool QcepObject::threadCheck(QObject *obj, const char *file, int line)
+{
+  bool res = true;
+
+  if (obj && !(QThread::currentThread() == obj->thread())) {
+    printf("Called from wrong thread, file %s, line %d\n", file, line);
+    res = false;
+  }
+
+  return res;
+}
+
+#endif
+

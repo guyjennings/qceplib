@@ -32,6 +32,9 @@ public:
 
 #ifndef QT_NO_DEBUG
   static QSet<QcepObject*> allocatedObjectsSet();
+
+  static bool guiThreadCheck(QObject* obj, const char *file, int line);
+  static bool threadCheck   (QObject* obj, const char *file, int line);
 #endif
 
   void setParentPtr(QcepObjectWPtr parent);
