@@ -4,5 +4,22 @@
         <file>images/zoom-all.png</file>
         <file>images/zoom-in.png</file>
         <file>images/zoom-out.png</file>
+        <file>images/histogram.png</file>
+        <file>images/list-add.png</file>
+        <file>images/list-remove.png</file>
+        <file>images/lock-16x16.png</file>
+        <file>images/mask_circles_invert.png</file>
+        <file>images/mask_circles.png</file>
+        <file>images/mask_polygon_invert.png</file>
+        <file>images/mask_polygon.png</file>
+        <file>images/mask_rectangles_invert.png</file>
+        <file>images/mask_rectangles.png</file>
+        <file>images/powder_point_ring.png</file>
+        <file>images/powder_point.png</file>
+        <file>images/powder_trace_ring.png</file>
+        <file>images/preferences.png</file>
+        <file>images/print.png</file>
+        <file>images/ringfinder.png</file>
+        <file>images/slice.png</file>
     </qresource>
 </RCC>
