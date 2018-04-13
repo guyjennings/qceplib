@@ -1,0 +1,8 @@
+#ifndef QCEPSIMPLESERVERSETTINGSPTR_H
+#define QCEPSIMPLESERVERSETTINGSPTR_H
+
+#include "qcepsharedpointer.h"
+
+QCEP_SHAREDPOINTER(QcepSimpleServerSettings)
+
+#endif // QCEPSIMPLESERVERSETTINGSPTR_H

@@ -22,15 +22,18 @@
   'SPEC' data acquisition program.
   */
 
-class QCEP_EXPORT QSpecServer : public QTcpServer
+class QCEP_EXPORT QcepSpecServer : public QTcpServer
 {
   Q_OBJECT
 
+private:
+  typedef QTcpServer inherited;
+
 public:
-  QSpecServer(QString name);
+  QcepSpecServer(QString name);
   void initialize(QcepObjectWPtr owner);
 
-  virtual ~QSpecServer();
+  virtual ~QcepSpecServer();
 
 public:
   void startServer(QHostAddress a, int pmin=-1, int pmax=-1);
