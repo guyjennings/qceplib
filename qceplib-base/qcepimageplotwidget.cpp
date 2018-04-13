@@ -63,7 +63,7 @@ void QcepImagePlotWidget::initialize(QcepImagePlotWidgetSettingsWPtr settings)
   addPlotCommand(QcepPlotCommandPtr(new QcepSliceCommand(this, settings)));
   addPlotCommand(QcepPlotCommandPtr(new QcepMeasureCommand(this, settings)));
   addPlotCommand(QcepPlotCommandPtr(new QcepHistogramCommand(this, settings)));
-  addPlotCommandSpacer();
+//  addPlotCommandSpacer();
 
   addPlotCommand(QcepPlotCommandPtr(new QcepScalingSubmenuCommand(this, settings)));
   addPlotCommand(QcepPlotCommandPtr(new QcepColorMapSubmenuCommand("Display", this, settings)));
