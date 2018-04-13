@@ -16,3 +16,19 @@ QcepPlotWidgetSettings::QcepPlotWidgetSettings(QString name)
     m_YMouse        (this,"yMouse",0, "Y Position of Mouse")
 {
 }
+
+QcepPlotWidgetSettingsWPtr QcepPlotWidgetSettings::findPlotWidgetSettings(QcepObjectWPtr p)
+{
+  QcepPlotWidgetSettingsWPtr res =
+      qSharedPointerDynamicCast<QcepPlotWidgetSettings>(p);
+
+  if (res == NULL) {
+    QcepObjectPtr objp(p);
+
+    if (objp) {
+      res = findPlotWidgetSettings(objp->parentPtr());
+    }
+  }
+
+  return res;
+}
