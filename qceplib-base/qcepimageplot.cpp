@@ -21,7 +21,7 @@
 
 QcepImagePlot::QcepImagePlot(QWidget *parent)
   : QcepPlot(parent),
-    m_ObjectNamer(this, "imageGraph"),
+    m_ObjectNamer(this, "imagePlot"),
     m_ImagePlotSettings(),
     m_Data(NULL),
     m_Mask(NULL),
