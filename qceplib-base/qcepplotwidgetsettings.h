@@ -5,6 +5,7 @@
 #include "qcepmacros.h"
 #include "qcepobject.h"
 #include "qcepproperty.h"
+#include "qcepplotwidgetsettings-ptr.h"
 
 //TODO: implement mouse tracking
 class QCEP_EXPORT QcepPlotWidgetSettings : public QcepObject
@@ -13,6 +14,8 @@ class QCEP_EXPORT QcepPlotWidgetSettings : public QcepObject
 
 public:
   Q_INVOKABLE QcepPlotWidgetSettings(QString name);
+
+  static QcepPlotWidgetSettingsWPtr findPlotWidgetSettings(QcepObjectWPtr parent);
 
 public:
   Q_PROPERTY(int  legendPosition READ get_LegendPosition WRITE set_LegendPosition)

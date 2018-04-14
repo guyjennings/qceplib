@@ -1,8 +1,8 @@
 #include <QTcpSocket>
-#include "qspecremote.h"
+#include "qcepspecremote.h"
 #include "spec_server.h"
 
-QSpecRemote::QSpecRemote(QObject *parent, const char *name)
+QcepSpecRemote::QcepSpecRemote(QObject *parent, const char *name)
   : QObject(parent), 
     m_SerialNumber(0),
     m_ExpectHeader(true),
@@ -13,43 +13,43 @@ QSpecRemote::QSpecRemote(QObject *parent, const char *name)
   init();
 }
 
-void QSpecRemote::init()
+void QcepSpecRemote::init()
 {
   m_SpecSocket = new QTcpSocket(this);
   m_Packet     = new svr_head;
 
-  connect(m_SpecSocket, &QAbstractSocket::hostFound, this, &QSpecRemote::hostFound);
-  connect(m_SpecSocket, &QAbstractSocket::connected, this, &QSpecRemote::connected);
-  connect(m_SpecSocket, &QAbstractSocket::disconnected, this, &QSpecRemote::disconnected);
+  connect(m_SpecSocket, &QAbstractSocket::hostFound, this, &QcepSpecRemote::hostFound);
+  connect(m_SpecSocket, &QAbstractSocket::connected, this, &QcepSpecRemote::connected);
+  connect(m_SpecSocket, &QAbstractSocket::disconnected, this, &QcepSpecRemote::disconnected);
 
   connectReadyRead();
 //  connect(m_SpecSocket, &QIODevice::bytesWritten, this, &QSpecRemote::bytesWritten);
 //  connect(m_SpecSocket, &QAbstractSocket::error,  this, &QSpecRemote::error);
 }
 
-void QSpecRemote::connectReadyRead()
+void QcepSpecRemote::connectReadyRead()
 {
-  connect(m_SpecSocket, &QIODevice::readyRead, this, &QSpecRemote::readyRead);
+  connect(m_SpecSocket, &QIODevice::readyRead, this, &QcepSpecRemote::readyRead);
 }
 
-void QSpecRemote::disconnectReadyRead()
+void QcepSpecRemote::disconnectReadyRead()
 {
-  disconnect(m_SpecSocket, &QIODevice::readyRead, this, &QSpecRemote::readyRead);
+  disconnect(m_SpecSocket, &QIODevice::readyRead, this, &QcepSpecRemote::readyRead);
 }
 
-int QSpecRemote::close()
+int QcepSpecRemote::close()
 {
   m_SpecSocket -> close();
 
   return 0;
 }
 
-int QSpecRemote::abort()
+int QcepSpecRemote::abort()
 {
   return 0;
 }
 
-int QSpecRemote::connectToHost (const QString &host, const QString &portname)
+int QcepSpecRemote::connectToHost (const QString &host, const QString &portname)
 {
   bool ok;
   int portnum;
@@ -73,7 +73,7 @@ int QSpecRemote::connectToHost (const QString &host, const QString &portname)
   return 0;
 }
 
-QSpecRemote::~QSpecRemote()
+QcepSpecRemote::~QcepSpecRemote()
 {
   abort();
   close();
@@ -82,7 +82,7 @@ QSpecRemote::~QSpecRemote()
   delete m_Packet;
 }
 
-int QSpecRemote::sendHello()
+int QcepSpecRemote::sendHello()
 {
   struct svr_head s = { SV_SPEC_MAGIC, SV_VERSION, sizeof(svr_head),
                         ++m_SerialNumber, 0, 0,
@@ -102,7 +102,7 @@ int QSpecRemote::sendHello()
   return m_SerialNumber;
 }
 
-void QSpecRemote::watchProperty(const QString& prop)
+void QcepSpecRemote::watchProperty(const QString& prop)
 {
   struct svr_head s = { SV_SPEC_MAGIC, SV_VERSION, sizeof(svr_head),
                         ++m_SerialNumber, 0, 0,
@@ -119,7 +119,7 @@ void QSpecRemote::watchProperty(const QString& prop)
   }
 }
 
-QVariant QSpecRemote::getProperty(const QString &prop)
+QVariant QcepSpecRemote::getProperty(const QString &prop)
 {
   disconnectReadyRead();
 
@@ -144,7 +144,7 @@ QVariant QSpecRemote::getProperty(const QString &prop)
   return res;
 }
 
-void QSpecRemote::watchMotor(const QString &motor)
+void QcepSpecRemote::watchMotor(const QString &motor)
 {
   watchProperty("motor/"+motor+"/position");
   watchProperty("motor/"+motor+"/dial_position");
@@ -158,7 +158,7 @@ void QSpecRemote::watchMotor(const QString &motor)
   watchProperty("motor/"+motor+"/low_limit");
 }
 
-void QSpecRemote::setProperty(const QString &prop, const QVariant &value)
+void QcepSpecRemote::setProperty(const QString &prop, const QVariant &value)
 {
   QString val = value.toString();
 
@@ -186,7 +186,7 @@ void QSpecRemote::setProperty(const QString &prop, const QVariant &value)
   }
 }
 
-void QSpecRemote::sendCmd(const QString &cmd)
+void QcepSpecRemote::sendCmd(const QString &cmd)
 {
   quint64 extraLen=cmd.length()+1;
 
@@ -211,7 +211,7 @@ void QSpecRemote::sendCmd(const QString &cmd)
   }
 }
 
-QVariant QSpecRemote::sendCmdReply(const QString &cmd)
+QVariant QcepSpecRemote::sendCmdReply(const QString &cmd)
 {
   disconnectReadyRead();
 
@@ -244,22 +244,22 @@ QVariant QSpecRemote::sendCmdReply(const QString &cmd)
   return res;
 }
 
-void QSpecRemote::hostFound()
+void QcepSpecRemote::hostFound()
 {
   emit socketStateChanged(1);
 }
 
-void QSpecRemote::connected()
+void QcepSpecRemote::connected()
 {
   emit socketStateChanged(2);
 }
 
-void QSpecRemote::disconnected()
+void QcepSpecRemote::disconnected()
 {
   emit socketStateChanged(3);
 }
 
-QVariant QSpecRemote::getReturnValue()
+QVariant QcepSpecRemote::getReturnValue()
 {
   emit statusMessage(tr("QSpecRemote::getReturnValue(), %1 bytes available").arg(m_SpecSocket->bytesAvailable()));
 
@@ -381,11 +381,11 @@ QVariant QSpecRemote::getReturnValue()
   return QVariant();
 }
 
-void QSpecRemote::dispatchPacket()
+void QcepSpecRemote::dispatchPacket()
 {
 }
 
-void QSpecRemote::readyRead()
+void QcepSpecRemote::readyRead()
 {
   emit statusMessage(tr("QSpecRemote::readyRead(), %1 bytes available").arg(m_SpecSocket->bytesAvailable()));
 
@@ -523,12 +523,12 @@ void QSpecRemote::readyRead()
   emit socketStateChanged(5);
 }
 
-void QSpecRemote::bytesWritten( qint64  )
+void QcepSpecRemote::bytesWritten( qint64  )
 {
   emit socketStateChanged(6);
 }
 
-void QSpecRemote::error( QAbstractSocket::SocketError )
+void QcepSpecRemote::error( QAbstractSocket::SocketError )
 {
   emit socketStateChanged(-1);
 }

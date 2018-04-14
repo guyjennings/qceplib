@@ -10,8 +10,12 @@ class QCEP_EXPORT QcepScriptEngine : public QScriptEngine
 {
   Q_OBJECT
 
+private:
+  typedef QScriptEngine inherited;
+
 public:
   QcepScriptEngine(QString name);
+  void initialize(QcepObjectWPtr parent);
 
 public slots:
   QString documentationLink(QString base, QString subItem);

@@ -3,10 +3,21 @@ message(qceplib-specserver PWD = $${PWD} QCEPLIB_SPECSERVER_VERSION = $${QCEPLIB
 include(qceplib-specserver-include-$${QCEPLIB_SPECSERVER_VERSION}.pri)
 
 SOURCES += \
-  $${PWD}/qspecserver.cpp \
-  $${PWD}/qspecremote.cpp
+  $${PWD}/qcepspecserver.cpp \
+  $${PWD}/qcepspecremote.cpp \
+    $$PWD/qcepsimpleserver.cpp \
+    $$PWD/qcepspecserversettings.cpp \
+    $$PWD/qcepsimpleserversettings.cpp
 
 HEADERS += \
-  $${PWD}/qspecserver.h \
-  $${PWD}/qspecremote.h \
-  $${PWD}/spec_server.h
+  $${PWD}/qcepspecserver.h \
+  $${PWD}/qcepspecremote.h \
+  $${PWD}/spec_server.h \
+    $$PWD/qcepsimpleserver.h \
+    $$PWD/qcepsimpleserver-ptr.h \
+    $$PWD/qcepspecremote-ptr.h \
+    $$PWD/qcepspecserver-ptr.h \
+    $$PWD/qcepspecserversettings.h \
+    $$PWD/qcepspecserversettings-ptr.h \
+    $$PWD/qcepsimpleserversettings.h \
+    $$PWD/qcepsimpleserversettings-ptr.h

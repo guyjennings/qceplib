@@ -8,8 +8,16 @@
 #include <QPointF>
 #include <QRectF>
 
-#define GUI_THREAD_CHECK Q_ASSERT(qApp && qApp ->thread() == QThread::currentThread())
-#define THREAD_CHECK     Q_ASSERT(QThread::currentThread() == thread())
+//#define GUI_THREAD_CHECK Q_ASSERT(qApp && qApp ->thread() == QThread::currentThread())
+//#define THREAD_CHECK     Q_ASSERT(QThread::currentThread() == thread())
+
+#ifdef QT_NO_DEBUG
+#  define GUI_THREAD_CHECK ((void) 0)
+#  define THREAD_CHECK     ((void) 0)
+#else
+#  define GUI_THREAD_CHECK QcepObject::guiThreadCheck(this, __FILE__, __LINE__)
+#  define THREAD_CHECK     QcepObject::threadCheck(this, __FILE__, __LINE__)
+#endif
 
 #define INVOKE_CHECK(res) if(!res) { printf("Invoke failed File %s, Line %d\n", __FILE__, __LINE__); }
 #define CONNECT_CHECK(res) if(!res) { printf("Connect failed File %s, Line %d\n", __FILE__, __LINE__); }

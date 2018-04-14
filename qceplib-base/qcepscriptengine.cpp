@@ -10,6 +10,10 @@ QcepScriptEngine::QcepScriptEngine(QString name) :
   setObjectName(name);
 }
 
+void QcepScriptEngine::initialize(QcepObjectWPtr parent)
+{
+}
+
 QString QcepScriptEngine::documentationLink(QString base, QString subItem)
 {
   QString item = base.isEmpty() ? subItem : base+"."+subItem;

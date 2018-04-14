@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "qcepdebug.h"
-#include "qspecserver.h"
+#include "qcepspecserver.h"
 //#include "qxrdserverthread.h"
 #include <QTcpSocket>
 #include <QTextStream>
@@ -13,7 +13,7 @@
 #include "qcepexperiment.h"
 #include "qcepobject.h"
 
-QSpecServer::QSpecServer(QString name)
+QcepSpecServer::QcepSpecServer(QString name)
   : QTcpServer(NULL),
     m_Owner(),
     m_ServerName(name),
@@ -26,21 +26,21 @@ QSpecServer::QSpecServer(QString name)
   init_svr_head(&m_Packet);
   init_svr_head(&m_Reply);
 
-  connect(this, &QTcpServer::newConnection, this, &QSpecServer::openNewConnection);
+  connect(this, &QTcpServer::newConnection, this, &QcepSpecServer::openNewConnection);
 }
 
-void QSpecServer::initialize(QcepObjectWPtr owner)
+void QcepSpecServer::initialize(QcepObjectWPtr owner)
 {
   m_Owner = owner;
 }
 
-QSpecServer::~QSpecServer()
+QcepSpecServer::~QcepSpecServer()
 {
 //  stopServer();
 }
 
 void
-QSpecServer::startServer(QHostAddress a, int pmin, int pmax)
+QcepSpecServer::startServer(QHostAddress a, int pmin, int pmax)
 {
   setMaxPendingConnections(1);
 
@@ -88,7 +88,7 @@ QSpecServer::startServer(QHostAddress a, int pmin, int pmax)
 }
 
 void
-QSpecServer::stopServer()
+QcepSpecServer::stopServer()
 {
   if (isListening()) {
     close();
@@ -96,13 +96,13 @@ QSpecServer::stopServer()
 }
 
 int
-QSpecServer::port()
+QcepSpecServer::port()
 {
   return m_Port;
 }
 
 void
-QSpecServer::reportServerAddress()
+QcepSpecServer::reportServerAddress()
 {
   if (m_Port >= 0) {
     QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
@@ -133,7 +133,7 @@ QSpecServer::reportServerAddress()
 }
 
 void
-QSpecServer::printMessage(QString msg, QDateTime ts)
+QcepSpecServer::printMessage(QString msg, QDateTime ts)
 {
   QcepObjectPtr owner(m_Owner);
 
@@ -150,7 +150,7 @@ QSpecServer::printMessage(QString msg, QDateTime ts)
   */
 
 void
-QSpecServer::openNewConnection()
+QcepSpecServer::openNewConnection()
 {
   m_Socket = nextPendingConnection();
 
@@ -164,7 +164,7 @@ QSpecServer::openNewConnection()
     printMessage(tr("LowDelayOption = %1").arg(m_Socket->socketOption(QAbstractSocket::LowDelayOption).toString()));
   }
 
-  connect(m_Socket, &QIODevice::readyRead, this, &QSpecServer::clientRead);
+  connect(m_Socket, &QIODevice::readyRead, this, &QcepSpecServer::clientRead);
 
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(QString("New connection from %1")
@@ -173,7 +173,7 @@ QSpecServer::openNewConnection()
 }
 
 void
-QSpecServer::connectionClosed()
+QcepSpecServer::connectionClosed()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage("Client closed connection");
@@ -181,7 +181,7 @@ QSpecServer::connectionClosed()
 }
 
 void
-QSpecServer::clientRead()
+QcepSpecServer::clientRead()
 {
   if (m_ReplyHeadSent != 0) {
     printMessage(tr("QSpecServer::clientRead, m_ReplyHeadSent != 0"));
@@ -210,7 +210,7 @@ QSpecServer::clientRead()
 }
 
 int
-QSpecServer::readPacketData()
+QcepSpecServer::readPacketData()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("QSpecServer::readPacketData start"));
@@ -279,7 +279,7 @@ QSpecServer::readPacketData()
   */
 
 int
-QSpecServer::interpretPacket()
+QcepSpecServer::interpretPacket()
 {
 
   if (qcepDebug(DEBUG_SERVER)) {
@@ -365,7 +365,7 @@ QSpecServer::interpretPacket()
   */
 
 void
-QSpecServer::initReplyPacket()
+QcepSpecServer::initReplyPacket()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("QSpecServer::initReplyPacket"));
@@ -406,7 +406,7 @@ QSpecServer::initReplyPacket()
 #define HEAD_SIZE sizeof(m_Reply.magic)
 
 void
-QSpecServer::sendReplyPacketHead()
+QcepSpecServer::sendReplyPacketHead()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("QSpecServer::sendReplyPacketHead start"));
@@ -427,7 +427,7 @@ QSpecServer::sendReplyPacketHead()
   */
 
 void
-QSpecServer::sendReplyPacketTail()
+QcepSpecServer::sendReplyPacketTail()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("QSpecServer::sendReplyPacketTail start"));
@@ -449,7 +449,7 @@ QSpecServer::sendReplyPacketTail()
   */
 
 qint32
-QSpecServer::swapInt32(qint32 val)
+QcepSpecServer::swapInt32(qint32 val)
 {
   union {
     qint32 res;
@@ -467,7 +467,7 @@ QSpecServer::swapInt32(qint32 val)
 }
 
 quint32
-QSpecServer::swapUInt32(quint32 val)
+QcepSpecServer::swapUInt32(quint32 val)
 {
   union {
     quint32 res;
@@ -489,7 +489,7 @@ QSpecServer::swapUInt32(quint32 val)
   on the byte order of the received packet
   */
 
-qint32 QSpecServer::condSwapInt32(qint32 val)
+qint32 QcepSpecServer::condSwapInt32(qint32 val)
 {
   if (m_SwapBytes) {
     return swapInt32(val);
@@ -498,7 +498,7 @@ qint32 QSpecServer::condSwapInt32(qint32 val)
   }
 }
 
-quint32 QSpecServer::condSwapUInt32(quint32 val)
+quint32 QcepSpecServer::condSwapUInt32(quint32 val)
 {
   if (m_SwapBytes) {
     return swapUInt32(val);
@@ -507,14 +507,14 @@ quint32 QSpecServer::condSwapUInt32(quint32 val)
   }
 }
 
-void QSpecServer::handle_abort()
+void QcepSpecServer::handle_abort()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("SV_ABORT"));
   }
 }
 
-void QSpecServer::handle_cmd()
+void QcepSpecServer::handle_cmd()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("SV_CMD: %1").arg(QString(m_Data)));
@@ -523,7 +523,7 @@ void QSpecServer::handle_cmd()
   emit executeCommand(QString(m_Data));
 }
 
-void QSpecServer::handle_cmd_return()
+void QcepSpecServer::handle_cmd_return()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("SV_CMD_WITH_RETURN: %1").arg(QString(m_Data)));
@@ -532,7 +532,7 @@ void QSpecServer::handle_cmd_return()
   emit executeCommand(QString(m_Data));
 }
 
-void QSpecServer::finishedCommand(QScriptValue result)
+void QcepSpecServer::finishedCommand(QScriptValue result)
 {
   if (result.isError()) {
     replyFromError(result);
@@ -541,7 +541,7 @@ void QSpecServer::finishedCommand(QScriptValue result)
   }
 }
 
-void QSpecServer::handle_register()
+void QcepSpecServer::handle_register()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("SV_REGISTER: %1").arg(m_Packet.name));
@@ -558,21 +558,21 @@ void QSpecServer::handle_register()
   sendReplyPacketTail();
 }
 
-void QSpecServer::handle_unregister()
+void QcepSpecServer::handle_unregister()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("SV_UNREGISTER: %1").arg(m_Packet.name));
   }
 }
 
-void QSpecServer::handle_func()
+void QcepSpecServer::handle_func()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("SV_FUNC: %1").arg(m_Packet.name));
   }
 }
 
-void QSpecServer::handle_func_return()
+void QcepSpecServer::handle_func_return()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("SV_FUNC_WITH_RETURN: %1").arg(m_Packet.name));
@@ -589,7 +589,7 @@ void QSpecServer::handle_func_return()
   sendReplyPacketTail();
 }
 
-void QSpecServer::handle_read()
+void QcepSpecServer::handle_read()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("SV_CHAN_READ: %1").arg(m_Packet.name));
@@ -600,14 +600,14 @@ void QSpecServer::handle_read()
   replyFromVariant(res);
 }
 
-void QSpecServer::handle_send()
+void QcepSpecServer::handle_send()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("SV_CHAN_SEND: %1").arg(m_Packet.name));
   }
 }
 
-void QSpecServer::handle_hello()
+void QcepSpecServer::handle_hello()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("SV_HELLO: %1").arg(m_Packet.name));
@@ -625,7 +625,7 @@ void QSpecServer::handle_hello()
   sendReplyPacketTail();
 }
 
-void QSpecServer::replyFromVariant(QVariant value)
+void QcepSpecServer::replyFromVariant(QVariant value)
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("replyFromVariant(%1)").arg(value.typeName()));
@@ -775,7 +775,7 @@ void QSpecServer::replyFromVariant(QVariant value)
   sendReplyPacketTail();
 }
 
-void QSpecServer::replyFromError(QScriptValue value)
+void QcepSpecServer::replyFromError(QScriptValue value)
 {
 //  printf("Reply from error\n");
 
@@ -799,12 +799,12 @@ void QSpecServer::replyFromError(QScriptValue value)
   sendReplyPacketTail();
 }
 
-QVariant QSpecServer::readProperty(QString /*name*/)
+QVariant QcepSpecServer::readProperty(QString /*name*/)
 {
   return QVariant();
 }
 
-void QSpecServer::init_svr_head(svr_head *h)
+void QcepSpecServer::init_svr_head(svr_head *h)
 {
   if (h) {
     h->magic = SV_SPEC_MAGIC;

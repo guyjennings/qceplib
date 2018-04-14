@@ -9,13 +9,15 @@
 
 struct svr_head;
 
-class QCEP_EXPORT QSpecRemote : public QObject
+//TODO: add an 'initialize' method
+
+class QCEP_EXPORT QcepSpecRemote : public QObject
 {
   Q_OBJECT
 
 public:
-  QSpecRemote(QObject *parent=NULL, const char *name=0);
-  virtual ~QSpecRemote();
+  QcepSpecRemote(QObject *parent=NULL, const char *name=0);
+  virtual ~QcepSpecRemote();
   int close();
   int abort();
 
