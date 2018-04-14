@@ -2,6 +2,8 @@
 #include "qcepobjecttreewindow.h"
 #include <QThread>
 #include <QApplication>
+#include <QMessageBox>
+#include "qcepdataobject.h"
 
 QcepApplication *g_Application = NULL;
 
@@ -26,6 +28,15 @@ QcepApplication::QcepApplication(int &argc, char **argv) :
 void QcepApplication::initializeRoot()
 {
   inherited::initializeRoot();
+}
+
+void QcepApplication::setDefaultObjectData(QcepDataObject *obj)
+{
+  if (obj) {
+    obj->set_Creator(applicationName());
+    obj->set_Version(applicationVersion());
+    obj->set_QtVersion(qVersion());
+  }
 }
 
 QcepApplicationWPtr QcepApplication::findApplication(QcepObjectWPtr p)
@@ -76,19 +87,35 @@ void QcepApplication::quit()
   }
 }
 
+void QcepApplication::shutdownDocuments()
+{
+  printf("QcepApplication::shutdownDocuments\n");
+}
+
+void QcepApplication::possiblyQuit()
+{
+  if (wantToQuit()) {
+    shutdownDocuments();
+    quit();
+  }
+}
+
+bool QcepApplication::wantToQuit()
+{
+  return QMessageBox::question(NULL, tr("Really Quit?"),
+                               tr("Do you really want to exit the application?"),
+                               QMessageBox::Ok | QMessageBox::Cancel) == QMessageBox::Ok;
+}
+
 void QcepApplication::openObjectBrowserWindow(QcepObjectWPtr obj)
 {
-  if (QThread::currentThread() != thread()) {
-    INVOKE_CHECK(QMetaObject::invokeMethod(this,
-                                           "openObjectBrowserWindow",
-                                           Q_ARG(QcepObjectWPtr, obj)));
-  } else {
-    QcepObjectTreeWindow *w =
-        new QcepObjectTreeWindow(NULL, obj);
+  GUI_THREAD_CHECK;
 
-    w->show();
-    w->raise();
-  }
+  QcepObjectTreeWindow *w =
+      new QcepObjectTreeWindow(NULL, obj);
+
+  w->show();
+  w->raise();
 }
 
 QStringList QcepApplication::makeStringListFromArgs(int argc, char **argv)

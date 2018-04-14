@@ -24,12 +24,15 @@ public:
 
   static QcepApplicationWPtr findApplication(QcepObjectWPtr p);
 
-  virtual void setDefaultObjectData(QcepDataObject *obj) = 0;
+  virtual void setDefaultObjectData(QcepDataObject *obj);
 
   int exec();
   void processEvents() const;
   void exit();
   void quit();
+  void possiblyQuit();
+  virtual void shutdownDocuments();
+  bool wantToQuit();
 
   virtual void openStartupWindow() = 0;
   virtual void closeStartupWindow() = 0;
@@ -49,7 +52,6 @@ public:
   virtual void readApplicationSettings() = 0;
   virtual void writeApplicationSettings() = 0;
 
-  virtual void possiblyQuit() = 0;
 
   virtual QcepExperimentPtr experiment(int i) const = 0;
 
