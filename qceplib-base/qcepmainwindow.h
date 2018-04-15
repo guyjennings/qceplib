@@ -33,10 +33,10 @@ public:
 
   virtual void setupMenus(QMenu *file, QMenu *edit, QMenu *window);
 
-  virtual void saveExperiment() = 0;
-  virtual void saveExperimentCopy() = 0;
-  virtual void saveExperimentAs() = 0;
-  virtual void doEditPreferences() = 0;
+  virtual void saveExperiment();
+  virtual void saveExperimentCopy();
+  virtual void saveExperimentAs();
+  virtual void doEditPreferences();
 
   void closeEvent(QCloseEvent *event);
 

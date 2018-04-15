@@ -4,17 +4,17 @@
 #ifdef HAVE_DATAVIS
 
 #include "qceplib_global.h"
-#include "qcepdataobjectwindow.h"
+#include "qcepmainwindow.h"
 #include "ui_qcepdataobjectsurfaceplotwindow.h"
 #include "qcepexperiment-ptr.h"
 #include "qcepimagedata-ptr.h"
 
-class QCEP_EXPORT QcepDataObjectSurfacePlotWindow : public QcepDataObjectWindow, public Ui::QcepDataObjectSurfacePlotWindow
+class QCEP_EXPORT QcepDataObjectSurfacePlotWindow : public QcepMainWindow, public Ui::QcepDataObjectSurfacePlotWindow
 {
   Q_OBJECT
 
 private:
-  typedef QcepDataObjectWindow inherited;
+  typedef QcepMainWindow inherited;
 
 public:
   explicit QcepDataObjectSurfacePlotWindow(

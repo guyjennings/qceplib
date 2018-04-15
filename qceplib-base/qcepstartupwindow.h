@@ -1,26 +1,25 @@
-#ifndef QXRDSTARTUPWINDOW_H
-#define QXRDSTARTUPWINDOW_H
+#ifndef QCEPSTARTUPWINDOW_H
+#define QCEPSTARTUPWINDOW_H
 
 #include "qcepmacros.h"
-#include "qxrdmainwindow.h"
-#include "ui_qxrdstartupwindow.h"
+#include "qcepmainwindow.h"
+#include "ui_qcepstartupwindow.h"
 #include <QDateTime>
-#include "qxrdappcommon-ptr.h"
-#include "qxrdstartupwindowsettings-ptr.h"
+#include "qcepstartupwindowsettings-ptr.h"
 
-class QXRD_EXPORT QxrdStartupWindow :
-    public QxrdMainWindow,
-    public Ui::QxrdStartupWindow
+class QCEP_EXPORT QcepStartupWindow :
+    public QcepMainWindow,
+    public Ui::QcepStartupWindow
 {
   Q_OBJECT
 
 private:
-  typedef QxrdMainWindow inherited;
+  typedef QcepMainWindow inherited;
 
 public:
-  explicit QxrdStartupWindow(QString name);
+  explicit QcepStartupWindow(QString name);
   void initialize(QcepObjectWPtr parent);
-  ~QxrdStartupWindow();
+  ~QcepStartupWindow();
 
   void setApplicationIcon        (QIcon     icon);
   void setApplicationDescription (QString   desc);
@@ -38,4 +37,4 @@ private:
   QDateTime                     m_LastDateTime;
 };
 
-#endif // QXRDSTARTUPWINDOW_H
+#endif // QCEPSTARTUPWINDOW_H

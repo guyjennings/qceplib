@@ -57,16 +57,16 @@ namespace QcepDebug {
 
     QString message(int val) const;
 
+    virtual int     debugFlagCount();
+
+    virtual QString debugFlagName(int i);
+    virtual int     debugFlagCheck(QString name);
+
   protected:
     void setMessage(int val, QString msg);
 
-    static int     debugFlagCount();
-
-    static QString debugFlagName(int i);
-    static QString debugFlagNameFrom(const QMetaObject &meta, int i);
-
-    static int     debugFlagCheck(QString name);
-    static int     debugFlagCheckFrom(const QMetaObject &meta, QString f);
+    QString debugFlagNameFrom(const QMetaObject *meta, int i);
+    int     debugFlagCheckFrom(const QMetaObject *meta, QString f);
 
   private:
     qint64             m_DebugLevel;

@@ -756,6 +756,22 @@ void QcepMainWindow::moveEvent(QMoveEvent *event)
   }
 }
 
+void QcepMainWindow::saveExperiment()
+{
+}
+
+void QcepMainWindow::saveExperimentAs()
+{
+}
+
+void QcepMainWindow::saveExperimentCopy()
+{
+}
+
+void QcepMainWindow::doEditPreferences()
+{
+}
+
 //void QcepMainWindow::setFontSize(int fontSize)
 //{
 //  INIT_CHECK;

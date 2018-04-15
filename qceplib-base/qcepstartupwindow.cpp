@@ -1,17 +1,17 @@
-#include "qxrdstartupwindow.h"
+#include "qcepstartupwindow.h"
 #include <QDateTime>
 #include <QStyle>
 #include <QDesktopWidget>
-#include "qxrdstartupwindowsettings.h"
+#include "qcepstartupwindowsettings.h"
 #include <QThread>
-#include "qxrdappcommon.h"
+#include "qcepapplication.h".h"
 
-QxrdStartupWindow::QxrdStartupWindow(QString name) :
+QcepStartupWindow::QcepStartupWindow(QString name) :
   inherited(name)
 {
 }
 
-void QxrdStartupWindow::initialize(QcepObjectWPtr parent)
+void QcepStartupWindow::initialize(QcepObjectWPtr parent)
 {
   GUI_THREAD_CHECK;
 
@@ -31,8 +31,8 @@ void QxrdStartupWindow::initialize(QcepObjectWPtr parent)
     gl -> setColumnStretch(1, 1);
   }
 
-  QxrdStartupWindowSettingsPtr s(
-        qSharedPointerDynamicCast<QxrdStartupWindowSettings>(m_Parent));
+  QcepStartupWindowSettingsPtr s(
+        qSharedPointerDynamicCast<QcepStartupWindowSettings>(m_Parent));
 
   if (s) {
     QSizeF sz = s->get_WindowRect().size();
@@ -52,32 +52,32 @@ void QxrdStartupWindow::initialize(QcepObjectWPtr parent)
         )
     );
 
-    QxrdAppCommonPtr a(QxrdAppCommon::findApplication(m_Parent));
+    QcepApplicationPtr a(QcepApplication::findApplication(m_Parent));
 
     if (a) {
       connect(a->prop_MessageWindowLines(), &QcepIntProperty::valueChanged,
-              this, &QxrdStartupWindow::onMessageWindowLinesChanged);
+              this, &QcepStartupWindow::onMessageWindowLinesChanged);
 
       onMessageWindowLinesChanged(a->get_MessageWindowLines());
     }
   }
 }
 
-QxrdStartupWindow::~QxrdStartupWindow()
+QcepStartupWindow::~QcepStartupWindow()
 {
 }
 
-void QxrdStartupWindow::setApplicationIcon(QIcon icon)
+void QcepStartupWindow::setApplicationIcon(QIcon icon)
 {
   m_Icon -> setPixmap(icon.pixmap(128,128));
 }
 
-void QxrdStartupWindow::setApplicationDescription(QString desc)
+void QcepStartupWindow::setApplicationDescription(QString desc)
 {
   m_Description -> setText(desc);
 }
 
-void QxrdStartupWindow::appendSplashMessage(QString msg, QDateTime dt)
+void QcepStartupWindow::appendSplashMessage(QString msg, QDateTime dt)
 {
   GUI_THREAD_CHECK;
 
@@ -87,7 +87,7 @@ void QxrdStartupWindow::appendSplashMessage(QString msg, QDateTime dt)
   raise();
 }
 
-void QxrdStartupWindow::appendMessage(QString msg,
+void QcepStartupWindow::appendMessage(QString msg,
                                       QString color,
                                       QDateTime dt)
 {
@@ -125,7 +125,7 @@ void QxrdStartupWindow::appendMessage(QString msg,
 //  }
 }
 
-void QxrdStartupWindow::onMessageWindowLinesChanged(int newVal)
+void QcepStartupWindow::onMessageWindowLinesChanged(int newVal)
 {
   appendMessage(tr("Message lines set to %1").arg(newVal), "green");
 

@@ -5,19 +5,19 @@
 #include <QObject>
 #include <QWidget>
 #include "ui_qcepdataobjectgraphwindow.h"
-#include "qcepdataobjectwindow.h"
+#include "qcepmainwindow.h"
 #include "qcepexperiment-ptr.h"
 #include "qcepdataobject-ptr.h"
 #include "qcepdataobjectgraphcontroller-ptr.h"
 #include "qcepproperty.h"
 #include "qwt_plot_curve.h"
 
-class QCEP_EXPORT QcepDataObjectGraphWindow : public QcepDataObjectWindow, public Ui::QcepDataObjectGraphWindow
+class QCEP_EXPORT QcepDataObjectGraphWindow : public QcepMainWindow, public Ui::QcepDataObjectGraphWindow
 {
   Q_OBJECT
 
 private:
-  typedef QcepDataObjectWindow inherited;
+  typedef QcepMainWindow inherited;
 
 public:
   explicit QcepDataObjectGraphWindow(

@@ -1,0 +1,8 @@
+#ifndef QCOMMANDLINEOPTIONPTR_H
+#define QCOMMANDLINEOPTIONPTR_H
+
+#include "qcepsharedpointer.h"
+
+QCEP_SHAREDPOINTER(QCommandLineOption)
+
+#endif // QCOMMANDLINEOPTIONPTR_H

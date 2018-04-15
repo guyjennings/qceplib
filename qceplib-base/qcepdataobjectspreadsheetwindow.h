@@ -5,17 +5,17 @@
 #include <QObject>
 #include <QWidget>
 #include "ui_qcepdataobjectspreadsheetwindow.h"
-#include "qcepdataobjectwindow.h"
+#include "qcepmainwindow.h"
 #include "qcepexperiment-ptr.h"
 #include "qcepdataobject-ptr.h"
 #include "qcepspreadsheetmodel.h"
 
-class QCEP_EXPORT QcepDataObjectSpreadsheetWindow : public QcepDataObjectWindow, public Ui::QcepDataObjectSpreadsheetWindow
+class QCEP_EXPORT QcepDataObjectSpreadsheetWindow : public QcepMainWindow, public Ui::QcepDataObjectSpreadsheetWindow
 {
   Q_OBJECT
 
 private:
-  typedef QcepDataObjectWindow inherited;
+  typedef QcepMainWindow inherited;
 
 public:
   explicit QcepDataObjectSpreadsheetWindow(

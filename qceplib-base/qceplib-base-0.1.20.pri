@@ -70,7 +70,6 @@ SOURCES += \
   $$PWD/qcepdataobjectpropertieswindow.cpp \
   $$PWD/qcepdataobjectspreadsheetwindow.cpp \
   $$PWD/qcepscriptengine.cpp \
-  $$PWD/qcepdataobjectwindow.cpp \
   $$PWD/qcepmainwindow.cpp \
   $$PWD/qcepscatterplotgraphmodel.cpp \
   $$PWD/qcepdatasetselectiondialog.cpp \
@@ -205,7 +204,8 @@ SOURCES += \
   $$PWD/qceppowderoverlay.cpp \
   $$PWD/triangulate.c \
   $$PWD/qcepplanefitter.cpp \
-  $$PWD/qxrdstartupwindow.cpp
+    $$PWD/qcepstartupwindowsettings.cpp \
+    $$PWD/qcepstartupwindow.cpp
 
 contains (DEFINES, HAVE_DATAVIS) {
  SOURCES += \
@@ -306,7 +306,6 @@ HEADERS += \
   $$PWD/qcepdataobjectspreadsheetwindow.h \
   $$PWD/qcepscriptengine.h \
   $$PWD/qcepscriptengine-ptr.h \
-  $$PWD/qcepdataobjectwindow.h \
   $$PWD/qcepmainwindow.h \
   $$PWD/qcepmainwindow-ptr.h \
   $$PWD/qcepscatterplotgraphmodel.h \
@@ -503,8 +502,11 @@ HEADERS += \
   $$PWD/qceppowderoverlay.h \
   $$PWD/triangulate.h \
   $$PWD/qcepplanefitter.h \
-  $$PWD/qxrdstartupwindow-ptr.h \
-  $$PWD/qxrdstartupwindow.h
+    $$PWD/qcepstartupwindowsettings.h \
+    $$PWD/qcepstartupwindowsettings-ptr.h \
+    $$PWD/qcepstartupwindow-ptr.h \
+    $$PWD/qcepstartupwindow.h \
+    $$PWD/qcommandlineparser-ptr.h
 
 contains (DEFINES, HAVE_DATAVIS) {
  HEADERS += \
@@ -559,7 +561,7 @@ FORMS += \
   $$PWD/qcepplotwidgetdialog.ui \
   $$PWD/qcepimageplotwidgetdialog.ui \
   $$PWD/qceproieditordialog.ui \
-  $$PWD/qxrdstartupwindow.ui
+    $$PWD/qcepstartupwindow.ui
 
 contains(DEFINES, HAVE_QWT) {
  FORMS += \

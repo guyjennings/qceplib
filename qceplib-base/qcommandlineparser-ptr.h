@@ -1,0 +1,8 @@
+#ifndef QCOMMANDLINEPARSERPTR_H
+#define QCOMMANDLINEPARSERPTR_H
+
+#include "qcepsharedpointer.h"
+
+QCEP_SHAREDPOINTER(QCommandLineParser)
+
+#endif // QCOMMANDLINEPARSERPTR_H

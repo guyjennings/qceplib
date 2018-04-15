@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>QxrdStartupWindow</class>
- <widget class="QMainWindow" name="QxrdStartupWindow">
+ <class>QcepStartupWindow</class>
+ <widget class="QMainWindow" name="QcepStartupWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -75,7 +75,7 @@
      <x>0</x>
      <y>0</y>
      <width>661</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="m_FileMenu">
