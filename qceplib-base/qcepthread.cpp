@@ -88,6 +88,13 @@ bool QcepThread::wait()
   return res;
 }
 
+void QcepThread::shutdown()
+{
+  exit();
+
+  wait();
+}
+
 void QcepThread::start()
 {
   if (m_Thread) {

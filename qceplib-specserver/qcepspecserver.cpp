@@ -31,9 +31,12 @@ QcepSpecServer::QcepSpecServer(QString name)
 }
 
 void QcepSpecServer::initialize(QcepObjectWPtr             owner,
-                                QcepSpecServerSettingsWPtr settings)
+                                QcepSpecServerSettingsWPtr settings,
+                                QcepScriptEngineWPtr       scriptEngine)
 {
-  m_Owner = owner;
+  m_Owner         = owner;
+  m_ServerSetings = settings;
+  m_ScriptEngine  = scriptEngine;
 }
 
 QcepSpecServer::~QcepSpecServer()

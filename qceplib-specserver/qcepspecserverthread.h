@@ -5,6 +5,7 @@
 #include "qcepthread.h"
 #include "qcepspecserver-ptr.h"
 #include "qcepspecserversettings-ptr.h"
+#include "qcepscriptengine-ptr.h"
 
 class QCEP_EXPORT QcepSpecServerThread : public QcepThread
 {
@@ -18,17 +19,18 @@ public:
   ~QcepSpecServerThread();
 
   void initialize(QcepObjectWPtr             parent,
-                  QcepSpecServerSettingsWPtr settings);
+                  QcepSpecServerSettingsWPtr settings,
+                  QcepScriptEngineWPtr       scriptEngine);
 
   QcepSpecServerWPtr specServer();
 
 protected:
   void run();
-  void shutdown();
 
 private:
   QcepSpecServerPtr          m_SpecServer;
   QcepSpecServerSettingsWPtr m_SpecServerSettings;
+  QcepScriptEngineWPtr       m_ScriptEngine;
 };
 
 #endif // QCEPSPECSERVERTHREAD_H

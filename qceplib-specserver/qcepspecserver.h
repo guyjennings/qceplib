@@ -17,6 +17,7 @@
 
 #include "qcepobject-ptr.h"
 #include "qcepspecserversettings-ptr.h"
+#include "qcepscriptengine-ptr.h"
 
 /**
   QSpecServer implements a remote control interface to the
@@ -33,7 +34,8 @@ private:
 public:
   QcepSpecServer(QString name);
   void initialize(QcepObjectWPtr             owner,
-                  QcepSpecServerSettingsWPtr settings);
+                  QcepSpecServerSettingsWPtr settings,
+                  QcepScriptEngineWPtr       scriptEngine);
 
   virtual ~QcepSpecServer();
 
@@ -87,17 +89,19 @@ protected:
   void printMessage(QString msg, QDateTime ts=QDateTime::currentDateTime());
 
 private:
-  QcepObjectWPtr       m_Owner;
-  QString              m_ServerName;
-  QTcpSocket          *m_Socket;
-  QHostAddress         m_Address;
-  int                  m_Port;
-  int                  m_SwapBytes;
-  struct svr_head      m_Packet;
-  QByteArray           m_Data;
-  struct svr_head      m_Reply;
-  QByteArray           m_ReplyData;
-  int                  m_ReplyHeadSent;
+  QcepObjectWPtr             m_Owner;
+  QcepSpecServerSettingsWPtr m_ServerSetings;
+  QcepScriptEngineWPtr       m_ScriptEngine;
+  QString                    m_ServerName;
+  QTcpSocket                *m_Socket;
+  QHostAddress               m_Address;
+  int                        m_Port;
+  int                        m_SwapBytes;
+  struct svr_head            m_Packet;
+  QByteArray                 m_Data;
+  struct svr_head            m_Reply;
+  QByteArray                 m_ReplyData;
+  int                        m_ReplyHeadSent;
 };
 
 #endif

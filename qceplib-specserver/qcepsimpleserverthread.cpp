@@ -13,18 +13,13 @@ QcepSimpleServerThread::~QcepSimpleServerThread()
 }
 
 void QcepSimpleServerThread::initialize(QcepObjectWPtr               parent,
-                                        QcepSimpleServerSettingsWPtr settings)
+                                        QcepSimpleServerSettingsWPtr settings,
+                                        QcepScriptEngineWPtr         scriptEngine)
 {
   inherited::initialize(parent);
 
   m_SimpleServerSettings = settings;
-}
-
-void QcepSimpleServerThread::shutdown()
-{
-  exit();
-
-  wait();
+  m_ScriptEngine         = scriptEngine;
 }
 
 void QcepSimpleServerThread::run()
@@ -38,7 +33,8 @@ void QcepSimpleServerThread::run()
         new QcepSimpleServer("simpleServer"));
 
   m_SimpleServer -> initialize(sharedFromThis(),
-                               m_SimpleServerSettings);
+                               m_SimpleServerSettings,
+                               m_ScriptEngine);
 
   int rc = exec();
 

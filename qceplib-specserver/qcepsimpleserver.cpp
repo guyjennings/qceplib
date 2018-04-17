@@ -12,7 +12,11 @@ QcepSimpleServer::~QcepSimpleServer()
 }
 
 void QcepSimpleServer::initialize(QcepObjectWPtr               parent,
-                                  QcepSimpleServerSettingsWPtr settings)
+                                  QcepSimpleServerSettingsWPtr settings,
+                                  QcepScriptEngineWPtr         scriptEngine)
 {
   inherited::initialize(parent);
+
+  m_ServerSettings = settings;
+  m_ScriptEngine   = scriptEngine;
 }

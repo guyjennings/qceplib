@@ -34,6 +34,7 @@ public:
   void quit();
 
   virtual void run() = 0;
+  virtual void shutdown() final;
 
   void setObjectName(const QString &name);
 

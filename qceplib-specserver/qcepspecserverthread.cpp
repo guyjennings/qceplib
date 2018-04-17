@@ -13,18 +13,13 @@ QcepSpecServerThread::~QcepSpecServerThread()
 }
 
 void QcepSpecServerThread::initialize(QcepObjectWPtr             parent,
-                                      QcepSpecServerSettingsWPtr settings)
+                                      QcepSpecServerSettingsWPtr settings,
+                                      QcepScriptEngineWPtr       scriptEngine)
 {
   inherited::initialize(parent);
 
   m_SpecServerSettings = settings;
-}
-
-void QcepSpecServerThread::shutdown()
-{
-  exit();
-
-  wait();
+  m_ScriptEngine       = scriptEngine;
 }
 
 void QcepSpecServerThread::run()
@@ -38,7 +33,8 @@ void QcepSpecServerThread::run()
         new QcepSpecServer("specServer"));
 
   m_SpecServer -> initialize(sharedFromThis(),
-                             m_SpecServerSettings);
+                             m_SpecServerSettings,
+                             m_ScriptEngine);
 
   int rc = exec();
 
