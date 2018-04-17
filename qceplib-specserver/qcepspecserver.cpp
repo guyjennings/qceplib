@@ -12,6 +12,7 @@
 #include <QHostInfo>
 #include "qcepexperiment.h"
 #include "qcepobject.h"
+#include "qcepspecserversettings.h"
 
 QcepSpecServer::QcepSpecServer(QString name)
   : QTcpServer(NULL),
@@ -29,7 +30,8 @@ QcepSpecServer::QcepSpecServer(QString name)
   connect(this, &QTcpServer::newConnection, this, &QcepSpecServer::openNewConnection);
 }
 
-void QcepSpecServer::initialize(QcepObjectWPtr owner)
+void QcepSpecServer::initialize(QcepObjectWPtr             owner,
+                                QcepSpecServerSettingsWPtr settings)
 {
   m_Owner = owner;
 }

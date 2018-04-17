@@ -16,7 +16,3 @@ contains (DEFINES,HAVE_QWT) {
 
 INCLUDEPATH += $${PWD}
 DEPENDPATH  += $${PWD}
-
-HEADERS += \
-    $$PWD/qsettings-ptr.h \
-    $$PWD/qcommandlineoption-ptr.h

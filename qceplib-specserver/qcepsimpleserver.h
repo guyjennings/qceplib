@@ -3,6 +3,7 @@
 
 #include "qceplib_global.h"
 #include "qcepobject.h"
+#include "qcepsimpleserversettings-ptr.h"
 
 class QCEP_EXPORT QcepSimpleServer : public QcepObject
 {
@@ -15,7 +16,8 @@ public:
   Q_INVOKABLE QcepSimpleServer(QString name);
   ~QcepSimpleServer();
 
-  void initialize(QcepObjectWPtr parent);
+  void initialize(QcepObjectWPtr               parent,
+                  QcepSimpleServerSettingsWPtr settings);
 
 public:
 };

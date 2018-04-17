@@ -502,11 +502,13 @@ HEADERS += \
   $$PWD/qceppowderoverlay.h \
   $$PWD/triangulate.h \
   $$PWD/qcepplanefitter.h \
-    $$PWD/qcepstartupwindowsettings.h \
-    $$PWD/qcepstartupwindowsettings-ptr.h \
-    $$PWD/qcepstartupwindow-ptr.h \
-    $$PWD/qcepstartupwindow.h \
-    $$PWD/qcommandlineparser-ptr.h
+  $$PWD/qcepstartupwindowsettings.h \
+  $$PWD/qcepstartupwindowsettings-ptr.h \
+  $$PWD/qcepstartupwindow-ptr.h \
+  $$PWD/qcepstartupwindow.h \
+  $$PWD/qcommandlineparser-ptr.h \
+  $$PWD/qsettings-ptr.h \
+  $$PWD/qcommandlineoption-ptr.h
 
 contains (DEFINES, HAVE_DATAVIS) {
  HEADERS += \

@@ -1,0 +1,8 @@
+#ifndef QCEPSPECSERVERTHREADPTR_H
+#define QCEPSPECSERVERTHREADPTR_H
+
+#include "qcepsharedpointer.h"
+
+QCEP_SHAREDPOINTER(QcepSpecServerThread)
+
+#endif // QCEPSPECSERVERTHREADPTR_H

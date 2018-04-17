@@ -16,6 +16,7 @@
 #include <QTcpSocket>
 
 #include "qcepobject-ptr.h"
+#include "qcepspecserversettings-ptr.h"
 
 /**
   QSpecServer implements a remote control interface to the
@@ -31,7 +32,8 @@ private:
 
 public:
   QcepSpecServer(QString name);
-  void initialize(QcepObjectWPtr owner);
+  void initialize(QcepObjectWPtr             owner,
+                  QcepSpecServerSettingsWPtr settings);
 
   virtual ~QcepSpecServer();
 
