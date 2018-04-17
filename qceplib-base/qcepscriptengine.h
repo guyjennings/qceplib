@@ -4,6 +4,7 @@
 #include "qceplib_global.h"
 #include <QScriptEngine>
 #include "qcepobject-ptr.h"
+#include "qcepserver-ptr.h"
 
 //TODO: re-implement help stuff in QxrdJSEngine
 class QCEP_EXPORT QcepScriptEngine : public QScriptEngine
@@ -25,6 +26,15 @@ public slots:
   QString documentationText(QcepObject *qobj);
   QString documentationText(QString item);
   QString documentationText(QRegExp pattern);
+
+  void evaluateScriptCommand(QcepServer* server,
+                             QString     expression);
+
+public:
+  static QString convertToString(QScriptValue result);
+
+private:
+  static QString convertHelper(QScriptValue result, int depth);
 
 private:
   QString tableHeader();

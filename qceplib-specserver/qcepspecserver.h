@@ -3,6 +3,7 @@
 
 #include "qceplib_global.h"
 #include "qcepmacros.h"
+#include "qcepserver.h"
 
 #include <QTcpServer>
 #include <QHostAddress>
@@ -24,16 +25,16 @@
   'SPEC' data acquisition program.
   */
 
-class QCEP_EXPORT QcepSpecServer : public QTcpServer
+class QCEP_EXPORT QcepSpecServer : public QcepServer
 {
   Q_OBJECT
 
 private:
-  typedef QTcpServer inherited;
+  typedef QcepServer inherited;
 
 public:
   QcepSpecServer(QString name);
-  void initialize(QcepObjectWPtr             owner,
+  void initialize(QcepObjectWPtr             parent,
                   QcepSpecServerSettingsWPtr settings,
                   QcepScriptEngineWPtr       scriptEngine);
 
@@ -49,10 +50,12 @@ public slots:
   void connectionClosed();
   void clientRead();
 
-signals:
-  void executeCommand(QString cmd);
 public slots:
   void finishedCommand(QScriptValue result);
+
+private slots:
+  void runModeChanged();
+  void serverPortChanged();
 
 private:
   void reportServerAddress();
@@ -86,13 +89,10 @@ protected:
   void replyFromVariant(QVariant value);
   void replyFromError(QScriptValue value);
 
-  void printMessage(QString msg, QDateTime ts=QDateTime::currentDateTime());
-
 private:
-  QcepObjectWPtr             m_Owner;
-  QcepSpecServerSettingsWPtr m_ServerSetings;
-  QcepScriptEngineWPtr       m_ScriptEngine;
+  QcepSpecServerSettingsWPtr m_ServerSettings;
   QString                    m_ServerName;
+  QTcpServer                 m_Server;
   QTcpSocket                *m_Socket;
   QHostAddress               m_Address;
   int                        m_Port;
@@ -103,5 +103,7 @@ private:
   QByteArray                 m_ReplyData;
   int                        m_ReplyHeadSent;
 };
+
+Q_DECLARE_METATYPE(QcepSpecServer*)
 
 #endif

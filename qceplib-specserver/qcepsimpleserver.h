@@ -2,16 +2,18 @@
 #define QCEPSIMPLESERVER_H
 
 #include "qceplib_global.h"
-#include "qcepobject.h"
+#include "qcepserver.h"
 #include "qcepsimpleserversettings-ptr.h"
 #include "qcepscriptengine-ptr.h"
+#include <QTcpServer>
+#include <QTcpSocket>
 
-class QCEP_EXPORT QcepSimpleServer : public QcepObject
+class QCEP_EXPORT QcepSimpleServer : public QcepServer
 {
   Q_OBJECT
 
 private:
-  typedef QcepObject inherited;
+  typedef QcepServer inherited;
 
 public:
   Q_INVOKABLE QcepSimpleServer(QString name);
@@ -21,9 +23,24 @@ public:
                   QcepSimpleServerSettingsWPtr settings,
                   QcepScriptEngineWPtr         scriptEngine);
 
-public:
+  void startServer(QHostAddress addr, int port);
+  void stopServer();
+  void finishedCommand(QScriptValue result);
+
+public slots:
+  void runModeChanged();
+  void serverPortChanged();
+  void openNewConnection();
+  void connectionClosed();
+  void clientRead();
+  void shutdown();
+
+private:
   QcepSimpleServerSettingsWPtr  m_ServerSettings;
-  QcepScriptEngineWPtr          m_ScriptEngine;
+  QTcpServer                    m_Server;
+  QTcpSocket                    *m_Socket;
 };
+
+Q_DECLARE_METATYPE(QcepSimpleServer*)
 
 #endif // QCEPSIMPLESERVER_H

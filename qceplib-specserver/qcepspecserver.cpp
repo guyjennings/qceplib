@@ -2,7 +2,6 @@
 
 #include "qcepdebug.h"
 #include "qcepspecserver.h"
-//#include "qxrdserverthread.h"
 #include <QTcpSocket>
 #include <QTextStream>
 #include <QVariant>
@@ -15,9 +14,9 @@
 #include "qcepspecserversettings.h"
 
 QcepSpecServer::QcepSpecServer(QString name)
-  : QTcpServer(NULL),
-    m_Owner(),
-    m_ServerName(name),
+  : inherited(name),
+    m_Server(),
+    m_ServerName(name), //TODO: set server name from app or prop
     m_Socket(NULL),
     m_Address(QHostAddress::Any),
     m_Port(-1),
@@ -27,16 +26,29 @@ QcepSpecServer::QcepSpecServer(QString name)
   init_svr_head(&m_Packet);
   init_svr_head(&m_Reply);
 
-  connect(this, &QTcpServer::newConnection, this, &QcepSpecServer::openNewConnection);
+  connect(&m_Server, &QTcpServer::newConnection,
+          this, &QcepSpecServer::openNewConnection);
 }
 
-void QcepSpecServer::initialize(QcepObjectWPtr             owner,
+void QcepSpecServer::initialize(QcepObjectWPtr             parent,
                                 QcepSpecServerSettingsWPtr settings,
                                 QcepScriptEngineWPtr       scriptEngine)
 {
-  m_Owner         = owner;
-  m_ServerSetings = settings;
-  m_ScriptEngine  = scriptEngine;
+  inherited::initialize(parent, scriptEngine);
+
+  m_ServerSettings = settings;
+
+  QcepSpecServerSettingsPtr set(m_ServerSettings);
+
+  if (set) {
+    connect(set -> prop_RunSpecServer(), &QcepIntProperty::valueChanged,
+            this, &QcepSpecServer::runModeChanged);
+
+    connect(set -> prop_SpecServerPort(), &QcepIntProperty::valueChanged,
+            this, &QcepSpecServer::serverPortChanged);
+  }
+
+  runModeChanged();
 }
 
 QcepSpecServer::~QcepSpecServer()
@@ -44,13 +56,43 @@ QcepSpecServer::~QcepSpecServer()
 //  stopServer();
 }
 
+void QcepSpecServer::runModeChanged()
+{
+  THREAD_CHECK;
+
+  QcepSpecServerSettingsPtr set(m_ServerSettings);
+
+  if (set) {
+    if (set -> get_RunSpecServer()) {
+      startServer(QHostAddress::Any, set -> get_SpecServerPort());
+    } else {
+      stopServer();
+    }
+  }
+}
+
+void QcepSpecServer::serverPortChanged()
+{
+  THREAD_CHECK;
+
+  QcepSpecServerSettingsPtr set(m_ServerSettings);
+
+  if (set) {
+    stopServer();
+
+    if (set -> get_RunSpecServer()) {
+      startServer(QHostAddress::Any, set -> get_SpecServerPort());
+    }
+  }
+}
+
 void
 QcepSpecServer::startServer(QHostAddress a, int pmin, int pmax)
 {
-  setMaxPendingConnections(1);
+  m_Server.setMaxPendingConnections(1);
 
-  if (isListening()) {
-    close();
+  if (m_Server.isListening()) {
+    m_Server.close();
   }
 
   if (pmin < 0) {
@@ -66,7 +108,7 @@ QcepSpecServer::startServer(QHostAddress a, int pmin, int pmax)
   }
 
   for (int p=pmin; p<=pmax; p++) {
-    if (listen(a, p)) {
+    if (m_Server.listen(a, p)) {
       printMessage(tr("Started SPEC Server on address %1 port %2")
                    .arg(a.toString()).arg(p));
 
@@ -95,8 +137,8 @@ QcepSpecServer::startServer(QHostAddress a, int pmin, int pmax)
 void
 QcepSpecServer::stopServer()
 {
-  if (isListening()) {
-    close();
+  if (m_Server.isListening()) {
+    m_Server.close();
   }
 }
 
@@ -137,16 +179,6 @@ QcepSpecServer::reportServerAddress()
   }
 }
 
-void
-QcepSpecServer::printMessage(QString msg, QDateTime ts)
-{
-  QcepObjectPtr owner(m_Owner);
-
-  if (owner) {
-    owner->printMessage(msg, ts);
-  }
-}
-
 /**
   Called when a new connection is opened from SPEC
 
@@ -157,7 +189,7 @@ QcepSpecServer::printMessage(QString msg, QDateTime ts)
 void
 QcepSpecServer::openNewConnection()
 {
-  m_Socket = nextPendingConnection();
+  m_Socket = m_Server.nextPendingConnection();
 
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("LowDelayOption = %1").arg(m_Socket->socketOption(QAbstractSocket::LowDelayOption).toString()));
@@ -525,7 +557,7 @@ void QcepSpecServer::handle_cmd()
     printMessage(tr("SV_CMD: %1").arg(QString(m_Data)));
   }
 
-  emit executeCommand(QString(m_Data));
+  emit executeServerCommand(this, QString(m_Data));
 }
 
 void QcepSpecServer::handle_cmd_return()
@@ -534,7 +566,7 @@ void QcepSpecServer::handle_cmd_return()
     printMessage(tr("SV_CMD_WITH_RETURN: %1").arg(QString(m_Data)));
   }
 
-  emit executeCommand(QString(m_Data));
+  emit executeServerCommand(this, QString(m_Data));
 }
 
 void QcepSpecServer::finishedCommand(QScriptValue result)

@@ -9,7 +9,8 @@ SOURCES += \
   $$PWD/qcepsimpleserver.cpp \
   $$PWD/qcepsimpleserversettings.cpp \
   $$PWD/qcepsimpleserverthread.cpp \
-  $$PWD/qcepspecserverthread.cpp
+  $$PWD/qcepspecserverthread.cpp \
+    $$PWD/qcepserver.cpp
 
 HEADERS += \
   $$PWD/qcepspecserver.h \
@@ -26,4 +27,6 @@ HEADERS += \
   $$PWD/qcepsimpleserversettings.h \
   $$PWD/qcepsimpleserversettings-ptr.h \
   $$PWD/qcepsimpleserverthread.h \
-  $$PWD/qcepsimpleserverthread-ptr.h
+  $$PWD/qcepsimpleserverthread-ptr.h \
+    $$PWD/qcepserver.h \
+    $$PWD/qcepserver-ptr.h

@@ -3,6 +3,7 @@
 #include <QMetaProperty>
 #include <QScriptValueIterator>
 #include "qcepobject.h"
+#include "qcepserver.h"
 
 QcepScriptEngine::QcepScriptEngine(QString name) :
   QScriptEngine()
@@ -597,4 +598,84 @@ QByteArray QcepScriptEngine::helpText(QcepObject *obj)
         "</html>\n");
 
   return res;
+}
+
+QString QcepScriptEngine::convertToString(QScriptValue result)
+{
+  return convertHelper(result, 0);
+}
+
+QString QcepScriptEngine::convertHelper(QScriptValue result, int depth)
+{
+  if (depth >= 4) {
+    return "...";
+  } else if (result.isError()) {
+    return "ERROR : "+result.property("error").toString();
+  } else if (result.isArray()) {
+    int len = result.property("length").toInteger();
+
+    QString s = "[";
+
+    for (int i=0; i<len; i++) {
+      s += convertHelper(result.property(tr("%1").arg(i)), depth+1);
+
+      if (i<len-1) {
+        s += ", ";
+      }
+    }
+
+    s += "]";
+
+    return s;
+
+  } else if (result.isObject() || result.isQObject()) {
+    QScriptValueIterator it(result);
+
+    QString s = "{";
+
+    if (depth == 0) s += "\n";
+
+    while(it.hasNext()) {
+      it.next();
+
+      if (depth == 0) s += "  ";
+
+      s += it.name()+":";
+      s += convertHelper(it.value(), depth+1);
+
+      if (it.hasNext()) {
+        if (depth == 0) {
+          s += ",\n";
+        } else {
+          s += ", ";
+        }
+      }
+    }
+
+    if (depth == 0) {
+      s += "\n}";
+    } else {
+      s += "}";
+    }
+
+    return s;
+
+  } else {
+    return result.toString();
+  }
+}
+
+void QcepScriptEngine::evaluateScriptCommand(QcepServer *server,
+                                             QString     expression)
+{
+  THREAD_CHECK;
+
+  QScriptValue res = evaluate(expression);
+
+  if (server) {
+    INVOKE_CHECK(
+          QMetaObject::invokeMethod(server,
+                                    "finishedCommand",
+                                    Q_ARG(QScriptValue, res)));
+  }
 }

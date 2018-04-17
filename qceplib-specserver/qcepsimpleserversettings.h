@@ -17,6 +17,15 @@ public:
   ~QcepSimpleServerSettings();
 
   void initialize(QcepObjectWPtr parent);
+
+public:
+  Q_PROPERTY(int    runSimpleServer    READ get_RunSimpleServer WRITE set_RunSimpleServer)
+  QCEP_INTEGER_PROPERTY(RunSimpleServer)
+
+  Q_PROPERTY(int    simpleServerPort    READ get_SimpleServerPort WRITE set_SimpleServerPort)
+  QCEP_INTEGER_PROPERTY(SimpleServerPort)
 };
+
+Q_DECLARE_METATYPE(QcepSimpleServerSettings*)
 
 #endif // QCEPSIMPLESERVERSETTINGS_H
