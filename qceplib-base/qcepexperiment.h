@@ -59,13 +59,14 @@ public slots:
 public:
   QUndoStack *undoStack();
 
+  virtual void readSettings(QSettings *settings);
+  virtual void writeSettings(QSettings *settings);
+
 protected:
 //  QcepSettingsSaverPtr            m_SettingsSaver;
 
   QUndoStack m_UndoStack;
 
-  virtual void readSettings(QSettings *settings);
-  virtual void writeSettings(QSettings *settings);
 
 private:
   QcepDataExportParametersPtr     m_DataExportParameters;
