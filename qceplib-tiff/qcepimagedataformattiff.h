@@ -8,6 +8,7 @@
 #include "qcepimagedataformat.h"
 
 #include <tiffio.h>
+#include <iostream>
 
 template <typename T>
 class QCEP_EXPORT QcepImageDataFormatTiff : public QcepImageDataFormat<T>
@@ -43,6 +44,9 @@ extern QCEP_EXPORT int   qcepTIFFSetField(TIFF* tif, uint32 tag, int ival);
 extern QCEP_EXPORT int   qcepTIFFSetField(TIFF* tif, uint32 tag, double dval);
 extern QCEP_EXPORT int   qcepTIFFSetField(TIFF* tif, uint32 tag, const char* sval);
 extern QCEP_EXPORT int   qcepTIFFWriteScanline(TIFF* tif, void* buf, uint32 row, uint16 sample);
+
+extern QCEP_EXPORT TIFF* qcepTIFFStreamOpen(const char* name, std::ostream *os);
+extern QCEP_EXPORT TIFF* qcepTIFFStreamOpen(const char* name, std::istream *is);
 
 #endif /* QCEPIMAGEDATAFORMATTIFF_H */
 

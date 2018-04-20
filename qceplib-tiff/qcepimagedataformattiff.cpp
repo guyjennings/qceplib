@@ -4,6 +4,7 @@
 #include "qcepimagedata.h"
 #include <tiff.h>
 #include <tiffio.h>
+#include <tiffio.hxx>
 
 void qceptiff_warningHandler(const char * /*module*/, const char * /*fmt*/, va_list /*ap*/)
 {
@@ -323,6 +324,16 @@ TIFFErrorHandlerExt qcepTIFFSetWarningHandlerExt(TIFFErrorHandlerExt handler)
 TIFF* qcepTIFFOpen(const char *name, const char *mode)
 {
   return TIFFOpen(name, mode);
+}
+
+TIFF* qcepTIFFStreamOpen(const char *name, std::istream *is)
+{
+  return TIFFStreamOpen(name, is);
+}
+
+TIFF* qcepTIFFStreamOpen(const char *name, std::ostream *os)
+{
+  return TIFFStreamOpen(name, os);
 }
 
 void  qcepTIFFClose(TIFF* tif)

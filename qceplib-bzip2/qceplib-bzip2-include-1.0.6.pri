@@ -12,4 +12,5 @@ macx {
 } else:win32 {
 }
 
-INCLUDEPATH += $${BZIP2BASE}
+INCLUDEPATH += $${BZIP2BASE} $${PWD}
+

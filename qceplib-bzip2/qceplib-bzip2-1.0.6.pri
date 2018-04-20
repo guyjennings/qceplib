@@ -4,7 +4,8 @@ include(qceplib-bzip2-include-$${QCEPLIB_BZIP2_VERSION}.pri)
 
 HEADERS += \
   $$BZIP2BASE/bzlib.h \
-  $$BZIP2BASE/bzlib_private.h
+  $$BZIP2BASE/bzlib_private.h \
+  $$PWD/qcepbzlib.h
 
 SOURCES += \
   $$BZIP2BASE/bzip2blocksort.c \
@@ -13,5 +14,6 @@ SOURCES += \
   $$BZIP2BASE/bzip2crctable.c \
   $$BZIP2BASE/bzip2decompress.c \
   $$BZIP2BASE/bzip2huffman.c \
-  $$BZIP2BASE/bzip2randtable.c
+  $$BZIP2BASE/bzip2randtable.c \
+  $$PWD/qcepbzlib.cpp
 
