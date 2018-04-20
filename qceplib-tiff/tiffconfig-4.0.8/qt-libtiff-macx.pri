@@ -8,6 +8,7 @@ macx {
         $${TIFFCONF}/tiffconf.h \
         $${TIFFBASE}/tiff.h \
         $${TIFFBASE}/tiffio.h \
+        $${TIFFBASE}/tiffio.hxx \
         $${TIFFBASE}/tiffiop.h \
         $${TIFFBASE}/tiffvers.h \
         $${TIFFBASE}/uvcode.h \
@@ -45,11 +46,12 @@ macx {
         $${TIFFBASE}/tif_read.c \
         $${TIFFBASE}/tif_strip.c \
         $${TIFFBASE}/tif_swab.c \
+        $${TIFFBASE}/tif_stream.cxx \
         $${TIFFBASE}/tif_thunder.c \
         $${TIFFBASE}/tif_tile.c \
         $${TIFFBASE}/tif_version.c \
         $${TIFFBASE}/tif_warning.c \
         $${TIFFBASE}/tif_unix.c \
-        $${TIFFBASE}/tif_write.c \
+        $${TIFFBASE}/tif_write.c
 #        $${TIFFBASE}/tif_zip.c
 }
