@@ -5,7 +5,7 @@ macx {
 } else:win32 {
   include("$${PWD}/tiffconfig-$${QCEPLIB_TIFF_VERSION}/qt-libtiff-win32-include.pri")
 } else {
-  LIBS += -ltiff
+  LIBS += -ltiff -ltiffxx
 }
 
 INCLUDEPATH += $${PWD}
