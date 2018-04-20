@@ -6,6 +6,7 @@ win32 {
         $${TIFFCONF}/tiffconf.h \
         $${TIFFBASE}/tiff.h \
         $${TIFFBASE}/tiffio.h \
+        $${TIFFBASE}/tiffio.hxx \
         $${TIFFBASE}/tiffiop.h \
         $${TIFFBASE}/tiffvers.h \
         $${TIFFBASE}/uvcode.h \
@@ -41,6 +42,7 @@ win32 {
         $${TIFFBASE}/tif_predict.c \
         $${TIFFBASE}/tif_print.c \
         $${TIFFBASE}/tif_read.c \
+        $${TIFFBASE}/tif_stream.cxx \
         $${TIFFBASE}/tif_strip.c \
         $${TIFFBASE}/tif_swab.c \
         $${TIFFBASE}/tif_thunder.c \
