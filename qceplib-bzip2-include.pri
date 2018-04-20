@@ -1,0 +1,5 @@
+QCEPLIB_BZIP2_VERSION = "1.0.6"
+
+DEFINES += QCEPLIB_BZIP2_VERSION=\"$${QCEPLIB_BZIP2_VERSION}\"
+
+include(qceplib-bzip2/qceplib-bzip2-include-$${QCEPLIB_BZIP2_VERSION}.pri)

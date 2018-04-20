@@ -47,3 +47,7 @@ qceplib-szip {
 qceplib-zlib {
   DEFINES += HAVE_ZLIB
 }
+
+qceplib-bzip2 {
+  DEFINES += HAVE_BZIP2
+}
