@@ -205,7 +205,14 @@ SOURCES += \
   $$PWD/triangulate.c \
   $$PWD/qcepplanefitter.cpp \
     $$PWD/qcepstartupwindowsettings.cpp \
-    $$PWD/qcepstartupwindow.cpp
+    $$PWD/qcepstartupwindow.cpp \
+    $$PWD/qcepoutputfileformatter.cpp \
+    $$PWD/qcepoutputfileformatterhdf.cpp \
+    $$PWD/qcepoutputfileformattersettings.cpp \
+    $$PWD/qcepoutputfileformattertiff.cpp \
+    $$PWD/qcepoutputfileformattertiff-bzip2.cpp \
+    $$PWD/qcepoutputfileformattertiff-zip.cpp \
+    $$PWD/qcepoutputfileformattertiff-gzip.cpp
 
 contains (DEFINES, HAVE_DATAVIS) {
  SOURCES += \
@@ -508,7 +515,13 @@ HEADERS += \
   $$PWD/qcepstartupwindow.h \
   $$PWD/qcommandlineparser-ptr.h \
   $$PWD/qsettings-ptr.h \
-  $$PWD/qcommandlineoption-ptr.h
+  $$PWD/qcommandlineoption-ptr.h \
+    $$PWD/qcepoutputfileformatter.h \
+    $$PWD/qcepoutputfileformatterhdf.h \
+    $$PWD/qcepoutputfileformattersettings.h \
+    $$PWD/qcepoutputfileformattertiff.h \
+    $$PWD/qcepoutputfileformattersettings-ptr.h \
+    $$PWD/qcepoutputfileformatter-ptr.h
 
 contains (DEFINES, HAVE_DATAVIS) {
  HEADERS += \
