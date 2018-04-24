@@ -13,16 +13,18 @@ QcepHistogramCommand::QcepHistogramCommand(QcepPlotWidget            *plot,
                           true),
     m_HistogramSelector(NULL)
 {
-  connect(m_ToolButton,  &QToolButton::clicked,
-          this,          &QcepHistogramCommand::enable);
+  CONNECT_CHECK(
+        connect(m_ToolButton,  &QToolButton::clicked,
+                this,          &QcepHistogramCommand::enable));
 
   m_HistogramSelector = new QcepHistogramSelector(m_Plot);
   m_HistogramSelector -> setEnabled(false);
 
   setPlotPicker(m_HistogramSelector);
 
-  connect(m_HistogramSelector, (void (QcepPlotMeasurer::*)( const QRectF &)) &QwtPlotPicker::selected,
-          m_Plot, &QcepImagePlot::selectHistogram);
+  CONNECT_CHECK(
+        connect(m_HistogramSelector, (void (QcepPlotMeasurer::*)( const QRectF &)) &QwtPlotPicker::selected,
+                m_Plot, &QcepImagePlot::selectHistogram));
 }
 
 void QcepHistogramCommand::enable()

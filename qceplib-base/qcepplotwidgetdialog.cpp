@@ -37,8 +37,8 @@ QcepPlotWidgetDialog::QcepPlotWidgetDialog(QWidget *parent,
 //  QcepAcquisitionPtr     acq(m_Acquisition);
 
 //  if (win) {
-//    connect(m_DisplayOptionsButton, &QAbstractButton::clicked,
-//            win.data(), &QcepMainWindow::doEditPreferences);
+//    CONNECT_CHECK(connect(m_DisplayOptionsButton, &QAbstractButton::clicked,
+//            win.data(), &QcepMainWindow::doEditPreferences));
 //  }
 
 //  if (acq) {
@@ -49,10 +49,10 @@ QcepPlotWidgetDialog::QcepPlotWidgetDialog(QWidget *parent,
 //    QcepImagePlot *plot = wdg->m_Plot;
 
 //    if (plot) {
-//      connect(m_AutoRange, &QAbstractButton::clicked, plot, &QcepImagePlot::setAutoRange);
-//      connect(m_Display_5pct, &QAbstractButton::clicked, plot, &QcepImagePlot::set005Range);
-//      connect(m_Display_10pct, &QAbstractButton::clicked, plot, &QcepImagePlot::set010Range);
-//      connect(m_Display_100pct, &QAbstractButton::clicked, plot, &QcepImagePlot::set100Range);
+//      CONNECT_CHECK(connect(m_AutoRange, &QAbstractButton::clicked, plot, &QcepImagePlot::setAutoRange));
+//      CONNECT_CHECK(connect(m_Display_5pct, &QAbstractButton::clicked, plot, &QcepImagePlot::set005Range));
+//      CONNECT_CHECK(connect(m_Display_10pct, &QAbstractButton::clicked, plot, &QcepImagePlot::set010Range));
+//      CONNECT_CHECK(connect(m_Display_100pct, &QAbstractButton::clicked, plot, &QcepImagePlot::set100Range));
 
 //      QcepImagePlotSettingsPtr ps(plot->imagePlotSettings());
 
@@ -67,7 +67,7 @@ QcepPlotWidgetDialog::QcepPlotWidgetDialog(QWidget *parent,
 //        ps -> prop_DisplayLog() -> linkTo(m_DisplayImageLog);
 //        ps -> prop_DisplayScalingMode() -> linkTo(m_DisplayScalingMode);
 
-//        connect(ps -> prop_DisplayScalingMode(), &QcepIntProperty::valueChanged, m_DisplayParmsStack, &QStackedWidget::setCurrentIndex);
+//        CONNECT_CHECK(connect(ps -> prop_DisplayScalingMode(), &QcepIntProperty::valueChanged, m_DisplayParmsStack, &QStackedWidget::setCurrentIndex));
 //        m_DisplayParmsStack->setCurrentIndex(ps->get_DisplayScalingMode());
 
 //        ps -> prop_DisplayColorMap() -> linkTo(m_DisplayColorMap);

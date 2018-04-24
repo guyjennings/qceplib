@@ -22,7 +22,7 @@ QAction* QcepPlotContextMenuCommand::newContextAction(QString s, QcepPlotWidget 
   QAction* res = new QAction(s);
 
   if (res && t && sl) {
-    connect (res, &QAction::triggered, t, sl);
+    CONNECT_CHECK(connect (res, &QAction::triggered, t, sl));
   }
 
   return res;

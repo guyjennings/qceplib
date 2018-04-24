@@ -77,10 +77,10 @@ void QcepPlot::initialize(QcepPlotSettingsWPtr settings)
   QcepPlotSettingsPtr set(m_PlotSettings);
 
   if (set) {
-    connect(set->prop_XAxisLog(), &QcepBoolProperty::valueChanged, this, &QcepPlot::setXAxisLog);
-    connect(set->prop_YAxisLog(), &QcepBoolProperty::valueChanged, this, &QcepPlot::setYAxisLog);
-    connect(set->prop_X2AxisLog(), &QcepBoolProperty::valueChanged, this, &QcepPlot::setX2AxisLog);
-    connect(set->prop_Y2AxisLog(), &QcepBoolProperty::valueChanged, this, &QcepPlot::setY2AxisLog);
+    CONNECT_CHECK(connect(set->prop_XAxisLog(), &QcepBoolProperty::valueChanged, this, &QcepPlot::setXAxisLog));
+    CONNECT_CHECK(connect(set->prop_YAxisLog(), &QcepBoolProperty::valueChanged, this, &QcepPlot::setYAxisLog));
+    CONNECT_CHECK(connect(set->prop_X2AxisLog(), &QcepBoolProperty::valueChanged, this, &QcepPlot::setX2AxisLog));
+    CONNECT_CHECK(connect(set->prop_Y2AxisLog(), &QcepBoolProperty::valueChanged, this, &QcepPlot::setY2AxisLog));
 
     setXAxisLog(set->get_XAxisLog());
     setYAxisLog(set->get_YAxisLog());
@@ -97,8 +97,8 @@ void QcepPlot::initialize(QcepPlotSettingsWPtr settings)
   }
 
   if (m_Legend) {
-    connect(m_Legend, &QwtLegend::clicked,      this, &QcepPlot::onLegendClicked);
-    connect(m_Legend, &QwtLegend::checked, this, &QcepPlot::onLegendChecked);
+    CONNECT_CHECK(connect(m_Legend, &QwtLegend::clicked,      this, &QcepPlot::onLegendClicked));
+    CONNECT_CHECK(connect(m_Legend, &QwtLegend::checked, this, &QcepPlot::onLegendChecked));
   }
 }
 

@@ -28,25 +28,25 @@ QcepImageHistogramGraphControls::QcepImageHistogramGraphControls(QcepDataObjectG
     m_Window->prop_HistCRight()    -> linkTo(m_HistCRight);
     m_Window->prop_HistCBottom()   -> linkTo(m_HistCBottom);
 
-    connect(m_Window->prop_HistFullVis(), &QcepBoolProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay);
-    connect(m_Window->prop_HistAVis(), &QcepBoolProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay);
-    connect(m_Window->prop_HistBVis(), &QcepBoolProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay);
-    connect(m_Window->prop_HistCVis(), &QcepBoolProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay);
+    CONNECT_CHECK(connect(m_Window->prop_HistFullVis(), &QcepBoolProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay));
+    CONNECT_CHECK(connect(m_Window->prop_HistAVis(), &QcepBoolProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay));
+    CONNECT_CHECK(connect(m_Window->prop_HistBVis(), &QcepBoolProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay));
+    CONNECT_CHECK(connect(m_Window->prop_HistCVis(), &QcepBoolProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay));
 
-    connect(m_Window->prop_HistALeft(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay);
-    connect(m_Window->prop_HistATop(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay);
-    connect(m_Window->prop_HistARight(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay);
-    connect(m_Window->prop_HistABottom(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay);
+    CONNECT_CHECK(connect(m_Window->prop_HistALeft(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay));
+    CONNECT_CHECK(connect(m_Window->prop_HistATop(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay));
+    CONNECT_CHECK(connect(m_Window->prop_HistARight(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay));
+    CONNECT_CHECK(connect(m_Window->prop_HistABottom(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay));
 
-    connect(m_Window->prop_HistBLeft(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay);
-    connect(m_Window->prop_HistBTop(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay);
-    connect(m_Window->prop_HistBRight(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay);
-    connect(m_Window->prop_HistBBottom(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay);
+    CONNECT_CHECK(connect(m_Window->prop_HistBLeft(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay));
+    CONNECT_CHECK(connect(m_Window->prop_HistBTop(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay));
+    CONNECT_CHECK(connect(m_Window->prop_HistBRight(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay));
+    CONNECT_CHECK(connect(m_Window->prop_HistBBottom(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay));
 
-    connect(m_Window->prop_HistCLeft(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay);
-    connect(m_Window->prop_HistCTop(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay);
-    connect(m_Window->prop_HistCRight(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay);
-    connect(m_Window->prop_HistCBottom(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay);
+    CONNECT_CHECK(connect(m_Window->prop_HistCLeft(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay));
+    CONNECT_CHECK(connect(m_Window->prop_HistCTop(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay));
+    CONNECT_CHECK(connect(m_Window->prop_HistCRight(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay));
+    CONNECT_CHECK(connect(m_Window->prop_HistCBottom(), &QcepIntProperty::valueChanged, m_Window, &QcepDataObjectGraphWindow::updateDisplay));
   }
 }
 

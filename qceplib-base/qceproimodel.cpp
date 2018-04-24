@@ -258,8 +258,9 @@ void QcepROIModel::append(QcepROIPtr coords)
 
     rois -> append(coords);
 
-    connect(coords.data(), &QcepROI::roiChanged,
-            this, &QcepROIModel::onROIChanged);
+    CONNECT_CHECK(
+          connect(coords.data(), &QcepROI::roiChanged,
+                  this, &QcepROIModel::onROIChanged));
 
     endInsertRows();
   }

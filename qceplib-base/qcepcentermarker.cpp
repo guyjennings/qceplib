@@ -24,8 +24,9 @@ QcepCenterMarker::QcepCenterMarker(QString                    name,
   QcepCenterFinderPtr c(m_CenterFinder);
 
   if (c) {
-    connect(c->prop_Center(), &QcepDoublePointProperty::valueChanged,
-            this,             &QcepCenterMarker::centerChanged);
+    CONNECT_CHECK(
+          connect(c->prop_Center(), &QcepDoublePointProperty::valueChanged,
+                  this,             &QcepCenterMarker::centerChanged));
 
     centerChanged(c->get_Center());
   }

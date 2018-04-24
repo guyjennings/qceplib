@@ -76,8 +76,8 @@ void QcepImagePlot::printMessage(QString msg, QDateTime dt) const
 //    if (cf) {
 ////      onCenterChanged(cf->get_Center());
 
-//      connect(cf->prop_MarkedPoints(), &QcepPowderPointVectorProperty::valueChanged,
-//              this, &QcepImagePlot::onMarkedPointsChanged);
+//      CONNECT_CHECK(connect(cf->prop_MarkedPoints(), &QcepPowderPointVectorProperty::valueChanged,
+//              this, &QcepImagePlot::onMarkedPointsChanged));
 
 //      onMarkedPointsChanged();
 //    }
@@ -466,11 +466,11 @@ void QcepImagePlot::setROIModel(QcepROIModelWPtr model)
   QcepROIModelPtr roiModel(m_ROIModel);
 
   if (roiModel) {
-    connect(roiModel.data(), &QAbstractItemModel::modelReset,    this, &QcepImagePlot::updateROIDisplay);
-    connect(roiModel.data(), &QAbstractItemModel::dataChanged,   this, &QcepImagePlot::roiDataChanged);
-    connect(roiModel.data(), &QAbstractItemModel::rowsInserted,  this, &QcepImagePlot::roiRowsInserted);
-    connect(roiModel.data(), &QAbstractItemModel::rowsMoved,     this, &QcepImagePlot::roiRowsMoved);
-    connect(roiModel.data(), &QAbstractItemModel::rowsRemoved,   this, &QcepImagePlot::roiRowsRemoved);
+    CONNECT_CHECK(connect(roiModel.data(), &QAbstractItemModel::modelReset,    this, &QcepImagePlot::updateROIDisplay));
+    CONNECT_CHECK(connect(roiModel.data(), &QAbstractItemModel::dataChanged,   this, &QcepImagePlot::roiDataChanged));
+    CONNECT_CHECK(connect(roiModel.data(), &QAbstractItemModel::rowsInserted,  this, &QcepImagePlot::roiRowsInserted));
+    CONNECT_CHECK(connect(roiModel.data(), &QAbstractItemModel::rowsMoved,     this, &QcepImagePlot::roiRowsMoved));
+    CONNECT_CHECK(connect(roiModel.data(), &QAbstractItemModel::rowsRemoved,   this, &QcepImagePlot::roiRowsRemoved));
   }
 }
 
@@ -486,8 +486,9 @@ void QcepImagePlot::setROISelection(QItemSelectionModel *select)
   updateROIDisplay();
 
   if (m_ROISelection) {
-    connect(m_ROISelection, &QItemSelectionModel::selectionChanged,
-            this, &QcepImagePlot::updateROISelection);
+    CONNECT_CHECK(
+          connect(m_ROISelection, &QItemSelectionModel::selectionChanged,
+                  this, &QcepImagePlot::updateROISelection));
   }
 }
 

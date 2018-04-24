@@ -14,11 +14,11 @@ QcepThread::QcepThread(QString name) :
 
   m_Thread -> setObjectName(name);
 
-//  connect(m_Thread.data(),
+//  CONNECT_CHECK(connect(m_Thread.data(),
 //          &QThread::started,
 //          this,
 //          &QcepThread::run,
-//          Qt::DirectConnection);
+//          Qt::DirectConnection));
 }
 
 void QcepThread::initialize(QcepObjectWPtr parent)

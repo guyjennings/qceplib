@@ -7,8 +7,9 @@ QcepZoomInCommand::QcepZoomInCommand(QcepPlotWidget *plot, QcepPlotWidgetSetting
 {
   m_ToolButton->setChecked(true);
 
-  connect(m_ToolButton, &QToolButton::clicked,
-          m_PlotWidget, &QcepPlotWidget::zoomIn);
+  CONNECT_CHECK(
+        connect(m_ToolButton, &QToolButton::clicked,
+                m_PlotWidget, &QcepPlotWidget::zoomIn));
 }
 
 void QcepZoomInCommand::enable()

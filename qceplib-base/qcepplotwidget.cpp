@@ -50,8 +50,9 @@ QcepPlotWidget::QcepPlotWidget(QWidget *parent) :
 
   m_Plot->setContextMenuPolicy(Qt::CustomContextMenu);
 
-  connect(m_Plot, &QWidget::customContextMenuRequested,
-          this,   &QcepPlotWidget::contextMenu);
+  CONNECT_CHECK(
+        connect(m_Plot, &QWidget::customContextMenuRequested,
+                this,   &QcepPlotWidget::contextMenu));
 }
 
 QcepPlotWidget::~QcepPlotWidget()
@@ -112,15 +113,15 @@ void QcepPlotWidget::initialize(QcepPlotWidgetSettingsWPtr settings)
   QcepPlotWidgetSettingsPtr set(m_Settings);
 
   if (set) {
-    connect(set->prop_XAxisVis(),  &QcepBoolProperty::valueChanged, [=](bool vis) {setAxisVis(QwtPlot::xBottom, vis);});
-    connect(set->prop_YAxisVis(),  &QcepBoolProperty::valueChanged, [=](bool vis) {setAxisVis(QwtPlot::yLeft,   vis);});
-    connect(set->prop_X2AxisVis(), &QcepBoolProperty::valueChanged, [=](bool vis) {setAxisVis(QwtPlot::xTop,    vis);});
-    connect(set->prop_Y2AxisVis(), &QcepBoolProperty::valueChanged, [=](bool vis) {setAxisVis(QwtPlot::yRight,  vis);});
-    connect(set->prop_XAxisLog(),  &QcepBoolProperty::valueChanged, [=](bool log) {setAxisLog(QwtPlot::xBottom, log);});
-    connect(set->prop_YAxisLog(),  &QcepBoolProperty::valueChanged, [=](bool log) {setAxisLog(QwtPlot::yLeft,   log);});
-    connect(set->prop_X2AxisLog(), &QcepBoolProperty::valueChanged, [=](bool log) {setAxisLog(QwtPlot::xTop,    log);});
-    connect(set->prop_Y2AxisLog(), &QcepBoolProperty::valueChanged, [=](bool log) {setAxisLog(QwtPlot::yRight,  log);});
-    connect(set->prop_LegendPosition(), &QcepIntProperty::valueChanged, [=](int pos) {setLegendPosition(pos);});
+    CONNECT_CHECK(connect(set->prop_XAxisVis(),  &QcepBoolProperty::valueChanged, [=](bool vis) {setAxisVis(QwtPlot::xBottom, vis);}));
+    CONNECT_CHECK(connect(set->prop_YAxisVis(),  &QcepBoolProperty::valueChanged, [=](bool vis) {setAxisVis(QwtPlot::yLeft,   vis);}));
+    CONNECT_CHECK(connect(set->prop_X2AxisVis(), &QcepBoolProperty::valueChanged, [=](bool vis) {setAxisVis(QwtPlot::xTop,    vis);}));
+    CONNECT_CHECK(connect(set->prop_Y2AxisVis(), &QcepBoolProperty::valueChanged, [=](bool vis) {setAxisVis(QwtPlot::yRight,  vis);}));
+    CONNECT_CHECK(connect(set->prop_XAxisLog(),  &QcepBoolProperty::valueChanged, [=](bool log) {setAxisLog(QwtPlot::xBottom, log);}));
+    CONNECT_CHECK(connect(set->prop_YAxisLog(),  &QcepBoolProperty::valueChanged, [=](bool log) {setAxisLog(QwtPlot::yLeft,   log);}));
+    CONNECT_CHECK(connect(set->prop_X2AxisLog(), &QcepBoolProperty::valueChanged, [=](bool log) {setAxisLog(QwtPlot::xTop,    log);}));
+    CONNECT_CHECK(connect(set->prop_Y2AxisLog(), &QcepBoolProperty::valueChanged, [=](bool log) {setAxisLog(QwtPlot::yRight,  log);}));
+    CONNECT_CHECK(connect(set->prop_LegendPosition(), &QcepIntProperty::valueChanged, [=](int pos) {setLegendPosition(pos);}));
 
     setAxisVis(QwtPlot::xBottom, set->get_XAxisVis());
     setAxisVis(QwtPlot::yLeft,   set->get_YAxisVis());
@@ -132,8 +133,8 @@ void QcepPlotWidget::initialize(QcepPlotWidgetSettingsWPtr settings)
     setAxisLog(QwtPlot::yRight,  set->get_Y2AxisLog());
     setLegendPosition(set->get_LegendPosition());
 
-    connect(m_Legend, &QwtLegend::clicked, this, &QcepPlotWidget::onLegendClicked);
-    connect(m_Legend, &QwtLegend::checked, this, &QcepPlotWidget::onLegendChecked);
+    CONNECT_CHECK(connect(m_Legend, &QwtLegend::clicked, this, &QcepPlotWidget::onLegendClicked));
+    CONNECT_CHECK(connect(m_Legend, &QwtLegend::checked, this, &QcepPlotWidget::onLegendChecked));
   }
 }
 

@@ -66,8 +66,9 @@ void QcepFixupGainMapDialog::accept()
     QcepDoubleImageDataPtr input = m_Model->image(m_Index);
 
     if (input) {
-      connect(m_Command.data(), &QcepFixupGainMapCommand::progressMade,
-              m_ProgressIndicator, &QProgressBar::setValue);
+      CONNECT_CHECK(
+            connect(m_Command.data(), &QcepFixupGainMapCommand::progressMade,
+                    m_ProgressIndicator, &QProgressBar::setValue));
 
       m_ProgressIndicator->show();
 

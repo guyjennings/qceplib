@@ -19,8 +19,9 @@ QcepMaskPolygonsCommand::QcepMaskPolygonsCommand(QcepPlotWidget *plot,
 
   setPlotPicker(m_Picker);
 
-  connect(m_Picker, (void (QwtPlotPicker::*)(const QVector<QPointF> &)) & QwtPlotPicker::selected,
-          this, &QcepMaskPolygonsCommand::selected);
+  CONNECT_CHECK(
+        connect(m_Picker, (void (QwtPlotPicker::*)(const QVector<QPointF> &)) & QwtPlotPicker::selected,
+                this, &QcepMaskPolygonsCommand::selected));
 }
 
 void QcepMaskPolygonsCommand::selected(const QVector<QPointF> &p)

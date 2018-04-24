@@ -11,14 +11,15 @@ QcepMeasureCommand::QcepMeasureCommand(QcepPlotWidget *plot, QcepPlotWidgetSetti
 
   setPlotPicker(m_Measurer);
 
-  connect(m_Measurer, (void (QwtPlotPicker::*)(const QVector<QPointF> &)) & QwtPlotPicker::selected,
-          this, &QcepMeasureCommand::selected);
+  CONNECT_CHECK(
+        connect(m_Measurer, (void (QwtPlotPicker::*)(const QVector<QPointF> &)) & QwtPlotPicker::selected,
+                this, &QcepMeasureCommand::selected));
 }
 
 //TODO: implement
 void QcepMeasureCommand::selected(const QVector<QPointF> &p)
 {
   printf("QcepMeasureCommand::selected\n");
-//  connect(m_Measurer, (void (QcepPlotMeasurer::*)( const QVector<QPointF> &)) &QwtPlotPicker::selected,
-//          dp.data(), &QcepProcessor::printMeasuredPolygon);
+//  CONNECT_CHECK(connect(m_Measurer, (void (QcepPlotMeasurer::*)( const QVector<QPointF> &)) &QwtPlotPicker::selected,
+//          dp.data(), &QcepProcessor::printMeasuredPolygon));
 }

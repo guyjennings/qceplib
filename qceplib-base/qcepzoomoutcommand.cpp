@@ -5,6 +5,7 @@
 QcepZoomOutCommand::QcepZoomOutCommand(QcepPlotWidget *plot, QcepPlotWidgetSettingsWPtr set)
   : QcepPlotButtonCommand("zoomOutCommand", "Zoom Out", plot, set, ":/images/zoom-out.png", false)
 {
-  connect(m_ToolButton, &QToolButton::clicked,
-          m_PlotWidget, &QcepPlotWidget::zoomOut);
+  CONNECT_CHECK(
+        connect(m_ToolButton, &QToolButton::clicked,
+                m_PlotWidget, &QcepPlotWidget::zoomOut));
 }

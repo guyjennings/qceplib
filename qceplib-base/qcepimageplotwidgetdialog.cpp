@@ -42,16 +42,16 @@ QcepImagePlotWidgetDialog::QcepImagePlotWidgetDialog(QWidget *parent,
     set->prop_DisplayMaximumVal()   -> copyTo(m_DisplayMaximumVal);
     set->prop_DisplayScalingMode()  -> copyTo(m_DisplayScalingMode);
 
-    connect(m_Display_5pct, &QPushButton::clicked,    [=]() { setMaxPct(5); } );
-    connect(m_Display_10pct, &QPushButton::clicked,   [=]() { setMaxPct(10); } );
-    connect(m_Display_100pct, &QPushButton::clicked,  [=]() { setMaxPct(100); } );
+    CONNECT_CHECK(connect(m_Display_5pct, &QPushButton::clicked,    [=]() { setMaxPct(5); } ));
+    CONNECT_CHECK(connect(m_Display_10pct, &QPushButton::clicked,   [=]() { setMaxPct(10); } ));
+    CONNECT_CHECK(connect(m_Display_100pct, &QPushButton::clicked,  [=]() { setMaxPct(100); } ));
 
-    connect(m_Display_90pctle, &QPushButton::clicked, [=]() { setMaxPctle(90); } );
-    connect(m_Display_95pctle, &QPushButton::clicked, [=]() { setMaxPctle(95); } );
-    connect(m_Display_99pctle, &QPushButton::clicked, [=]() { setMaxPctle(99); } );
+    CONNECT_CHECK(connect(m_Display_90pctle, &QPushButton::clicked, [=]() { setMaxPctle(90); } ));
+    CONNECT_CHECK(connect(m_Display_95pctle, &QPushButton::clicked, [=]() { setMaxPctle(95); } ));
+    CONNECT_CHECK(connect(m_Display_99pctle, &QPushButton::clicked, [=]() { setMaxPctle(99); } ));
 
-    connect(m_DisplayScalingMode, (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged,
-            m_DisplayParmsStack,  &QStackedWidget::setCurrentIndex);
+    CONNECT_CHECK(connect(m_DisplayScalingMode, (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged,
+            m_DisplayParmsStack,  &QStackedWidget::setCurrentIndex));
 
     m_DisplayParmsStack->setCurrentIndex(set->get_DisplayScalingMode());
 
@@ -74,8 +74,8 @@ QcepImagePlotWidgetDialog::QcepImagePlotWidgetDialog(QWidget *parent,
 //  QcepAcquisitionPtr     acq(m_Acquisition);
 
 //  if (win) {
-//    connect(m_DisplayOptionsButton, &QAbstractButton::clicked,
-//            win.data(), &QcepMainWindow::doEditPreferences);
+//    CONNECT_CHECK(connect(m_DisplayOptionsButton, &QAbstractButton::clicked,
+//            win.data(), &QcepMainWindow::doEditPreferences));
 //  }
 
 //  if (acq) {
@@ -86,10 +86,10 @@ QcepImagePlotWidgetDialog::QcepImagePlotWidgetDialog(QWidget *parent,
 //    QcepImagePlot *plot = wdg->m_Plot;
 
 //    if (plot) {
-//      connect(m_AutoRange, &QAbstractButton::clicked, plot, &QcepImagePlot::setAutoRange);
-//      connect(m_Display_5pct, &QAbstractButton::clicked, plot, &QcepImagePlot::set005Range);
-//      connect(m_Display_10pct, &QAbstractButton::clicked, plot, &QcepImagePlot::set010Range);
-//      connect(m_Display_100pct, &QAbstractButton::clicked, plot, &QcepImagePlot::set100Range);
+//      CONNECT_CHECK(connect(m_AutoRange, &QAbstractButton::clicked, plot, &QcepImagePlot::setAutoRange));
+//      CONNECT_CHECK(connect(m_Display_5pct, &QAbstractButton::clicked, plot, &QcepImagePlot::set005Range));
+//      CONNECT_CHECK(connect(m_Display_10pct, &QAbstractButton::clicked, plot, &QcepImagePlot::set010Range));
+//      CONNECT_CHECK(connect(m_Display_100pct, &QAbstractButton::clicked, plot, &QcepImagePlot::set100Range));
 
 //      QcepImagePlotSettingsPtr ps(plot->imagePlotSettings());
 
@@ -104,7 +104,7 @@ QcepImagePlotWidgetDialog::QcepImagePlotWidgetDialog(QWidget *parent,
 //        ps -> prop_DisplayLog() -> linkTo(m_DisplayImageLog);
 //        ps -> prop_DisplayScalingMode() -> linkTo(m_DisplayScalingMode);
 
-//        connect(ps -> prop_DisplayScalingMode(), &QcepIntProperty::valueChanged, m_DisplayParmsStack, &QStackedWidget::setCurrentIndex);
+//        CONNECT_CHECK(connect(ps -> prop_DisplayScalingMode(), &QcepIntProperty::valueChanged, m_DisplayParmsStack, &QStackedWidget::setCurrentIndex));
 //        m_DisplayParmsStack->setCurrentIndex(ps->get_DisplayScalingMode());
 
 //        ps -> prop_DisplayColorMap() -> linkTo(m_DisplayColorMap);

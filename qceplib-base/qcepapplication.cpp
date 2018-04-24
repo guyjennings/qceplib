@@ -76,8 +76,9 @@ void QcepApplication::initializeRoot()
       QCommandLineParserPtr(
         new QCommandLineParser());
 
-  connect(prop_Debug(), &QcepInt64Property::valueChanged,
-          this,         &QcepApplication::debugChanged);
+  CONNECT_CHECK(
+        connect(prop_Debug(), &QcepInt64Property::valueChanged,
+                this,         &QcepApplication::debugChanged));
 
   readApplicationSettings();
 

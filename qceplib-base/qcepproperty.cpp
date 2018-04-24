@@ -635,11 +635,13 @@ void QcepDoubleProperty::linkTo(QDoubleSpinBox *spinBox)
 
   copyTo(spinBox);
 
-  connect(this,   &QcepDoubleProperty::valueChanged,
-          helper, &QcepDoublePropertyDoubleSpinBoxHelper::setValue2);
+  CONNECT_CHECK(
+        connect(this,   &QcepDoubleProperty::valueChanged,
+                helper, &QcepDoublePropertyDoubleSpinBoxHelper::setValue2));
 
-  connect(helper, &QcepDoublePropertyDoubleSpinBoxHelper::valueChanged,
-          this,   &QcepDoubleProperty::setValue);
+  CONNECT_CHECK(
+        connect(helper, &QcepDoublePropertyDoubleSpinBoxHelper::valueChanged,
+                this,   &QcepDoubleProperty::setValue));
 }
 
 void QcepDoubleProperty::copyTo(QLabel *label)
@@ -657,7 +659,7 @@ void QcepDoubleProperty::linkTo(QLabel *label)
 
   copyTo(label);
 
-  connect(this, &QcepDoubleProperty::stringValueChanged, label, &QLabel::setText);
+  CONNECT_CHECK(connect(this, &QcepDoubleProperty::stringValueChanged, label, &QLabel::setText));
 }
 
 void QcepDoubleProperty::copyTo(QProgressBar *progress)
@@ -675,7 +677,7 @@ void QcepDoubleProperty::linkTo(QProgressBar *progress)
 
   copyTo(progress);
 
-  connect(this, &QcepDoubleProperty::valueChanged, progress, &QProgressBar::setValue);
+  CONNECT_CHECK(connect(this, &QcepDoubleProperty::valueChanged, progress, &QProgressBar::setValue));
 }
 
 void QcepDoubleProperty::copyTo(QLCDNumber *number)
@@ -693,8 +695,9 @@ void QcepDoubleProperty::linkTo(QLCDNumber *number)
 
   copyTo(number);
 
-  connect(this,    &QcepDoubleProperty::valueChanged,
-          number, (void (QLCDNumber::*)(int)) &QLCDNumber::display);
+  CONNECT_CHECK(
+        connect(this,    &QcepDoubleProperty::valueChanged,
+                number, (void (QLCDNumber::*)(int)) &QLCDNumber::display));
 }
 
 QcepDoublePropertyDoubleSpinBoxHelper::QcepDoublePropertyDoubleSpinBoxHelper(QDoubleSpinBox *spinBox, QcepDoubleProperty *property)
@@ -859,8 +862,8 @@ void QcepIntProperty::linkTo(QSpinBox *spinBox)
 
   copyTo(spinBox);
 
-  connect(this,   &QcepIntProperty::valueChanged, helper, &QcepIntPropertySpinBoxHelper::setValue2);
-  connect(helper, &QcepIntPropertySpinBoxHelper::valueChanged, this,   &QcepIntProperty::setValue2);
+  CONNECT_CHECK(connect(this,   &QcepIntProperty::valueChanged, helper, &QcepIntPropertySpinBoxHelper::setValue2));
+  CONNECT_CHECK(connect(helper, &QcepIntPropertySpinBoxHelper::valueChanged, this,   &QcepIntProperty::setValue2));
 }
 
 void QcepIntProperty::copyTo(QComboBox *comboBox)
@@ -890,8 +893,8 @@ void QcepIntProperty::linkTo(QComboBox *comboBox)
 
   copyTo(comboBox);
 
-  connect(this,   &QcepIntProperty::valueChanged,        helper, &QcepIntPropertyComboBoxHelper::setCurrentIndex);
-  connect(helper, &QcepIntPropertyComboBoxHelper::currentIndexChanged, this,   &QcepIntProperty::setValue);
+  CONNECT_CHECK(connect(this,   &QcepIntProperty::valueChanged,        helper, &QcepIntPropertyComboBoxHelper::setCurrentIndex));
+  CONNECT_CHECK(connect(helper, &QcepIntPropertyComboBoxHelper::currentIndexChanged, this,   &QcepIntProperty::setValue));
 }
 
 void QcepIntProperty::copyTo(QLabel *label)
@@ -905,7 +908,7 @@ void QcepIntProperty::linkTo(QLabel *label)
 {
   copyTo(label);
 
-  connect(this, &QcepIntProperty::stringValueChanged, label, &QLabel::setText);
+  CONNECT_CHECK(connect(this, &QcepIntProperty::stringValueChanged, label, &QLabel::setText));
 }
 
 void QcepIntProperty::copyTo(QProgressBar *progress)
@@ -919,7 +922,7 @@ void QcepIntProperty::linkTo(QProgressBar *progress)
 {
   copyTo(progress);
 
-  connect(this, &QcepIntProperty::valueChanged, progress, &QProgressBar::setValue);
+  CONNECT_CHECK(connect(this, &QcepIntProperty::valueChanged, progress, &QProgressBar::setValue));
 }
 
 void QcepIntProperty::copyTo(QLCDNumber *number)
@@ -933,8 +936,9 @@ void QcepIntProperty::linkTo(QLCDNumber *number)
 {
   copyTo(number);
 
-  connect(this,   &QcepIntProperty::valueChanged,
-          number, (void (QLCDNumber::*)(double)) &QLCDNumber::display);
+  CONNECT_CHECK(
+        connect(this,   &QcepIntProperty::valueChanged,
+                number, (void (QLCDNumber::*)(double)) &QLCDNumber::display));
 }
 
 QcepIntPropertySpinBoxHelper::QcepIntPropertySpinBoxHelper(QSpinBox *spinBox, QcepIntProperty *property)
@@ -1126,8 +1130,8 @@ void QcepBoolProperty::linkTo(QAbstractButton *button)
 
   copyTo(button);
 
-  connect(this,   &QcepBoolProperty::valueChanged, helper, &QcepBoolPropertyButtonHelper::setChecked);
-  connect(helper, &QcepBoolPropertyButtonHelper::toggled,      this,   &QcepBoolProperty::setValue);
+  CONNECT_CHECK(connect(this,   &QcepBoolProperty::valueChanged, helper, &QcepBoolPropertyButtonHelper::setChecked));
+  CONNECT_CHECK(connect(helper, &QcepBoolPropertyButtonHelper::toggled,      this,   &QcepBoolProperty::setValue));
 }
 
 QcepBoolPropertyButtonHelper::QcepBoolPropertyButtonHelper(QAbstractButton *button, QcepBoolProperty *property)
@@ -1277,8 +1281,8 @@ void QcepStringProperty::linkTo(QComboBox *comboBox)
 
   copyTo(comboBox);
 
-  connect(this,   &QcepStringProperty::valueChanged, helper, &QcepStringPropertyComboBoxHelper::setValue);
-  connect(helper, &QcepStringPropertyComboBoxHelper::valueChanged,   this,   &QcepStringProperty::setValue);
+  CONNECT_CHECK(connect(this,   &QcepStringProperty::valueChanged, helper, &QcepStringPropertyComboBoxHelper::setValue));
+  CONNECT_CHECK(connect(helper, &QcepStringPropertyComboBoxHelper::valueChanged,   this,   &QcepStringProperty::setValue));
 }
 
 void QcepStringProperty::copyTo(QLineEdit *lineEdit)
@@ -1308,8 +1312,8 @@ void QcepStringProperty::linkTo(QLineEdit *lineEdit)
 
   copyTo(lineEdit);
 
-  connect(this,   &QcepStringProperty::valueChanged, helper, &QcepStringPropertyLineEditHelper::setText2);
-  connect(helper, &QcepStringPropertyLineEditHelper::textEdited,   this,   &QcepStringProperty::setValue);
+  CONNECT_CHECK(connect(this,   &QcepStringProperty::valueChanged, helper, &QcepStringPropertyLineEditHelper::setText2));
+  CONNECT_CHECK(connect(helper, &QcepStringPropertyLineEditHelper::textEdited,   this,   &QcepStringProperty::setValue));
 }
 
 void QcepStringProperty::copyTo(QLabel *label)
@@ -1323,7 +1327,7 @@ void QcepStringProperty::linkTo(QLabel *label)
 {
   copyTo(label);
 
-  connect(this, &QcepStringProperty::valueChanged, label, &QLabel::setText);
+  CONNECT_CHECK(connect(this, &QcepStringProperty::valueChanged, label, &QLabel::setText));
 }
 
 void QcepStringProperty::copyTo(QLCDNumber *number)
@@ -1337,8 +1341,9 @@ void QcepStringProperty::linkTo(QLCDNumber *number)
 {
   copyTo(number);
 
-  connect(this,   &QcepStringProperty::valueChanged,
-          number, (void (QLCDNumber::*)(const QString&)) &QLCDNumber::display);
+  CONNECT_CHECK(
+        connect(this,   &QcepStringProperty::valueChanged,
+                number, (void (QLCDNumber::*)(const QString&)) &QLCDNumber::display));
 }
 
 void QcepStringProperty::copyTo(QTextEdit *textEdit)
@@ -1368,8 +1373,8 @@ void QcepStringProperty::linkTo(QTextEdit *textEdit)
 
   copyTo(textEdit);
 
-  connect(this,   &QcepStringProperty::valueChanged, helper, &QcepStringPropertyTextEditHelper::setText);
-  connect(helper, &QcepStringPropertyTextEditHelper::textEdited,   this,   &QcepStringProperty::setValue);
+  CONNECT_CHECK(connect(this,   &QcepStringProperty::valueChanged, helper, &QcepStringPropertyTextEditHelper::setText));
+  CONNECT_CHECK(connect(helper, &QcepStringPropertyTextEditHelper::textEdited,   this,   &QcepStringProperty::setValue));
 }
 
 QcepStringPropertyLineEditHelper::QcepStringPropertyLineEditHelper(QLineEdit *lineEdit, QcepStringProperty *property)
@@ -2517,8 +2522,8 @@ void QcepDoublePointProperty::linkTo(int axis, QDoubleSpinBox *spinBox)
 
   copyTo(axis, spinBox);
 
-  connect(this, &QcepDoublePointProperty::subValueChanged, helper, &QcepDoublePointPropertyDoubleSpinBoxHelper::setSubValue);
-  connect(helper, &QcepDoublePointPropertyDoubleSpinBoxHelper::subValueChanged, this, &QcepDoublePointProperty::setSubValue);
+  CONNECT_CHECK(connect(this, &QcepDoublePointProperty::subValueChanged, helper, &QcepDoublePointPropertyDoubleSpinBoxHelper::setSubValue));
+  CONNECT_CHECK(connect(helper, &QcepDoublePointPropertyDoubleSpinBoxHelper::subValueChanged, this, &QcepDoublePointProperty::setSubValue));
 }
 
 QcepDoublePointPropertyDoubleSpinBoxHelper::QcepDoublePointPropertyDoubleSpinBoxHelper

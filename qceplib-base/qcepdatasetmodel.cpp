@@ -23,8 +23,9 @@ QcepDatasetModel::QcepDatasetModel(QcepExperimentWPtr expt, QcepDatasetPtr ds) :
 
   qRegisterMetaType< QVector<int> >("QVector<int>");
 
-  connect(m_Dataset.data(), &QcepDataObject::dataObjectChanged,
-          this,             &QcepDatasetModel::onDataObjectChanged);
+  CONNECT_CHECK(
+        connect(m_Dataset.data(), &QcepDataObject::dataObjectChanged,
+                this,             &QcepDatasetModel::onDataObjectChanged));
 }
 
 void QcepDatasetModel::readSettings(QSettings *settings)

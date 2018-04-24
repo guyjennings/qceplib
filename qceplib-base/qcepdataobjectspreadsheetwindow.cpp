@@ -115,7 +115,9 @@ void QcepDataObjectSpreadsheetWindow::initialize(QcepObjectWPtr parent)
   }
 
   if (objp && m_Model) {
-    connect(objp.data(), &QcepDataObject::dataObjectChanged, m_Model.data(), &QcepSpreadsheetModel::onDataObjectChanged);
+    CONNECT_CHECK(
+          connect(objp.data(), &QcepDataObject::dataObjectChanged,
+                  m_Model.data(), &QcepSpreadsheetModel::onDataObjectChanged));
   }
 
   setAttribute(Qt::WA_DeleteOnClose, true);

@@ -26,8 +26,8 @@ QcepNewColumnScanDialog::QcepNewColumnScanDialog(QcepDatasetModelPtr model, cons
       }
     }
 
-    connect(m_AddColumn, &QAbstractButton::clicked, this, &QcepNewColumnScanDialog::addColumn);
-    connect(m_DelColumn, &QAbstractButton::clicked, this, &QcepNewColumnScanDialog::delColumn);
+    CONNECT_CHECK(connect(m_AddColumn, &QAbstractButton::clicked, this, &QcepNewColumnScanDialog::addColumn));
+    CONNECT_CHECK(connect(m_DelColumn, &QAbstractButton::clicked, this, &QcepNewColumnScanDialog::delColumn));
   }
 }
 

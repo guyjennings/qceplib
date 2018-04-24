@@ -16,14 +16,14 @@ QcepScatterPlotGraphControls::QcepScatterPlotGraphControls(QcepDataObjectGraphWi
 
   m_ScatterColumns -> horizontalHeader() -> setSectionResizeMode(QHeaderView::ResizeToContents);
 
-//  connect(m_ScatterColumns->selectionModel(), &QItemSelectionModel::selectionChanged,
-//          this, &QcepScatterPlotGraphControls::onSelectionChanged);
+  //  CONNECT_CHECK(connect(m_ScatterColumns->selectionModel(), &QItemSelectionModel::selectionChanged,
+  //          this, &QcepScatterPlotGraphControls::onSelectionChanged));
 
-  connect(m_ScatterColumns, &QAbstractItemView::clicked,
-          m_Model.data(),   &QcepScatterPlotGraphModel::toggle);
+  CONNECT_CHECK(connect(m_ScatterColumns, &QAbstractItemView::clicked,
+                        m_Model.data(),   &QcepScatterPlotGraphModel::toggle));
 
-//  connect(m_Model.data(), &QAbstractItemModel::dataChanged,
-//          this,           &QcepScatterPlotGraphControls::onPlotDataChanged);
+//  CONNECT_CHECK(connect(m_Model.data(), &QAbstractItemModel::dataChanged,
+//          this,           &QcepScatterPlotGraphControls::onPlotDataChanged));
 }
 
 QcepScatterPlotGraphControls::~QcepScatterPlotGraphControls()

@@ -18,8 +18,9 @@ QcepPowderPointsCommand::QcepPowderPointsCommand(QcepPlotWidget *plot,
 
   changeMode(0);
 
-  connect(m_Picker, (void (QwtPlotPicker::*)(const QPointF&)) &QwtPlotPicker::selected,
-          this, &QcepPowderPointsCommand::selected);
+  CONNECT_CHECK(
+        connect(m_Picker, (void (QwtPlotPicker::*)(const QPointF&)) &QwtPlotPicker::selected,
+                this, &QcepPowderPointsCommand::selected));
 }
 
 //TODO: implement

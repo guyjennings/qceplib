@@ -55,8 +55,9 @@ void QcepStartupWindow::initialize(QcepObjectWPtr parent)
     QcepApplicationPtr a(QcepApplication::findApplication(m_Parent));
 
     if (a) {
-      connect(a->prop_MessageWindowLines(), &QcepIntProperty::valueChanged,
-              this, &QcepStartupWindow::onMessageWindowLinesChanged);
+      CONNECT_CHECK(
+            connect(a->prop_MessageWindowLines(), &QcepIntProperty::valueChanged,
+                    this, &QcepStartupWindow::onMessageWindowLinesChanged));
 
       onMessageWindowLinesChanged(a->get_MessageWindowLines());
     }

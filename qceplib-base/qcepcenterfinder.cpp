@@ -81,14 +81,14 @@ QcepCenterFinder::QcepCenterFinder(QString name)
 //  m_CenterX.setDebug(true);
 //  m_CenterY.setDebug(true);
 
-  connect(prop_Center(), &QcepDoublePointProperty::valueChanged, this, &QcepCenterFinder::parameterChanged, Qt::DirectConnection);
-  connect(prop_DetectorXPixelSize(), &QcepDoubleProperty::valueChanged, this, &QcepCenterFinder::parameterChanged, Qt::DirectConnection);
-  connect(prop_DetectorYPixelSize(), &QcepDoubleProperty::valueChanged, this, &QcepCenterFinder::parameterChanged, Qt::DirectConnection);
-  connect(prop_DetectorDistance(), &QcepDoubleProperty::valueChanged, this, &QcepCenterFinder::parameterChanged, Qt::DirectConnection);
-  connect(prop_Energy(), &QcepDoubleProperty::valueChanged, this, &QcepCenterFinder::parameterChanged, Qt::DirectConnection);
-  connect(prop_ImplementTilt(), &QcepBoolProperty::valueChanged, this, &QcepCenterFinder::parameterChanged, Qt::DirectConnection);
-  connect(prop_DetectorTilt(), &QcepDoubleProperty::valueChanged, this, &QcepCenterFinder::parameterChanged, Qt::DirectConnection);
-  connect(prop_TiltPlaneRotation(), &QcepDoubleProperty::valueChanged, this, &QcepCenterFinder::parameterChanged, Qt::DirectConnection);
+  CONNECT_CHECK(connect(prop_Center(), &QcepDoublePointProperty::valueChanged, this, &QcepCenterFinder::parameterChanged, Qt::DirectConnection));
+  CONNECT_CHECK(connect(prop_DetectorXPixelSize(), &QcepDoubleProperty::valueChanged, this, &QcepCenterFinder::parameterChanged, Qt::DirectConnection));
+  CONNECT_CHECK(connect(prop_DetectorYPixelSize(), &QcepDoubleProperty::valueChanged, this, &QcepCenterFinder::parameterChanged, Qt::DirectConnection));
+  CONNECT_CHECK(connect(prop_DetectorDistance(), &QcepDoubleProperty::valueChanged, this, &QcepCenterFinder::parameterChanged, Qt::DirectConnection));
+  CONNECT_CHECK(connect(prop_Energy(), &QcepDoubleProperty::valueChanged, this, &QcepCenterFinder::parameterChanged, Qt::DirectConnection));
+  CONNECT_CHECK(connect(prop_ImplementTilt(), &QcepBoolProperty::valueChanged, this, &QcepCenterFinder::parameterChanged, Qt::DirectConnection));
+  CONNECT_CHECK(connect(prop_DetectorTilt(), &QcepDoubleProperty::valueChanged, this, &QcepCenterFinder::parameterChanged, Qt::DirectConnection));
+  CONNECT_CHECK(connect(prop_TiltPlaneRotation(), &QcepDoubleProperty::valueChanged, this, &QcepCenterFinder::parameterChanged, Qt::DirectConnection));
 }
 
 void QcepCenterFinder::initialize(QcepObjectWPtr parent)

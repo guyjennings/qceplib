@@ -32,14 +32,17 @@ QcepPlotButtonCommand::QcepPlotButtonCommand(QString                    name,
     m_ToolButton->setAutoExclusive(checkable);
   }
 
-  connect(m_ToolButton,  &QWidget::customContextMenuRequested,
-          this,          &QcepPlotButtonCommand::contextMenu);
+  CONNECT_CHECK(
+        connect(m_ToolButton,  &QWidget::customContextMenuRequested,
+                this,          &QcepPlotButtonCommand::contextMenu));
 
-  connect(m_ToolButton,  &QToolButton::toggled,
-          this,          &QcepPlotButtonCommand::toggled);
+  CONNECT_CHECK(
+        connect(m_ToolButton,  &QToolButton::toggled,
+                this,          &QcepPlotButtonCommand::toggled));
 
-  connect(m_ToolButton,  &QToolButton::clicked,
-          this,          &QcepPlotButtonCommand::clicked);
+  CONNECT_CHECK(
+        connect(m_ToolButton,  &QToolButton::clicked,
+                this,          &QcepPlotButtonCommand::clicked));
 }
 
 void QcepPlotButtonCommand::initialize(QcepObjectWPtr parent)

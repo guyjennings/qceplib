@@ -34,8 +34,13 @@
 QcepDatasetBrowserView::QcepDatasetBrowserView(QWidget *parent)
   : inherited(parent)
 {
-  connect(this, &QWidget::customContextMenuRequested, this, &QcepDatasetBrowserView::onCustomContextMenuRequested);
-  connect(this, &QAbstractItemView::doubleClicked, this, &QcepDatasetBrowserView::onDoubleClicked);
+  CONNECT_CHECK(
+        connect(this, &QWidget::customContextMenuRequested,
+                this, &QcepDatasetBrowserView::onCustomContextMenuRequested));
+
+  CONNECT_CHECK(
+        connect(this, &QAbstractItemView::doubleClicked,
+                this, &QcepDatasetBrowserView::onDoubleClicked));
 
   setContextMenuPolicy(Qt::CustomContextMenu);
   header() -> setSectionResizeMode(QHeaderView::Stretch);

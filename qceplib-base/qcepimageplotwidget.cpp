@@ -43,8 +43,8 @@ QcepImagePlotWidget::QcepImagePlotWidget(QWidget *parent)
     m_PowderRings(),
     m_ROIModel()
 {
-  connect(&m_ImageTimer, &QTimer::timeout, this, &QcepImagePlotWidget::updateImage);
-  connect(&m_ImageTimer, &QTimer::timeout, this, &QcepImagePlotWidget::updateMask);
+  CONNECT_CHECK(connect(&m_ImageTimer, &QTimer::timeout, this, &QcepImagePlotWidget::updateImage));
+  CONNECT_CHECK(connect(&m_ImageTimer, &QTimer::timeout, this, &QcepImagePlotWidget::updateMask));
 
   m_ImageTimer.start(1000);
 }
@@ -71,21 +71,21 @@ void QcepImagePlotWidget::initialize(QcepImagePlotWidgetSettingsWPtr settings)
   QcepImagePlotWidgetSettingsPtr set(m_ImageSettings);
 
   if (set) {
-    connect(set->prop_DisplayColorMap(),     &QcepIntProperty::valueChanged, this, &QcepImagePlotWidget::replotImage);
-    connect(set->prop_DisplayLog(),          &QcepBoolProperty::valueChanged, this, &QcepImagePlotWidget::replotImage);
-    connect(set->prop_DisplayScalingMode(),  &QcepIntProperty::valueChanged, this, &QcepImagePlotWidget::replotImage);
-    connect(set->prop_DisplayMaximumPct(),   &QcepDoubleProperty::valueChanged, this, &QcepImagePlotWidget::replotImage);
-    connect(set->prop_DisplayMaximumPct(),   &QcepDoubleProperty::valueChanged, this, &QcepImagePlotWidget::replotImage);
-    connect(set->prop_DisplayMaximumPctle(), &QcepDoubleProperty::valueChanged, this, &QcepImagePlotWidget::replotImage);
-    connect(set->prop_DisplayMaximumPctle(), &QcepDoubleProperty::valueChanged, this, &QcepImagePlotWidget::replotImage);
-    connect(set->prop_DisplayMaximumVal(),   &QcepDoubleProperty::valueChanged, this, &QcepImagePlotWidget::replotImage);
-    connect(set->prop_DisplayMaximumVal(),   &QcepDoubleProperty::valueChanged, this, &QcepImagePlotWidget::replotImage);
-    connect(set->prop_ImageShown(),          &QcepBoolProperty::valueChanged, this, &QcepImagePlotWidget::replotImage);
-    connect(set->prop_MaskShown(),           &QcepBoolProperty::valueChanged, this, &QcepImagePlotWidget::replotMask);
-    connect(set->prop_OverflowShown(),       &QcepBoolProperty::valueChanged, this, &QcepImagePlotWidget::replotImage);
-    connect(set->prop_OverflowLevel(),       &QcepDoubleProperty::valueChanged, this, &QcepImagePlotWidget::replotImage);
-    connect(set->prop_InterpolatePixels(),   &QcepBoolProperty::valueChanged, this, &QcepImagePlotWidget::replotImage);
-    connect(set->prop_MaintainAspectRatio(), &QcepBoolProperty::valueChanged, this, &QcepImagePlotWidget::replotImage);
+    CONNECT_CHECK(connect(set->prop_DisplayColorMap(),     &QcepIntProperty::valueChanged, this, &QcepImagePlotWidget::replotImage));
+    CONNECT_CHECK(connect(set->prop_DisplayLog(),          &QcepBoolProperty::valueChanged, this, &QcepImagePlotWidget::replotImage));
+    CONNECT_CHECK(connect(set->prop_DisplayScalingMode(),  &QcepIntProperty::valueChanged, this, &QcepImagePlotWidget::replotImage));
+    CONNECT_CHECK(connect(set->prop_DisplayMaximumPct(),   &QcepDoubleProperty::valueChanged, this, &QcepImagePlotWidget::replotImage));
+    CONNECT_CHECK(connect(set->prop_DisplayMaximumPct(),   &QcepDoubleProperty::valueChanged, this, &QcepImagePlotWidget::replotImage));
+    CONNECT_CHECK(connect(set->prop_DisplayMaximumPctle(), &QcepDoubleProperty::valueChanged, this, &QcepImagePlotWidget::replotImage));
+    CONNECT_CHECK(connect(set->prop_DisplayMaximumPctle(), &QcepDoubleProperty::valueChanged, this, &QcepImagePlotWidget::replotImage));
+    CONNECT_CHECK(connect(set->prop_DisplayMaximumVal(),   &QcepDoubleProperty::valueChanged, this, &QcepImagePlotWidget::replotImage));
+    CONNECT_CHECK(connect(set->prop_DisplayMaximumVal(),   &QcepDoubleProperty::valueChanged, this, &QcepImagePlotWidget::replotImage));
+    CONNECT_CHECK(connect(set->prop_ImageShown(),          &QcepBoolProperty::valueChanged, this, &QcepImagePlotWidget::replotImage));
+    CONNECT_CHECK(connect(set->prop_MaskShown(),           &QcepBoolProperty::valueChanged, this, &QcepImagePlotWidget::replotMask));
+    CONNECT_CHECK(connect(set->prop_OverflowShown(),       &QcepBoolProperty::valueChanged, this, &QcepImagePlotWidget::replotImage));
+    CONNECT_CHECK(connect(set->prop_OverflowLevel(),       &QcepDoubleProperty::valueChanged, this, &QcepImagePlotWidget::replotImage));
+    CONNECT_CHECK(connect(set->prop_InterpolatePixels(),   &QcepBoolProperty::valueChanged, this, &QcepImagePlotWidget::replotImage));
+    CONNECT_CHECK(connect(set->prop_MaintainAspectRatio(), &QcepBoolProperty::valueChanged, this, &QcepImagePlotWidget::replotImage));
 
     m_PlotRescaler = new QwtPlotRescaler(m_Plot->canvas(), QwtPlot::yLeft, QwtPlotRescaler::Expanding);
     m_PlotRescaler -> setEnabled(set->prop_MaintainAspectRatio());
@@ -106,8 +106,9 @@ void QcepImagePlotWidget::setMaskStack(QcepMaskStackWPtr masks)
 //      addPlotCommand(QcepPlotCommandPtr(new QcepMaskCirclesCommand("Mask Circles", this, m_ImageSettings, m)));
 //      addPlotCommand(QcepPlotCommandPtr(new QcepMaskPolygonsCommand("Mask Polygons", this, m_ImageSettings, m)));
 
-    connect(m.data(), &QcepMaskStack::maskChanged,
-            this,     &QcepImagePlotWidget::maskChanged);
+    CONNECT_CHECK(
+          connect(m.data(), &QcepMaskStack::maskChanged,
+                  this,     &QcepImagePlotWidget::maskChanged));
   }
 }
 

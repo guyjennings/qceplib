@@ -18,8 +18,9 @@ QcepSetCenterCommand::QcepSetCenterCommand(QcepPlotWidget            *plot,
   QcepCenterFinderPtr f(m_CenterFinder);
 
   if (f) {
-    connect(m_Picker, (void (QwtPlotPicker::*)(const QPointF &)) &QwtPlotPicker::selected,
-            f.data(), &QcepCenterFinder::onCenterChanged);
+    CONNECT_CHECK(
+          connect(m_Picker, (void (QwtPlotPicker::*)(const QPointF &)) &QwtPlotPicker::selected,
+                  f.data(), &QcepCenterFinder::onCenterChanged));
   } else {
     printMessage("QcepSetCenterCommand::QcepSetCenterCommand no center finder");
   }

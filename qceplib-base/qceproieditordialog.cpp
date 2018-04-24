@@ -80,13 +80,13 @@ QcepROIEditorDialog::QcepROIEditorDialog(QcepROIWPtr roi, QWidget *parent) :
     newOuterType(roip->get_RoiOuterType());
   }
 
-  connect(m_InnerType, (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged, this, &QcepROIEditorDialog::newInnerType);
-  connect(m_OuterType, (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged, this, &QcepROIEditorDialog::newOuterType);
+  CONNECT_CHECK(connect(m_InnerType, (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged, this, &QcepROIEditorDialog::newInnerType));
+  CONNECT_CHECK(connect(m_OuterType, (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged, this, &QcepROIEditorDialog::newOuterType));
 
-  connect(m_InnerAddPoint, &QAbstractButton::clicked, this, &QcepROIEditorDialog::innerAddPoint);
-  connect(m_InnerDelPoint, &QAbstractButton::clicked, this, &QcepROIEditorDialog::innerDelPoint);
-  connect(m_OuterAddPoint, &QAbstractButton::clicked, this, &QcepROIEditorDialog::outerAddPoint);
-  connect(m_OuterDelPoint, &QAbstractButton::clicked, this, &QcepROIEditorDialog::outerDelPoint);
+  CONNECT_CHECK(connect(m_InnerAddPoint, &QAbstractButton::clicked, this, &QcepROIEditorDialog::innerAddPoint));
+  CONNECT_CHECK(connect(m_InnerDelPoint, &QAbstractButton::clicked, this, &QcepROIEditorDialog::innerDelPoint));
+  CONNECT_CHECK(connect(m_OuterAddPoint, &QAbstractButton::clicked, this, &QcepROIEditorDialog::outerAddPoint));
+  CONNECT_CHECK(connect(m_OuterDelPoint, &QAbstractButton::clicked, this, &QcepROIEditorDialog::outerDelPoint));
 }
 
 QcepROIEditorDialog::~QcepROIEditorDialog()

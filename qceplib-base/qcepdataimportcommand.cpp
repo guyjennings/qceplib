@@ -53,11 +53,13 @@ bool QcepDataImportCommand::exec()
                             m_Parameters);
 
   if (m_FileImporter) {
-    connect(m_FileImporter.data(), &QcepFileImporter::importProgress,
-            &dlog, &QcepDataImportDialog::importProgress);
+    CONNECT_CHECK(
+          connect(m_FileImporter.data(), &QcepFileImporter::importProgress,
+                  &dlog, &QcepDataImportDialog::importProgress));
 
-    connect(m_FileImporter.data(), &QcepFileImporter::importCompleted,
-            &dlog, &QcepDataImportDialog::importCompleted);
+    CONNECT_CHECK(
+          connect(m_FileImporter.data(), &QcepFileImporter::importCompleted,
+                  &dlog, &QcepDataImportDialog::importCompleted));
   }
 
   QtConcurrent::run(m_FileImporter.data(), &QcepFileImporter::exec);

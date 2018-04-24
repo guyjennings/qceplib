@@ -23,8 +23,9 @@ QcepMaskCirclesCommand::QcepMaskCirclesCommand(QcepPlotWidget *plot,
 
   setPlotPicker(m_Picker);
 
-  connect(m_Picker, (void (QwtPlotPicker::*)(const QRectF &)) &QwtPlotPicker::selected,
-          this, &QcepMaskCirclesCommand::selected);
+  CONNECT_CHECK(
+        connect(m_Picker, (void (QwtPlotPicker::*)(const QRectF &)) &QwtPlotPicker::selected,
+                this, &QcepMaskCirclesCommand::selected));
 }
 
 void QcepMaskCirclesCommand::selected(const QRectF &r)

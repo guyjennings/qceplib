@@ -11,8 +11,9 @@ void QcepFileImporterMultiple::append(QcepFileImporterPtr importer)
 {
   m_Importers.append(importer);
 
-  connect(importer.data(), &QcepFileImporter::importProgress,
-          this, &QcepFileImporterMultiple::individualProgress);
+  CONNECT_CHECK(
+        connect(importer.data(), &QcepFileImporter::importProgress,
+                this, &QcepFileImporterMultiple::individualProgress));
 }
 
 void QcepFileImporterMultiple::exec()

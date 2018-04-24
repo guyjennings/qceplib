@@ -5,8 +5,9 @@
 QcepMaskStackModel::QcepMaskStackModel(QcepMaskStackWPtr masks) :
     m_MaskStack(masks)
 {
-  connect(masks.data(), &QcepMaskStack::maskChanged,
-          this,         &QcepMaskStackModel::onMaskChanged);
+  CONNECT_CHECK(
+        connect(masks.data(), &QcepMaskStack::maskChanged,
+                this,         &QcepMaskStackModel::onMaskChanged));
 }
 
 int QcepMaskStackModel::rowCount (const QModelIndex & parent) const

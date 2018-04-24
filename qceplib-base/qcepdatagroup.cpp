@@ -295,7 +295,7 @@ void QcepDataGroup::append(QcepDataObjectPtr obj)
 
     m_Objects.append(obj);
 
-    connect(obj.data(), &QcepDataObject::dataObjectChanged, this, &QcepDataObject::dataObjectChanged);
+    CONNECT_CHECK(connect(obj.data(), &QcepDataObject::dataObjectChanged, this, &QcepDataObject::dataObjectChanged));
 
     emit dataObjectChanged();
   }

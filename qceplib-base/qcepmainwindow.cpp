@@ -181,12 +181,12 @@ void QcepMainWindow::setupMenus(QMenu *file, QMenu *edit, QMenu *window)
   QcepExperimentPtr  exper(QcepExperiment::findExperiment(m_Parent));
 
   if (app) {
-    connect(&m_StatusTimer, &QTimer::timeout, this, &QcepMainWindow::clearStatusMessage);
-    connect(&m_UpdateTimer, &QTimer::timeout, this, &QcepMainWindow::doTimerUpdate);
+    CONNECT_CHECK(connect(&m_StatusTimer, &QTimer::timeout, this, &QcepMainWindow::clearStatusMessage));
+    CONNECT_CHECK(connect(&m_UpdateTimer, &QTimer::timeout, this, &QcepMainWindow::doTimerUpdate));
 
     m_UpdateTimer.start(app->get_UpdateIntervalMsec());
 
-    connect(app->prop_UpdateIntervalMsec(), &QcepIntProperty::valueChanged, this, &QcepMainWindow::onUpdateIntervalMsecChanged);
+    CONNECT_CHECK(connect(app->prop_UpdateIntervalMsec(), &QcepIntProperty::valueChanged, this, &QcepMainWindow::onUpdateIntervalMsecChanged));
 
     updateTitle();
 
@@ -209,8 +209,9 @@ void QcepMainWindow::setupMenus(QMenu *file, QMenu *edit, QMenu *window)
 
     m_ActionRecentExperiments -> setMenu(m_RecentExperimentsMenu);
 
-    connect(m_RecentExperimentsMenu, &QMenu::aboutToShow,
-            this,                    &QcepMainWindow::populateRecentExperimentsMenu);
+    CONNECT_CHECK(
+          connect(m_RecentExperimentsMenu, &QMenu::aboutToShow,
+                  this,                    &QcepMainWindow::populateRecentExperimentsMenu));
 
     m_ActionSaveExperiment =
         m_FileMenuP->addAction(tr("Save Experiment..."), this, &QcepMainWindow::saveExperiment);
@@ -234,7 +235,7 @@ void QcepMainWindow::setupMenus(QMenu *file, QMenu *edit, QMenu *window)
   }
 
   if (m_EditMenuP) {
-    connect(m_EditMenuP, &QMenu::aboutToShow, this, &QcepMainWindow::populateEditMenu);
+    CONNECT_CHECK(connect(m_EditMenuP, &QMenu::aboutToShow, this, &QcepMainWindow::populateEditMenu));
 
     m_ActionUndo = new QAction(this);
     m_ActionUndo->setObjectName(QStringLiteral("m_ActionUndo"));
@@ -264,19 +265,19 @@ void QcepMainWindow::setupMenus(QMenu *file, QMenu *edit, QMenu *window)
     m_ActionSelectAll->setObjectName(QStringLiteral("m_ActionSelectAll"));
     m_ActionSelectAll->setText(QApplication::translate("QxrdWindow", "Select All", Q_NULLPTR));
 
-    connect(m_ActionUndo, &QAction::triggered, this, &QcepMainWindow::doUndo);
-    connect(m_ActionRedo, &QAction::triggered, this, &QcepMainWindow::doRedo);
-    connect(m_ActionCut, &QAction::triggered, this, &QcepMainWindow::doCut);
-    connect(m_ActionCopy, &QAction::triggered, this, &QcepMainWindow::doCopy);
-    connect(m_ActionPaste, &QAction::triggered, this, &QcepMainWindow::doPaste);
-    connect(m_ActionDelete, &QAction::triggered, this, &QcepMainWindow::doDelete);
-    connect(m_ActionSelectAll, &QAction::triggered, this, &QcepMainWindow::doSelectAll);
+    CONNECT_CHECK(connect(m_ActionUndo, &QAction::triggered, this, &QcepMainWindow::doUndo));
+    CONNECT_CHECK(connect(m_ActionRedo, &QAction::triggered, this, &QcepMainWindow::doRedo));
+    CONNECT_CHECK(connect(m_ActionCut, &QAction::triggered, this, &QcepMainWindow::doCut));
+    CONNECT_CHECK(connect(m_ActionCopy, &QAction::triggered, this, &QcepMainWindow::doCopy));
+    CONNECT_CHECK(connect(m_ActionPaste, &QAction::triggered, this, &QcepMainWindow::doPaste));
+    CONNECT_CHECK(connect(m_ActionDelete, &QAction::triggered, this, &QcepMainWindow::doDelete));
+    CONNECT_CHECK(connect(m_ActionSelectAll, &QAction::triggered, this, &QcepMainWindow::doSelectAll));
   }
 
   if (m_WindowMenuP) {
-    connect(m_WindowMenuP,  &QMenu::aboutToShow,
-            this, &QcepMainWindow::populateWindowsMenu);
-
+    CONNECT_CHECK(
+          connect(m_WindowMenuP,  &QMenu::aboutToShow,
+                  this, &QcepMainWindow::populateWindowsMenu));
   }
 }
 
@@ -393,7 +394,7 @@ void QcepMainWindow::populateRecentExperimentsMenu()
 
       QcepApplication *appp = app.data();
 
-      connect(action, &QAction::triggered, [=] {appp->openRecentExperiment(exp);});
+      CONNECT_CHECK(connect(action, &QAction::triggered, [=] {appp->openRecentExperiment(exp);}));
 
       m_RecentExperimentsMenu -> addAction(action);
     }

@@ -31,8 +31,9 @@ void QcepROIVector::readSettings(QSettings *settings)
 
       m_ROICoordinates.append(roi);
 
-      connect(roi.data(), &QcepROI::roiChanged,
-              [=]() { emit roiChanged(i); });
+      CONNECT_CHECK(
+            connect(roi.data(), &QcepROI::roiChanged,
+                    [=]() { emit roiChanged(i); }));
     }
   }
 

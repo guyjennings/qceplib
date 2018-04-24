@@ -30,14 +30,17 @@ QcepMaskCommandButton::QcepMaskCommandButton(QString name,
 
   changeMode(0);
 
-  connect(m_RectanglePicker, (void (QwtPlotPicker::*)(const QRectF &)) &QwtPlotPicker::selected,
-          this, &QcepMaskCommandButton::selectedRect);
+  CONNECT_CHECK(
+        connect(m_RectanglePicker, (void (QwtPlotPicker::*)(const QRectF &)) &QwtPlotPicker::selected,
+                this, &QcepMaskCommandButton::selectedRect));
 
-  connect(m_CirclePicker, (void (QwtPlotPicker::*)(const QRectF &)) &QwtPlotPicker::selected,
-          this, &QcepMaskCommandButton::selectedRect);
+  CONNECT_CHECK(
+        connect(m_CirclePicker, (void (QwtPlotPicker::*)(const QRectF &)) &QwtPlotPicker::selected,
+                this, &QcepMaskCommandButton::selectedRect));
 
-  connect(m_PolygonPicker, (void (QwtPlotPicker::*)(const QVector<QPointF> &)) & QwtPlotPicker::selected,
-          this, &QcepMaskCommandButton::selectedPolygon);
+  CONNECT_CHECK(
+        connect(m_PolygonPicker, (void (QwtPlotPicker::*)(const QVector<QPointF> &)) & QwtPlotPicker::selected,
+                this, &QcepMaskCommandButton::selectedPolygon));
 }
 
 void QcepMaskCommandButton::changeMode(int i)

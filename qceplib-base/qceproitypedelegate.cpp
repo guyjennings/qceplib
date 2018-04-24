@@ -44,8 +44,9 @@ void QcepROITypeDelegate::setEditorData(QWidget *editor, const QModelIndex &inde
         cb->setCurrentIndex(cbindex);
       }
 
-      connect(cb, (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged,
-              this, &QcepROITypeDelegate::typeChanged);
+      CONNECT_CHECK(
+            connect(cb, (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged,
+                    this, &QcepROITypeDelegate::typeChanged));
     }
   } else {
     QStyledItemDelegate::setEditorData(editor, index);

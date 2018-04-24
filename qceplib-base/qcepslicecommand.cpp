@@ -11,8 +11,9 @@ QcepSliceCommand::QcepSliceCommand(QcepPlotWidget *plot, QcepPlotWidgetSettingsW
 
   setPlotPicker(m_Slicer);
 
-  connect(m_Slicer, (void (QwtPlotPicker::*)(const QVector<QPointF> &)) & QwtPlotPicker::selected,
-          this, &QcepSliceCommand::selected);
+  CONNECT_CHECK(
+        connect(m_Slicer, (void (QwtPlotPicker::*)(const QVector<QPointF> &)) & QwtPlotPicker::selected,
+                this, &QcepSliceCommand::selected));
 }
 
 //TODO: implement

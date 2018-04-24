@@ -38,8 +38,9 @@ void QcepScatterPlotGraphController::activate()
     QcepScatterPlotGraphModelPtr m(m_Model);
 
     if (m) {
-      connect(m.data(), &QAbstractItemModel::dataChanged,
-              this,     &QcepScatterPlotGraphController::onPlotDataChanged);
+      CONNECT_CHECK(
+            connect(m.data(), &QAbstractItemModel::dataChanged,
+                    this,     &QcepScatterPlotGraphController::onPlotDataChanged));
     }
   }
 

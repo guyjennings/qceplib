@@ -43,8 +43,8 @@ QcepSetRangeOfImageDialog::QcepSetRangeOfImageDialog(QcepDatasetModelPtr model, 
 
     m_OutputChoice->setCurrentIndex(m_Command->get_OutputChoice());
 
-    connect(m_RangeChoice,  (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged, this, &QcepSetRangeOfImageDialog::onRangeChoiceChanged);
-    connect(m_OutputChoice, (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged, this, &QcepSetRangeOfImageDialog::onOutputChoiceChanged);
+    CONNECT_CHECK(connect(m_RangeChoice,  (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged, this, &QcepSetRangeOfImageDialog::onRangeChoiceChanged));
+    CONNECT_CHECK(connect(m_OutputChoice, (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged, this, &QcepSetRangeOfImageDialog::onOutputChoiceChanged));
 
     onRangeChoiceChanged(m_Command->get_RangeChoice());
     onOutputChoiceChanged(m_Command->get_OutputChoice());
@@ -119,8 +119,9 @@ void QcepSetRangeOfImageDialog::accept()
     QcepDoubleImageDataPtr input = m_Model->image(m_Index);
 
     if (input) {
-      connect(m_Command.data(), &QcepSetRangeOfImageCommand::progressMade,
-              m_ProgressIndicator, &QProgressBar::setValue);
+      CONNECT_CHECK(
+            connect(m_Command.data(), &QcepSetRangeOfImageCommand::progressMade,
+                    m_ProgressIndicator, &QProgressBar::setValue));
 
       m_ProgressIndicator->show();
 

@@ -65,12 +65,15 @@ QcepDataObjectSurfacePlotWidget::QcepDataObjectSurfacePlotWidget(QWidget *parent
   m_MinimumVal.linkTo(m_MinimumValCtrl);
   m_MaximumVal.linkTo(m_MaximumValCtrl);
 
-  connect(m_ColorMapMenu,    (void(QComboBox::*)(int))&QComboBox::currentIndexChanged,
-          this, &QcepDataObjectSurfacePlotWidget::onColorMapChanged);
-  connect(m_ScalingModeMenu, (void(QComboBox::*)(int))&QComboBox::currentIndexChanged,
-          this, &QcepDataObjectSurfacePlotWidget::onScalingModeChanged);
-  connect(m_ReplotButton,    &QAbstractButton::clicked,
-          this, &QcepDataObjectSurfacePlotWidget::onReplotWanted);
+  CONNECT_CHECK(
+        connect(m_ColorMapMenu,    (void(QComboBox::*)(int))&QComboBox::currentIndexChanged,
+                this, &QcepDataObjectSurfacePlotWidget::onColorMapChanged));
+  CONNECT_CHECK(
+        connect(m_ScalingModeMenu, (void(QComboBox::*)(int))&QComboBox::currentIndexChanged,
+                this, &QcepDataObjectSurfacePlotWidget::onScalingModeChanged));
+  CONNECT_CHECK(
+        connect(m_ReplotButton,    &QAbstractButton::clicked,
+                this, &QcepDataObjectSurfacePlotWidget::onReplotWanted));
 }
 
 QcepDataObjectSurfacePlotWidget::~QcepDataObjectSurfacePlotWidget()

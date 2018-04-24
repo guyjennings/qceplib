@@ -354,10 +354,13 @@ void QcepPowderPointProperty::linkTo(int axis, QSpinBox *spinBox)
 
     setWidgetToolTip(spinBox);
 
-    connect(this, (void (QcepPowderPointProperty::*)(int, int, int)) &QcepPowderPointProperty::subValueChanged,
-            helper, &QcepPowderPointPropertySpinBoxHelper::setSubValue);
-    connect(helper, &QcepPowderPointPropertySpinBoxHelper::subValueChanged,
-            this, (void (QcepPowderPointProperty::*)(int, int, int)) &QcepPowderPointProperty::setSubValue);
+    CONNECT_CHECK(
+          connect(this, (void (QcepPowderPointProperty::*)(int, int, int)) &QcepPowderPointProperty::subValueChanged,
+                  helper, &QcepPowderPointPropertySpinBoxHelper::setSubValue));
+
+    CONNECT_CHECK(
+          connect(helper, &QcepPowderPointPropertySpinBoxHelper::subValueChanged,
+                  this, (void (QcepPowderPointProperty::*)(int, int, int)) &QcepPowderPointProperty::setSubValue));
   }
 }
 
@@ -377,10 +380,13 @@ void QcepPowderPointProperty::linkTo(int axis, QDoubleSpinBox *spinBox)
 
     setWidgetToolTip(spinBox);
 
-    connect(this, (void (QcepPowderPointProperty::*)(int, double, int)) &QcepPowderPointProperty::subValueChanged,
-            helper, &QcepPowderPointPropertyDoubleSpinBoxHelper::setSubValue);
-    connect(helper, &QcepPowderPointPropertyDoubleSpinBoxHelper::subValueChanged,
-            this, (void (QcepPowderPointProperty::*)(int, double, int)) &QcepPowderPointProperty::setSubValue);
+    CONNECT_CHECK(
+          connect(this, (void (QcepPowderPointProperty::*)(int, double, int)) &QcepPowderPointProperty::subValueChanged,
+                  helper, &QcepPowderPointPropertyDoubleSpinBoxHelper::setSubValue));
+
+    CONNECT_CHECK(
+          connect(helper, &QcepPowderPointPropertyDoubleSpinBoxHelper::subValueChanged,
+                  this, (void (QcepPowderPointProperty::*)(int, double, int)) &QcepPowderPointProperty::setSubValue));
   }
 }
 

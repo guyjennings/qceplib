@@ -22,8 +22,9 @@ QcepObjectTreeWindow::QcepObjectTreeWindow(QWidget *parent, QcepObjectWPtr obj) 
   m_ObjectSelection =
       m_ObjectTree -> selectionModel();
 
-  connect(m_ObjectSelection, &QItemSelectionModel::selectionChanged,
-          this, &QcepObjectTreeWindow::selectionChanged);
+  CONNECT_CHECK(
+        connect(m_ObjectSelection, &QItemSelectionModel::selectionChanged,
+                this, &QcepObjectTreeWindow::selectionChanged));
 }
 
 QcepObjectTreeWindow::~QcepObjectTreeWindow()

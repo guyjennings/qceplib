@@ -44,12 +44,14 @@ QcepAllocator::QcepAllocator
 
   if (sizeof(void*) == 4) {
     set_AvailableBytes(qint64(get_TotalBufferSizeMB32())*qint64(MegaBytes));
-    connect(prop_TotalBufferSizeMB32(), &QcepIntProperty::valueChanged,
-            this, &QcepAllocator::onMemorySizeChanged);
+    CONNECT_CHECK(
+          connect(prop_TotalBufferSizeMB32(), &QcepIntProperty::valueChanged,
+                  this, &QcepAllocator::onMemorySizeChanged));
   } else {
     set_AvailableBytes(qint64(get_TotalBufferSizeMB64())*qint64(MegaBytes));
-    connect(prop_TotalBufferSizeMB64(), &QcepIntProperty::valueChanged,
-            this, &QcepAllocator::onMemorySizeChanged);
+    CONNECT_CHECK(
+          connect(prop_TotalBufferSizeMB64(), &QcepIntProperty::valueChanged,
+                  this, &QcepAllocator::onMemorySizeChanged));
   }
 }
 

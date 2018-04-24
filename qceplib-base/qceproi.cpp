@@ -36,15 +36,15 @@ QcepROI::QcepROI(int roiOuterType, int roiInnerType)
     m_OuterBounds(QRect())
 {
   if (m_OuterShape) {
-    connect(m_OuterShape.data(), &QcepROIShape::roiChanged, this, &QcepROI::changed);
+    CONNECT_CHECK(connect(m_OuterShape.data(), &QcepROIShape::roiChanged, this, &QcepROI::changed));
   }
 
   if (m_InnerShape) {
-    connect(m_InnerShape.data(), &QcepROIShape::roiChanged, this, &QcepROI::changed);
+    CONNECT_CHECK(connect(m_InnerShape.data(), &QcepROIShape::roiChanged, this, &QcepROI::changed));
   }
 
-  connect(prop_Center(), &QcepDoublePointProperty::valueChanged, this, &QcepROI::changed);
-  connect(prop_Rotation(), &QcepDoubleProperty::valueChanged, this, &QcepROI::changed);
+  CONNECT_CHECK(connect(prop_Center(), &QcepDoublePointProperty::valueChanged, this, &QcepROI::changed));
+  CONNECT_CHECK(connect(prop_Rotation(), &QcepDoubleProperty::valueChanged, this, &QcepROI::changed));
 
   changed();
 }
@@ -99,7 +99,7 @@ void QcepROI::changeInnerType(int t)
 
     m_InnerShape -> initialize(sharedFromThis());
 
-    connect(m_InnerShape.data(), &QcepROIShape::roiChanged, this, &QcepROI::changed);
+    CONNECT_CHECK(connect(m_InnerShape.data(), &QcepROIShape::roiChanged, this, &QcepROI::changed));
 
     changed();
   }
@@ -124,7 +124,7 @@ void QcepROI::changeOuterType(int t)
 
     m_OuterShape -> initialize(sharedFromThis());
 
-    connect(m_OuterShape.data(), &QcepROIShape::roiChanged, this, &QcepROI::changed);
+    CONNECT_CHECK(connect(m_OuterShape.data(), &QcepROIShape::roiChanged, this, &QcepROI::changed));
 
     changed();
   }

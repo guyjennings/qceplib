@@ -53,9 +53,9 @@ QcepSetDataValueRangeDialog::QcepSetDataValueRangeDialog(QcepDatasetModelPtr mod
     m_NewValue->setRange(-qInf(), qInf());
     m_NewValue->setValue(m_Command->get_NewValue());
 
-    connect(m_RegionType,             (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged, this, &QcepSetDataValueRangeDialog::onRegionTypeChanged);
-    connect(m_RegionCoordinateStyle,  (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged, this, &QcepSetDataValueRangeDialog::onRegionCoordinateStyleChanged);
-    connect(m_OutputChoice,           (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged, this, &QcepSetDataValueRangeDialog::onOutputChoiceChanged);
+    CONNECT_CHECK(connect(m_RegionType,             (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged, this, &QcepSetDataValueRangeDialog::onRegionTypeChanged));
+    CONNECT_CHECK(connect(m_RegionCoordinateStyle,  (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged, this, &QcepSetDataValueRangeDialog::onRegionCoordinateStyleChanged));
+    CONNECT_CHECK(connect(m_OutputChoice,           (void (QComboBox::*)(int)) &QComboBox::currentIndexChanged, this, &QcepSetDataValueRangeDialog::onOutputChoiceChanged));
 
     onRegionTypeChanged(m_Command->get_RegionType());
     onRegionCoordinateStyleChanged(m_Command->get_RegionCoordinateStyle());
@@ -129,8 +129,9 @@ void QcepSetDataValueRangeDialog::accept()
     QcepDoubleImageDataPtr input = m_Model->image(m_Index);
 
     if (input) {
-      connect(m_Command.data(), &QcepSetDataValueRangeCommand::progressMade,
-              m_ProgressIndicator, &QProgressBar::setValue);
+      CONNECT_CHECK(
+            connect(m_Command.data(), &QcepSetDataValueRangeCommand::progressMade,
+                    m_ProgressIndicator, &QProgressBar::setValue));
 
       m_ProgressIndicator->show();
 
