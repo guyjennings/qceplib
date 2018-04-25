@@ -58,14 +58,12 @@ QcepOutputFileFormatterPtr QcepOutputFileFormatterSettings::newOutputFormatter(Q
   switch (get_OutputFormat()) {
   case OutputFormatTIFF:
     res = QcepOutputFileFormatterPtr(
-          new QcepOutputFileFormatterTIFF(name),
-          &QObject::deleteLater);
+          NEWPT2(QcepOutputFileFormatterTIFF(name)));
     break;
 
   case OutputFormatHDF:
     res = QcepOutputFileFormatterPtr(
-          new QcepOutputFileFormatterHDF(name),
-          &QObject::deleteLater);
+          NEWPT2(QcepOutputFileFormatterHDF(name)));
     break;
   }
 

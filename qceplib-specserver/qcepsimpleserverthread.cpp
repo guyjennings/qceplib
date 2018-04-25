@@ -30,7 +30,7 @@ void QcepSimpleServerThread::run()
 
   m_SimpleServer =
       QcepSimpleServerPtr(
-        new QcepSimpleServer("simpleServer"));
+        NEWPTR(QcepSimpleServer("simpleServer")));
 
   m_SimpleServer -> initialize(sharedFromThis(),
                                m_SimpleServerSettings,

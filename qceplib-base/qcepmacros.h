@@ -25,6 +25,9 @@
 #define STR(s) _STR(s)
 #define _STR(s) #s
 
+#define NEWPTR(a) new a
+#define NEWPT2(a) new a,&QObject::deleteLater
+
 typedef QVector<double> QcepDoubleVector;
 Q_DECLARE_METATYPE(QcepDoubleVector)
 typedef QVector<bool> QcepBoolVector;

@@ -30,7 +30,7 @@ QcepROI::QcepROI(int roiOuterType, int roiInnerType)
     m_OuterSum(this, "outerSum", 0, "Outer ROI Pixel Sum"),
     m_OuterShape(QcepROIShape::newROIShape("outerShape", roiOuterType, 1.0)),
     m_InnerShape(QcepROIShape::newROIShape("innerShape", roiInnerType, 0.25)),
-    m_Cache(new QcepROICache()),
+    m_Cache(NEWPTR(QcepROICache())),
     m_Bounds(QRect()),
     m_InnerBounds(QRect()),
     m_OuterBounds(QRect())
@@ -69,7 +69,7 @@ void QcepROI::initialize(QcepObjectWPtr parent)
 QcepROIPtr QcepROI::readROI(QcepObjectWPtr parent, QSettings *settings)
 {
   QcepROIPtr res =
-      QcepROIPtr(new QcepROI(NoBounds, NoBounds));
+      QcepROIPtr(NEWPTR(QcepROI(NoBounds, NoBounds)));
 
   if (res) {
     res -> initialize(parent);
@@ -223,7 +223,7 @@ QcepROIPtr QcepROI::newROICoordinates(int roiTypeID)
   int innerType = roiInnerType(roiTypeID);
 
   QcepROIPtr res = QcepROIPtr(
-        new QcepROI(outerType, innerType));
+        NEWPTR(QcepROI(outerType, innerType)));
 
   return res;
 }

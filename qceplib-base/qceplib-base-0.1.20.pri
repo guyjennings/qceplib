@@ -521,7 +521,8 @@ HEADERS += \
     $$PWD/qcepoutputfileformattersettings.h \
     $$PWD/qcepoutputfileformattertiff.h \
     $$PWD/qcepoutputfileformattersettings-ptr.h \
-    $$PWD/qcepoutputfileformatter-ptr.h
+    $$PWD/qcepoutputfileformatter-ptr.h \
+    $$PWD/qcepspreadsheetmodel-ptr.h
 
 contains (DEFINES, HAVE_DATAVIS) {
  HEADERS += \

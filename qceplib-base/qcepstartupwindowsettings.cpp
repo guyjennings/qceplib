@@ -19,8 +19,7 @@ QcepMainWindowPtr QcepStartupWindowSettings::newWindow()
 
   m_Window =
       QcepMainWindowPtr(
-        new QcepStartupWindow("startupWindow"),
-        &QObject::deleteLater);
+        NEWPTR(QcepStartupWindow("startupWindow")));
 
   return m_Window;
 }

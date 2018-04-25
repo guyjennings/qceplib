@@ -8,7 +8,7 @@
 #include "qcepmainwindow.h"
 #include "qcepexperiment-ptr.h"
 #include "qcepdataobject-ptr.h"
-#include "qcepspreadsheetmodel.h"
+#include "qcepspreadsheetmodel-ptr.h"
 
 class QCEP_EXPORT QcepDataObjectSpreadsheetWindow : public QcepMainWindow, public Ui::QcepDataObjectSpreadsheetWindow
 {
@@ -33,9 +33,9 @@ signals:
 public slots:
 
 private:
-  QcepExperimentWPtr                   m_Experiment;
-  QcepDataObjectWPtr                   m_Object;
-  QSharedPointer<QcepSpreadsheetModel> m_Model;
+  QcepExperimentWPtr      m_Experiment;
+  QcepDataObjectWPtr      m_Object;
+  QcepSpreadsheetModelPtr m_Model;
 };
 
 #endif // QCEPDATAOBJECTSPREADSHEETWINDOW_H

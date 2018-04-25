@@ -38,10 +38,10 @@ QcepApplication::QcepApplication(int &argc, char **argv) :
 
   m_Application =
       QApplicationPtr(
-        new QApplication(argc, argv));
+        NEWPTR(QApplication(argc, argv)));
 
   m_Allocator = QcepAllocatorPtr(
-        new QcepAllocator("allocator"));
+        NEWPTR(QcepAllocator("allocator")));
 
   QcepProperty::registerMetaTypes();
   QcepPowderPoint::registerMetaTypes();
@@ -66,7 +66,7 @@ void QcepApplication::initializeRoot()
       qSharedPointerDynamicCast<QcepStartupWindowSettings>(
         appendWindowSettings(
           QcepStartupWindowSettingsPtr(
-            new QcepStartupWindowSettings("startupWindowSettings"))));
+            NEWPTR(QcepStartupWindowSettings("startupWindowSettings")))));
 
   if (m_StartupWindowSettings) {
     m_StartupWindowSettings->initialize(sharedFromThis());

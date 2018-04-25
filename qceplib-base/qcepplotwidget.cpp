@@ -66,16 +66,16 @@ void QcepPlotWidget::initialize(QcepPlotWidgetSettingsWPtr settings)
   //  m_Plot -> setCanvasBackground(QBrush(Qt::cyan));
   m_Plot -> setCanvasBackground(QBrush(Qt::white));
 
-  addPlotCommand(QcepPlotCommandPtr(new QcepZoomInCommand(this, settings)));
-  addPlotCommand(QcepPlotCommandPtr(new QcepZoomOutCommand(this, settings)));
-  addPlotCommand(QcepPlotCommandPtr(new QcepZoomAllCommand(this, settings)));
-  addPlotCommand(QcepPlotCommandPtr(new QcepPrintPlotButton(this, settings)));
-  addPlotCommand(QcepPlotCommandPtr(new QcepPlotPreferencesButton(this, settings)));
+  addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepZoomInCommand(this, settings))));
+  addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepZoomOutCommand(this, settings))));
+  addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepZoomAllCommand(this, settings))));
+  addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepPrintPlotButton(this, settings))));
+  addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepPlotPreferencesButton(this, settings))));
 
-  addPlotCommand(QcepPlotCommandPtr(new QcepAutoScaleCommand(this, settings)));
-  addPlotCommand(QcepPlotCommandPtr(new QcepPrintPlotCommand(this, settings)));
-  addPlotCommand(QcepPlotCommandPtr(new QcepPlotPreferencesCommand(this, settings)));
-  addPlotCommand(QcepPlotCommandPtr(new QcepAxisSubmenuCommand(this, settings)));
+  addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepAutoScaleCommand(this, settings))));
+  addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepPrintPlotCommand(this, settings))));
+  addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepPlotPreferencesCommand(this, settings))));
+  addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepAxisSubmenuCommand(this, settings))));
 
   QWidget* canvas = m_Plot -> canvas();
 
@@ -382,7 +382,7 @@ void QcepPlotWidget::editPreferences()
 {
   QcepPlotWidgetDialogPtr prefs =
       QcepPlotWidgetDialogPtr(
-        new QcepPlotWidgetDialog(NULL, m_Settings));
+        NEWPTR(QcepPlotWidgetDialog(NULL, m_Settings)));
 
   if (prefs) {
     prefs -> exec();

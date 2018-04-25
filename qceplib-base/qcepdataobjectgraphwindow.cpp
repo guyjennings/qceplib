@@ -36,8 +36,8 @@ QcepDataObjectGraphWindow::QcepDataObjectGraphWindow(QString name, QcepExperimen
   m_Experiment(expt),
   m_Object(obj),
   m_PlottingMode(NoPlot),
-//  m_SettingsSaver(new QcepSettingsSaver(this)),
-//  m_PlotSettings(new QcepPlotSettings("plotSettings", m_SettingsSaver, NULL)),
+//  m_SettingsSaver(NEWPTR(QcepSettingsSaver(this))),
+//  m_PlotSettings(NEWPTR(QcepPlotSettings("plotSettings", m_SettingsSaver, NULL))),
   m_ColorMap     (NULL, "colorMap",      0,     "Image Color Map Index"),
   m_ScalingMode  (NULL, "scalingMode",   0,     "Image Scaling Mode"),
   m_MinimumPct   (NULL, "minimumPct",    0,     "Image Display Minimum %"),
@@ -95,7 +95,7 @@ void QcepDataObjectGraphWindow::initialize(QcepObjectWPtr parent)
     setWindowTitle("Unknown Graph");
   }
 
-  QcepPlotSettingsPtr settings(new QcepPlotSettings("plotSettings"));
+  QcepPlotSettingsPtr settings(NEWPTR(QcepPlotSettings("plotSettings")));
 
   m_ImagePlot->initialize(settings);
 
@@ -153,21 +153,21 @@ void QcepDataObjectGraphWindow::setGraphMode(int mode)
 
       if (mode == DefaultPlot || mode == ImagePlot) {
         m_Controller = QSharedPointer<QcepImageDataGraphController>(
-              new QcepImageDataGraphController(this, mode, m_Object));
+              NEWPTR(QcepImageDataGraphController(this, mode, m_Object)));
 
         m_Controller->activate();
 
         m_PlottingMode = ImagePlot;
       } else if (mode == HistogramPlot) {
         m_Controller = QSharedPointer<QcepImageHistogramGraphController>(
-              new QcepImageHistogramGraphController(this, mode, m_Object));
+              NEWPTR(QcepImageHistogramGraphController(this, mode, m_Object)));
 
         m_Controller->activate();
 
         m_PlottingMode = HistogramPlot;
       } else if (mode == HorizontalSlice || mode == VerticalSlice) {
         m_Controller = QSharedPointer<QcepImageSliceGraphController>(
-              new QcepImageSliceGraphController(this, mode, m_Object));
+              NEWPTR(QcepImageSliceGraphController(this, mode, m_Object)));
 
         m_Controller->activate();
 
@@ -178,7 +178,7 @@ void QcepDataObjectGraphWindow::setGraphMode(int mode)
 
       if (mode == DefaultPlot || mode == ScatterPlot) {
         m_Controller = QSharedPointer<QcepScatterPlotGraphController> (
-              new QcepScatterPlotGraphController(this, mode, m_Object));
+              NEWPTR(QcepScatterPlotGraphController(this, mode, m_Object)));
 
         m_Controller->activate();
 

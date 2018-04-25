@@ -10,7 +10,7 @@ QcepThread::QcepThread(QString name) :
 {
   m_Thread =
       QNewThreadPtr(
-        new QNewThread(this));
+        NEWPTR(QNewThread(this)));
 
   m_Thread -> setObjectName(name);
 

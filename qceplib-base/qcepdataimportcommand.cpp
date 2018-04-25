@@ -24,8 +24,9 @@ QcepDataImportCommand::QcepDataImportCommand(QcepDatasetModelWPtr model,
       m_ImportedData =
           QcepAllocator::newDataset(sharedFromThis(), "import");
 
-      m_ImportedDataset = QcepDatasetModelPtr(
-            new QcepDatasetModel(m_Experiment, m_ImportedData));
+      m_ImportedDataset =
+          QcepDatasetModelPtr(
+            NEWPTR(QcepDatasetModel(m_Experiment, m_ImportedData)));
 
       if (files.count() == 1) {
         m_FileImporter = QcepFileImporter::importFile(m_ImportedDataset,

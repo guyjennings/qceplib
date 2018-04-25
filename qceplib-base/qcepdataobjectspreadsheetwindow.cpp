@@ -65,41 +65,41 @@ void QcepDataObjectSpreadsheetWindow::initialize(QcepObjectWPtr parent)
     QSharedPointer<QcepImageDataBase> data = qSharedPointerDynamicCast<QcepImageDataBase>(objp);
 
     if (data) {
-      m_Model = QSharedPointer<QcepSpreadsheetModel>(
-            new QcepImageDataSpreadsheetModel(data));
+      m_Model = QcepSpreadsheetModelPtr(
+            NEWPTR(QcepImageDataSpreadsheetModel(data)));
     } else {
 
       QcepIntegratedDataPtr integ = qSharedPointerDynamicCast<QcepIntegratedData>(m_Object);
 
       if (integ) {
-        m_Model = QSharedPointer<QcepSpreadsheetModel>(
-              new QcepIntegratedDataSpreadsheetModel(integ));
+        m_Model = QcepSpreadsheetModelPtr(
+              NEWPTR(QcepIntegratedDataSpreadsheetModel(integ)));
       } else {
 
         QcepDataArrayPtr array = qSharedPointerDynamicCast<QcepDataArray>(m_Object);
 
         if (array) {
-          m_Model = QSharedPointer<QcepSpreadsheetModel>(
-                new QcepDataArraySpreadsheetModel(array));
+          m_Model = QcepSpreadsheetModelPtr(
+                NEWPTR(QcepDataArraySpreadsheetModel(array)));
         } else {
 
           QcepDataColumnPtr col = qSharedPointerDynamicCast<QcepDataColumn>(m_Object);
 
           if (col) {
-            m_Model = QSharedPointer<QcepSpreadsheetModel>(
-                  new QcepDataColumnSpreadsheetModel(col));
+            m_Model = QcepSpreadsheetModelPtr(
+                  NEWPTR(QcepDataColumnSpreadsheetModel(col)));
           } else {
             QcepDataColumnScanPtr scan = qSharedPointerDynamicCast<QcepDataColumnScan>(m_Object);
 
             if (scan) {
-              m_Model = QSharedPointer<QcepSpreadsheetModel>(
-                    new QcepDataColumnScanSpreadsheetModel(scan));
+              m_Model = QcepSpreadsheetModelPtr(
+                    NEWPTR(QcepDataColumnScanSpreadsheetModel(scan)));
             } else {
               QcepDataGroupPtr group = qSharedPointerDynamicCast<QcepDataGroup>(m_Object);
 
               if (group) {
-                m_Model = QSharedPointer<QcepSpreadsheetModel>(
-                      new QcepDataGroupSpreadsheetModel(group));
+                m_Model = QcepSpreadsheetModelPtr(
+                      NEWPTR(QcepDataGroupSpreadsheetModel(group)));
               }
             }
           }

@@ -10,7 +10,7 @@ QcepScatterPlotGraphControls::QcepScatterPlotGraphControls(QcepDataObjectGraphWi
   setupUi(this);
 
   m_Model = QcepScatterPlotGraphModelPtr(
-        new QcepScatterPlotGraphModel(object));
+        NEWPTR(QcepScatterPlotGraphModel(object)));
 
   m_ScatterColumns -> setModel(m_Model.data());
 

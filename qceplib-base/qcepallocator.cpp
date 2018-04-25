@@ -154,7 +154,7 @@ QcepUInt16ImageDataPtr QcepAllocator::newInt16Image(QcepObjectWPtr     parent,
     QcepMutexLocker lock(__FILE__, __LINE__, g_Allocator->mutex());
 
     if (g_Allocator->waitTillAvailable(strat, int16Size(width, height))) {
-      QcepUInt16ImageDataPtr res(new QcepUInt16ImageData(name, width, height, 0));
+      QcepUInt16ImageDataPtr res(NEWPTR(QcepUInt16ImageData(name, width, height, 0)));
 
       if (res) {
         res -> moveToThread(NULL);
@@ -186,7 +186,7 @@ QcepUInt32ImageDataPtr QcepAllocator::newInt32Image(QcepObjectWPtr     parent,
     QcepMutexLocker lock(__FILE__, __LINE__, g_Allocator->mutex());
 
     if (g_Allocator->waitTillAvailable(strat, int32Size(width, height))) {
-      QcepUInt32ImageDataPtr res(new QcepUInt32ImageData(name, width, height, 0));
+      QcepUInt32ImageDataPtr res(NEWPTR(QcepUInt32ImageData(name, width, height, 0)));
 
       if (res) {
         res -> moveToThread(NULL);
@@ -218,7 +218,7 @@ QcepDoubleImageDataPtr QcepAllocator::newDoubleImage(QcepObjectWPtr     parent,
     QcepMutexLocker lock(__FILE__, __LINE__, g_Allocator->mutex());
 
     if (g_Allocator->waitTillAvailable(strat, doubleSize(width, height))) {
-      QcepDoubleImageDataPtr res(new QcepDoubleImageData(name, width, height, 0));
+      QcepDoubleImageDataPtr res(NEWPTR(QcepDoubleImageData(name, width, height, 0)));
 
       if (res) {
         res -> moveToThread(NULL);
@@ -251,7 +251,7 @@ QcepMaskDataPtr QcepAllocator::newMask(QcepObjectWPtr     parent,
     QcepMutexLocker lock(__FILE__, __LINE__, g_Allocator->mutex());
 
     if (g_Allocator->waitTillAvailable(strat, maskSize(width, height))) {
-      QcepMaskDataPtr res(new QcepMaskData(name, width, height, def));
+      QcepMaskDataPtr res(NEWPTR(QcepMaskData(name, width, height, def)));
 
       if (res) {
         res -> moveToThread(NULL);
@@ -282,7 +282,7 @@ QcepIntegratedDataPtr QcepAllocator::newIntegratedData(QcepObjectWPtr     parent
     QcepMutexLocker lock(__FILE__, __LINE__, g_Allocator->mutex());
 
     if (g_Allocator->waitTillAvailable(strat, integratedSize(size))) {
-      QcepIntegratedDataPtr res(new QcepIntegratedData(name, size));
+      QcepIntegratedDataPtr res(NEWPTR(QcepIntegratedData(name, size)));
 
       if (res) {
         res -> moveToThread(NULL);
@@ -314,7 +314,7 @@ QcepDataColumnScanPtr QcepAllocator::newColumnScan(QcepObjectWPtr     parent,
     QcepMutexLocker lock(__FILE__, __LINE__, g_Allocator->mutex());
 
     if (g_Allocator->waitTillAvailable(strat, columnScanSize(cols.count(), nRows))) {
-      QcepDataColumnScanPtr res(new QcepDataColumnScan(name, cols, nRows));
+      QcepDataColumnScanPtr res(NEWPTR(QcepDataColumnScan(name, cols, nRows)));
 
       if (res) {
         res -> moveToThread(NULL);
@@ -345,7 +345,7 @@ QcepDataColumnPtr QcepAllocator::newColumn(QcepObjectWPtr     parent,
     QcepMutexLocker lock(__FILE__, __LINE__, g_Allocator->mutex());
 
     if (g_Allocator->waitTillAvailable(strat, columnSize(sz))) {
-      QcepDataColumnPtr res(new QcepDataColumn(name, sz));
+      QcepDataColumnPtr res(NEWPTR(QcepDataColumn(name, sz)));
 
       if (res) {
         res -> moveToThread(NULL);
@@ -376,7 +376,7 @@ QcepDataArrayPtr QcepAllocator::newArray(QcepObjectWPtr     parent,
     QcepMutexLocker lock(__FILE__, __LINE__, g_Allocator->mutex());
 
     if (g_Allocator->waitTillAvailable(strat, arraySize(dims))) {
-      QcepDataArrayPtr res(new QcepDataArray(name, dims));
+      QcepDataArrayPtr res(NEWPTR(QcepDataArray(name, dims)));
 
       if (res) {
         res -> moveToThread(NULL);
@@ -401,7 +401,7 @@ QcepDataArrayPtr QcepAllocator::newArray(QcepObjectWPtr     parent,
 QcepDataGroupPtr QcepAllocator::newGroup(QcepObjectWPtr parent,
                                          QString        name)
 {
-  QcepDataGroupPtr res(new QcepDataGroup(name));
+  QcepDataGroupPtr res(NEWPTR(QcepDataGroup(name)));
 
   if (res) {
     res -> initialize(parent);
@@ -413,7 +413,7 @@ QcepDataGroupPtr QcepAllocator::newGroup(QcepObjectWPtr parent,
 QcepDatasetPtr QcepAllocator::newDataset(QcepObjectWPtr parent,
                                          QString        name)
 {
-  QcepDatasetPtr res(new QcepDataset(name));
+  QcepDatasetPtr res(NEWPTR(QcepDataset(name)));
 
   if (res) {
     res -> initialize(parent);

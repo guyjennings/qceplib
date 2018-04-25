@@ -41,7 +41,7 @@ void QcepDataObjectPropertiesWindow::initialize(QcepObjectWPtr parent)
 
   if (objp) {
     m_Model = QSharedPointer<QcepPropertiesModel>(
-          new QcepDataObjectPropertiesModel(m_Object));
+          NEWPTR(QcepDataObjectPropertiesModel(m_Object)));
   }
 
   m_TableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);

@@ -17,15 +17,15 @@ QcepROIShapePtr QcepROIShape::newROIShape(QString name, int shapeType, double sc
 
   switch (shapeType) {
   case RectangleShape:
-    res = QcepROIShapePtr(new QcepROIRectangle(name, scale));
+    res = QcepROIShapePtr(NEWPTR(QcepROIRectangle(name, scale)));
     break;
 
   case EllipseShape:
-    res = QcepROIShapePtr(new QcepROIEllipse(name, scale));
+    res = QcepROIShapePtr(NEWPTR(QcepROIEllipse(name, scale)));
     break;
 
   case PolygonShape:
-    res = QcepROIShapePtr(new QcepROIPolygon(name, scale));
+    res = QcepROIShapePtr(NEWPTR(QcepROIPolygon(name, scale)));
     break;
   }
 

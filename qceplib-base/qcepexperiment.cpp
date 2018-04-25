@@ -17,7 +17,6 @@
 
 QcepExperiment::QcepExperiment(QString name) :
   QcepObject(name),
-//  m_SettingsSaver(new QcepSettingsSaver(this)),
   m_ExperimentKind        (this, "experimentKind", -1, "Kind of Experiment"),
   m_ExperimentPath        (this, "experimentPath", QString(), "Experiment Path"),
   m_ExperimentDirectory   (this, "experimentDirectory", QString(), "Experiment Directory"),
@@ -41,19 +40,19 @@ QcepExperiment::QcepExperiment(QString name) :
   m_NewImageHeight        (this, "newImageHeight", 2048, "Height of new image")
 {
   m_DataExportParameters = QcepDataExportParametersPtr(
-        new QcepDataExportParameters("exportParameters"));
+        NEWPTR(QcepDataExportParameters("exportParameters")));
 
   m_DataImportParameters = QcepDataImportParametersPtr(
-        new QcepDataImportParameters("importParameters"));
+        NEWPTR(QcepDataImportParameters("importParameters")));
 
   m_SetDataValueRangeCommand = QcepSetDataValueRangeCommandPtr(
-        new QcepSetDataValueRangeCommand("setDataValueRangeCommand"));
+        NEWPTR(QcepSetDataValueRangeCommand("setDataValueRangeCommand")));
 
   m_SetRangeOfImageCommand = QcepSetRangeOfImageCommandPtr(
-        new QcepSetRangeOfImageCommand("setRangeOfImageCommand"));
+        NEWPTR(QcepSetRangeOfImageCommand("setRangeOfImageCommand")));
 
   m_FixupGainMapCommand = QcepFixupGainMapCommandPtr(
-        new QcepFixupGainMapCommand("fixupGainMapCommand"));
+        NEWPTR(QcepFixupGainMapCommand("fixupGainMapCommand")));
 }
 
 void QcepExperiment::initialize(QcepObjectWPtr parent)

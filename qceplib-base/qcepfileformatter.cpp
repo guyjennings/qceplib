@@ -15,21 +15,21 @@ QcepFileFormatterPtr QcepFileFormatter::defaultFormatter(QString filePath, QStri
 {
 #ifdef HAVE_HDF5
   if (exten == "h5") {
-    return QcepFileFormatterPtr(new QcepFileFormatterHDF(filePath));
+    return QcepFileFormatterPtr(NEWPTR(QcepFileFormatterHDF(filePath)));
   }
 #endif
 
 #ifdef HAVE_NEXUS
   if (exten == "nxs") {
-    return QcepFileFormatterPtr(new QcepFileFormatterNexus(filePath));
+    return QcepFileFormatterPtr(NEWPTR(QcepFileFormatterNexus(filePath)));
   }
 #endif
 
   if (exten == "qxrdp2") {
-    return QcepFileFormatterPtr(new QcepFileFormatterText(filePath));
+    return QcepFileFormatterPtr(NEWPTR(QcepFileFormatterText(filePath)));
   }
 
-  return QcepFileFormatterPtr(new QcepFileFormatterText(filePath));
+  return QcepFileFormatterPtr(NEWPTR(QcepFileFormatterText(filePath)));
 }
 
 QcepObjectPtr QcepFileFormatter::construct(QString name, QString className)

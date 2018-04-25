@@ -34,7 +34,7 @@ void QcepFittedRings::initialize(QcepObjectWPtr parent)
 //    if (g_Allocator->waitTillAvailable(
 //          QcepAllocator::WaitTillAvailable,
 //          QcepAllocator::columnScanSize(6, 0))) {
-//      QcepFittedRingsPtr res(new QcepFittedRings(name, 0));
+//      QcepFittedRingsPtr res(NEWPTR(QcepFittedRings(name, 0)));
 
 //      if (res) {
 //        res -> moveToThread(NULL);

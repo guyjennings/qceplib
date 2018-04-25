@@ -59,14 +59,14 @@ void QcepImagePlotWidget::initialize(QcepImagePlotWidgetSettingsWPtr settings)
 
   m_ImageSettings = settings;
 
-  addPlotCommand(QcepPlotCommandPtr(new QcepPowderPointsCommand(this, settings)));
-  addPlotCommand(QcepPlotCommandPtr(new QcepSliceCommand(this, settings)));
-  addPlotCommand(QcepPlotCommandPtr(new QcepMeasureCommand(this, settings)));
-  addPlotCommand(QcepPlotCommandPtr(new QcepHistogramCommand(this, settings)));
+  addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepPowderPointsCommand(this, settings))));
+  addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepSliceCommand(this, settings))));
+  addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepMeasureCommand(this, settings))));
+  addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepHistogramCommand(this, settings))));
 //  addPlotCommandSpacer();
 
-  addPlotCommand(QcepPlotCommandPtr(new QcepScalingSubmenuCommand(this, settings)));
-  addPlotCommand(QcepPlotCommandPtr(new QcepColorMapSubmenuCommand("Display", this, settings)));
+  addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepScalingSubmenuCommand(this, settings))));
+  addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepColorMapSubmenuCommand("Display", this, settings))));
 
   QcepImagePlotWidgetSettingsPtr set(m_ImageSettings);
 
@@ -102,9 +102,9 @@ void QcepImagePlotWidget::setMaskStack(QcepMaskStackWPtr masks)
   QcepMaskStackPtr m(m_MaskStack);
 
   if (m) {
-    addPlotCommand(QcepPlotCommandPtr(new QcepMaskCommandButton("Mask Commands", this, m_ImageSettings, m)));
-//      addPlotCommand(QcepPlotCommandPtr(new QcepMaskCirclesCommand("Mask Circles", this, m_ImageSettings, m)));
-//      addPlotCommand(QcepPlotCommandPtr(new QcepMaskPolygonsCommand("Mask Polygons", this, m_ImageSettings, m)));
+    addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepMaskCommandButton("Mask Commands", this, m_ImageSettings, m))));
+//      addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepMaskCirclesCommand("Mask Circles", this, m_ImageSettings, m))));
+//      addPlotCommand(QcepPlotCommandPtr(NEWPTR(QcepMaskPolygonsCommand("Mask Polygons", this, m_ImageSettings, m))));
 
     CONNECT_CHECK(
           connect(m.data(), &QcepMaskStack::maskChanged,
@@ -120,10 +120,10 @@ void QcepImagePlotWidget::setCenterFinder(QcepCenterFinderWPtr center)
 
   if (c) {
     addPlotCommand(QcepPlotCommandPtr(
-                     new QcepSetCenterCommand(this, m_ImageSettings, c)));
+                     NEWPTR(QcepSetCenterCommand(this, m_ImageSettings, c))));
 
     addPlotOverlay(QcepPlotOverlayPtr(
-                     new QcepCenterMarker("Center Marker", this, m_ImageSettings, c)));
+                     NEWPTR(QcepCenterMarker("Center Marker", this, m_ImageSettings, c))));
   }
 }
 
@@ -135,7 +135,7 @@ void QcepImagePlotWidget::setPowderRings(QcepPowderRingsModelWPtr powderRings)
 
   if (pw) {
     addPlotOverlay(QcepPlotOverlayPtr(
-                     new QcepPowderOverlay("Powder Rings", this, m_ImageSettings, pw)));
+                     NEWPTR(QcepPowderOverlay("Powder Rings", this, m_ImageSettings, pw))));
   }
 }
 
@@ -147,7 +147,7 @@ void QcepImagePlotWidget::setROIModel(QcepROIModelWPtr roiModel)
 
   if (rois) {
     addPlotOverlay(QcepPlotOverlayPtr(
-                      new QcepROIOverlay("ROIs", this, m_ImageSettings, rois)));
+                      NEWPTR(QcepROIOverlay("ROIs", this, m_ImageSettings, rois))));
   }
 }
 
@@ -155,7 +155,7 @@ void QcepImagePlotWidget::editPreferences()
 {
   QcepImagePlotWidgetDialogPtr prefs =
       QcepImagePlotWidgetDialogPtr(
-        new QcepImagePlotWidgetDialog(NULL, m_ImageSettings));
+        NEWPTR(QcepImagePlotWidgetDialog(NULL, m_ImageSettings)));
 
   if (prefs) {
     prefs -> exec();

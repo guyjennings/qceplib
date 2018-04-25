@@ -1,0 +1,8 @@
+#ifndef QCEPSPREADSHEETMODELPTR_H
+#define QCEPSPREADSHEETMODELPTR_H
+
+#include "qcepsharedpointer.h"
+
+QCEP_SHAREDPOINTER(QcepSpreadsheetModel)
+
+#endif // QCEPSPREADSHEETMODELPTR_H

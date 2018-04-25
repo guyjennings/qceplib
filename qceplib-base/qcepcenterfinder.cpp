@@ -408,7 +408,7 @@ void QcepCenterFinder::fitPowderEllipses()
     fitDone.waitForFinished();
   }
 
-  QcepFittedRingsPtr pts(new QcepFittedRings("rings"));
+  QcepFittedRingsPtr pts(NEWPTR(QcepFittedRings("rings")));
 
   if (pts) {
     pts->initialize(sharedFromThis());

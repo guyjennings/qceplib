@@ -86,13 +86,13 @@ QcepFileImporter::importFile(QcepDatasetModelPtr model,
 
   if (isHDF(path)) {
     res = QcepFileImporterPtr(
-          new QcepFileImporterHDF(model, indexes, path));
+          NEWPTR(QcepFileImporterHDF(model, indexes, path)));
   } else if (isTIFF(path)) {
     res = QcepFileImporterPtr(
-          new QcepFileImporterTIFF(model, indexes, path));
+          NEWPTR(QcepFileImporterTIFF(model, indexes, path)));
   } else if (isText(path)) {
     res = QcepFileImporterPtr(
-          new QcepFileImporterText(model, indexes, path));
+          NEWPTR(QcepFileImporterText(model, indexes, path)));
   }
 
   return res;
@@ -113,11 +113,11 @@ QcepFileImporter::importFiles(QcepDatasetModelPtr model,
     if (res) {
       foreach(QString path, paths) {
         if (isHDF(path)) {
-          res-> append(QcepFileImporterPtr(new QcepFileImporterHDF(model, indexes, path)));
+          res-> append(QcepFileImporterPtr(NEWPTR(QcepFileImporterHDF(model, indexes, path))));
         } else if (isTIFF(path)) {
-          res -> append(QcepFileImporterPtr(new QcepFileImporterTIFF(model, indexes, path)));
+          res -> append(QcepFileImporterPtr(NEWPTR(QcepFileImporterTIFF(model, indexes, path))));
         } else if (isText(path)) {
-          res -> append(QcepFileImporterPtr(new QcepFileImporterText(model, indexes, path)));
+          res -> append(QcepFileImporterPtr(NEWPTR(QcepFileImporterText(model, indexes, path))));
         }
       }
     }

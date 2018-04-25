@@ -120,7 +120,7 @@ QcepCalibrantPtr QcepCalibrantLibrary::standardCalibrant(QcepObjectWPtr parent, 
   switch (n) {
   case SiliconCalibrant: // Silicon Powder
     {
-      res = QcepCalibrantPtr(new QcepCalibrant("stdSiCalibrant"));
+      res = QcepCalibrantPtr(NEWPTR(QcepCalibrant("stdSiCalibrant")));
       res->set_Index(n);
       res->set_Description("Silicon Powder");
       res->set_Symmetry(QcepCalibrant::DiamondCubic);
@@ -135,7 +135,7 @@ QcepCalibrantPtr QcepCalibrantLibrary::standardCalibrant(QcepObjectWPtr parent, 
 
   case AluminaCalibrant: // Alumina
     {
-      res = QcepCalibrantPtr(new QcepCalibrant("stdAl2O3Calibrant"));
+      res = QcepCalibrantPtr(NEWPTR(QcepCalibrant("stdAl2O3Calibrant")));
       res->set_Index(n);
       res->set_Description("Alumina Powder");
       res->set_Symmetry(QcepCalibrant::RHexagonal);
@@ -150,7 +150,7 @@ QcepCalibrantPtr QcepCalibrantLibrary::standardCalibrant(QcepObjectWPtr parent, 
 
   case NACCalibrant: // NAC
     {
-      res = QcepCalibrantPtr(new QcepCalibrant("stdNACCalibrant"));
+      res = QcepCalibrantPtr(NEWPTR(QcepCalibrant("stdNACCalibrant")));
       res->set_Index(n);
       res->set_Description("NAC Powder");
       res->set_Symmetry(QcepCalibrant::BodyCenteredCubic);
@@ -165,7 +165,7 @@ QcepCalibrantPtr QcepCalibrantLibrary::standardCalibrant(QcepObjectWPtr parent, 
 
   case LaB6Calibrant: // LaB6
     {
-      res = QcepCalibrantPtr(new QcepCalibrant("stdLaB6Calibrant"));
+      res = QcepCalibrantPtr(NEWPTR(QcepCalibrant("stdLaB6Calibrant")));
       res->set_Index(n);
       res->set_Description("NIST SRM LaB6 660a");
       res->set_Symmetry(QcepCalibrant::SimpleCubic);
@@ -180,7 +180,7 @@ QcepCalibrantPtr QcepCalibrantLibrary::standardCalibrant(QcepObjectWPtr parent, 
 
   case ZnOCalibrant: // ZnO
     {
-      res = QcepCalibrantPtr(new QcepCalibrant("stdZnOCalibrant"));
+      res = QcepCalibrantPtr(NEWPTR(QcepCalibrant("stdZnOCalibrant")));
       res->set_Index(n);
       res->set_Description("Zinc oxide");
       res->set_Symmetry(QcepCalibrant::RHexagonal);
@@ -195,7 +195,7 @@ QcepCalibrantPtr QcepCalibrantLibrary::standardCalibrant(QcepObjectWPtr parent, 
 
   case CeO2Calibrant: // CeO2
     {
-      res = QcepCalibrantPtr(new QcepCalibrant("stdCeO2Calibrant"));
+      res = QcepCalibrantPtr(NEWPTR(QcepCalibrant("stdCeO2Calibrant")));
       res->set_Index(n);
       res->set_Description("Cerium(IV) dioxide");
       res->set_Symmetry(QcepCalibrant::FaceCenteredCubic);
@@ -210,7 +210,7 @@ QcepCalibrantPtr QcepCalibrantLibrary::standardCalibrant(QcepObjectWPtr parent, 
 
   case Cr2O3Calibrant: // Cr2O3
     {
-      res = QcepCalibrantPtr(new QcepCalibrant("stdCr2O3Calibrant"));
+      res = QcepCalibrantPtr(NEWPTR(QcepCalibrant("stdCr2O3Calibrant")));
       res->set_Index(n);
       res->set_Description("Chromium oxide");
       res->set_Symmetry(QcepCalibrant::RHexagonal);
@@ -225,7 +225,7 @@ QcepCalibrantPtr QcepCalibrantLibrary::standardCalibrant(QcepObjectWPtr parent, 
 
   case GeCalibrant: // Germanium Powder
     {
-      res = QcepCalibrantPtr(new QcepCalibrant("stdGeCalibrant"));
+      res = QcepCalibrantPtr(NEWPTR(QcepCalibrant("stdGeCalibrant")));
       res->set_Index(n);
       res->set_Description("Germanium Powder");
       res->set_Symmetry(QcepCalibrant::DiamondCubic);

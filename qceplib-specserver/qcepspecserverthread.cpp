@@ -30,7 +30,7 @@ void QcepSpecServerThread::run()
 
   m_SpecServer =
       QcepSpecServerPtr(
-        new QcepSpecServer("specServer"));
+        NEWPTR(QcepSpecServer("specServer")));
 
   m_SpecServer -> initialize(sharedFromThis(),
                              m_SpecServerSettings,
