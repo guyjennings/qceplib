@@ -2,8 +2,12 @@ message(qceplib-libzip PWD = $${PWD} QCEPLIB_LIBZIP_VERSION = $${QCEPLIB_LIBZIP_
 
 include(qceplib-libzip-include-$${QCEPLIB_LIBZIP_VERSION}.pri)
 
+DEFINES +=
 HEADERS += \
-  $$LIBZIPBASE/zip.h
+  $$LIBZIPBASE/zip.h \
+  $$LIBZIPBASE/compat.h \
+  $$LIBZIPCONF/config.h \
+  $$LIBZIPCONF/zipconf.h
 
 SOURCES += \
   $$LIBZIPBASE/zip_add.c \
@@ -13,9 +17,9 @@ SOURCES += \
   $$LIBZIPBASE/zip_algorithm_deflate.c \
   $$LIBZIPBASE/zip_buffer.c \
   $$LIBZIPBASE/zip_close.c \
-  $$LIBZIPBASE/zip_crypto_commoncrypto.c \
-  $$LIBZIPBASE/zip_crypto_gnutls.c \
-  $$LIBZIPBASE/zip_crypto_openssl.c \
+#  $$LIBZIPBASE/zip_crypto_commoncrypto.c \
+#  $$LIBZIPBASE/zip_crypto_gnutls.c \
+#  $$LIBZIPBASE/zip_crypto_openssl.c \
   $$LIBZIPBASE/zip_delete.c \
   $$LIBZIPBASE/zip_dir_add.c \
   $$LIBZIPBASE/zip_dirent.c \
@@ -69,8 +73,8 @@ SOURCES += \
   $$LIBZIPBASE/zip_open.c \
   $$LIBZIPBASE/zip_progress.c \
   $$LIBZIPBASE/zip_random_unix.c \
-  $$LIBZIPBASE/zip_random_uwp.c \
-  $$LIBZIPBASE/zip_random_win32.c \
+#  $$LIBZIPBASE/zip_random_uwp.c \
+#  $$LIBZIPBASE/zip_random_win32.c \
   $$LIBZIPBASE/zip_rename.c \
   $$LIBZIPBASE/zip_replace.c \
   $$LIBZIPBASE/zip_set_archive_comment.c \
@@ -106,13 +110,13 @@ SOURCES += \
   $$LIBZIPBASE/zip_source_supports.c \
   $$LIBZIPBASE/zip_source_tell.c \
   $$LIBZIPBASE/zip_source_tell_write.c \
-  $$LIBZIPBASE/zip_source_win32a.c \
-  $$LIBZIPBASE/zip_source_win32handle.c \
-  $$LIBZIPBASE/zip_source_win32utf8.c \
-  $$LIBZIPBASE/zip_source_win32w.c \
+#  $$LIBZIPBASE/zip_source_win32a.c \
+#  $$LIBZIPBASE/zip_source_win32handle.c \
+#  $$LIBZIPBASE/zip_source_win32utf8.c \
+#  $$LIBZIPBASE/zip_source_win32w.c \
   $$LIBZIPBASE/zip_source_window.c \
-  $$LIBZIPBASE/zip_source_winzip_aes_decode.c \
-  $$LIBZIPBASE/zip_source_winzip_aes_encode.c \
+#  $$LIBZIPBASE/zip_source_winzip_aes_decode.c \
+#  $$LIBZIPBASE/zip_source_winzip_aes_encode.c \
   $$LIBZIPBASE/zip_source_write.c \
   $$LIBZIPBASE/zip_source_zip.c \
   $$LIBZIPBASE/zip_source_zip_new.c \
@@ -126,4 +130,4 @@ SOURCES += \
   $$LIBZIPBASE/zip_unchange.c \
   $$LIBZIPBASE/zip_unchange_data.c \
   $$LIBZIPBASE/zip_utf-8.c \
-  $$LIBZIPBASE/zip_winzip_aes.c
+#  $$LIBZIPBASE/zip_winzip_aes.c

@@ -8,10 +8,11 @@ macx-*-32:QMAKE_TARGET.arch = x86
 LIBZIPBASE = $${PWD}/libzip-$${QCEPLIB_LIBZIP_VERSION}/lib/
 
 macx {
+  LIBZIPCONF = $${PWD}/libzip-config-$${QCEPLIB_LIBZIP_VERSION}/macx/
 } else:unix {
   LIBS += -lzip
 } else:win32 {
 }
 
-INCLUDEPATH += $${LIBZIPBASE} $${PWD}
+INCLUDEPATH += $${LIBZIPBASE} $${LIBZIPCONF}
 
