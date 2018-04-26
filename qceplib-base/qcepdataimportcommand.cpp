@@ -15,11 +15,15 @@ QcepDataImportCommand::QcepDataImportCommand(QcepDatasetModelWPtr model,
   m_Indexes(idx),
   m_Files(files)
 {
-  if (m_Model) {
-    m_Experiment = m_Model->experiment();
+  QcepDatasetModelPtr dsm(m_Model);
 
-    if (m_Experiment) {
-      m_Parameters = m_Experiment->dataImportParameters();
+  if (dsm) {
+    m_Experiment = dsm->experiment();
+
+    QcepExperimentPtr expt(m_Experiment);
+
+    if (expt) {
+      m_Parameters = expt->dataImportParameters();
 
       m_ImportedData =
           QcepAllocator::newDataset(sharedFromThis(), "import");
@@ -76,9 +80,13 @@ bool QcepDataImportCommand::exec()
 
 void QcepDataImportCommand::copyResults()
 {
-  foreach (QModelIndex idx, m_ImportedIndexes) {
-    QcepDataObjectPtr obj = m_ImportedDataset->indexedObject(idx);
+  QcepDatasetModelPtr model(m_Model);
 
-    m_Model->append(m_Indexes.value(0), obj);
+  if (model) {
+    foreach (QModelIndex idx, m_ImportedIndexes) {
+      QcepDataObjectPtr obj = m_ImportedDataset->indexedObject(idx);
+
+      model->append(m_Indexes.value(0), obj);
+    }
   }
 }

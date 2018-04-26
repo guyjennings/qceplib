@@ -27,15 +27,15 @@ public:
   void copyResults();
 
 private:
-  QcepFileImporterPtr         m_FileImporter;
-  QcepDatasetPtr              m_ImportedData;
-  QcepDatasetModelPtr         m_ImportedDataset;
-  QModelIndexList             m_ImportedIndexes;
-  QcepDatasetModelPtr         m_Model;
-  QModelIndexList             m_Indexes;
-  QStringList                 m_Files;
-  QcepExperimentPtr           m_Experiment;
-  QcepDataImportParametersPtr m_Parameters;
+  QcepFileImporterPtr          m_FileImporter;
+  QcepDatasetPtr               m_ImportedData;
+  QcepDatasetModelPtr          m_ImportedDataset;
+  QModelIndexList              m_ImportedIndexes;
+  QcepDatasetModelWPtr         m_Model;
+  QModelIndexList              m_Indexes;
+  QStringList                  m_Files;
+  QcepExperimentWPtr           m_Experiment;
+  QcepDataImportParametersWPtr m_Parameters;
 };
 
 #endif // QCEPDATAIMPORTCOMMAND_H
