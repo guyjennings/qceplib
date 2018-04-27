@@ -212,7 +212,8 @@ SOURCES += \
     $$PWD/qcepoutputfileformattertiff.cpp \
     $$PWD/qcepoutputfileformattertiff-bzip2.cpp \
     $$PWD/qcepoutputfileformattertiff-zip.cpp \
-    $$PWD/qcepoutputfileformattertiff-gzip.cpp
+    $$PWD/qcepoutputfileformattertiff-gzip.cpp \
+    $$PWD/qcepobject-dumpptr.cpp
 
 contains (DEFINES, HAVE_DATAVIS) {
  SOURCES += \

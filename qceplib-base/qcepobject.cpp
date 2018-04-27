@@ -924,13 +924,18 @@ int QcepObject::methodCount()
 void QcepObject::dumpObjectTreePtr(int level)
 {
   const QMetaObject* metaObject = this->metaObject();
-  QcepObjectPtr p(m_Parent);
 
-  printLine(tr("%1// %2: %3 constrs, parent %4")
-            .arg("", level)
-            .arg(metaObject->className())
-            .arg(metaObject->constructorCount())
-            .arg(p ? p->get_Type() : "NULL"));
+  {
+    QcepObjectPtr p(m_Parent);
+
+    printLine(tr("%1// %2: %3 constrs, parent %4")
+              .arg("", level)
+              .arg(metaObject->className())
+              .arg(metaObject->constructorCount())
+              .arg(p ? p->get_Type() : "NULL"));
+  }
+
+  dumpObjectReferenceCounts();
 
   int nDumped = 0;
 
@@ -967,23 +972,31 @@ void QcepObject::dumpObjectTreePtr(int level)
   int nDumpedChildren = 0;
 
   for (int i=0; i<childCount(); i++) {
-    QcepObjectPtr obj = childPtr(i);
+    QcepObject* objp = NULL;
 
-    if (obj) {
-      if (nDumped == 0) {
-        printLine(tr("%1%2 {")
-                  .arg("",level)
-                  .arg(get_Type()));
+    {
+      QcepObjectPtr obj = childPtr(i);
+
+      if (obj) {
+        if (nDumped == 0) {
+          printLine(tr("%1%2 {")
+                    .arg("",level)
+                    .arg(get_Type()));
+        }
+
+        if (nDumpedChildren == 0) {
+          printLine(tr("%1children{").arg("",level+1));
+        }
+
+        nDumped++;
+        nDumpedChildren++;
+
+        objp = obj.data();
       }
+    }
 
-      if (nDumpedChildren == 0) {
-        printLine(tr("%1children{").arg("",level+1));
-      }
-
-      nDumped++;
-      nDumpedChildren++;
-
-      obj->dumpObjectTreePtr(level+2);
+    if (objp) {
+      objp->dumpObjectTreePtr(level+2);
     }
   }
 
@@ -998,6 +1011,18 @@ void QcepObject::dumpObjectTreePtr(int level)
   }
 }
 
+void QcepObject::dumpAllocatedObjects()
+{
+#ifndef QT_NO_DEBUG
+  foreach (QcepObject* obj, s_Allocated) {
+    if (obj) {
+      obj->dumpObjectReferenceCounts();
+    }
+  }
+#else
+  printMessage("dumpAllocatedObjects only works for debug builds");
+#endif
+}
 //TODO: remove
 QcepObjectPtr QcepObject::readDataObject(QcepFileFormatterPtr fmt)
 {

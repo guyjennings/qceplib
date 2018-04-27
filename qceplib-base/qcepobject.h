@@ -82,7 +82,7 @@ public slots:
   int checkChildren(int verbose=0, int level=0) const;
 
   void dumpObjectTreePtr(int level=0);
-
+  void dumpAllocatedObjects();
   void dumpParentage();
 
   void openObjectBrowser();
@@ -132,6 +132,7 @@ public:
 
 private:
   void addChildImpl(QcepObjectWPtr child);
+  void dumpObjectReferenceCounts();
 
 private:
   QcepObjectNamer                     m_ObjectNamer;
