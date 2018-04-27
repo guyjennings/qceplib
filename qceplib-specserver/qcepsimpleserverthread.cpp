@@ -28,13 +28,19 @@ void QcepSimpleServerThread::run()
     printMessage("Simple Server Thread Started");
   }
 
-  m_SimpleServer =
-      QcepSimpleServerPtr(
-        NEWPTR(QcepSimpleServer("simpleServer")));
+  {
+    QcepSimpleServerPtr srv =
+        QcepSimpleServerPtr(
+          NEWPTR(QcepSimpleServer("simpleServer")));
 
-  m_SimpleServer -> initialize(sharedFromThis(),
-                               m_SimpleServerSettings,
-                               m_ScriptEngine);
+    if (srv) {
+      srv -> initialize(sharedFromThis(),
+                        m_SimpleServerSettings,
+                        m_ScriptEngine);
+    }
+
+    m_SimpleServer = srv;
+  }
 
   int rc = exec();
 

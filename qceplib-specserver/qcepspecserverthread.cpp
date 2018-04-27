@@ -28,13 +28,19 @@ void QcepSpecServerThread::run()
     printMessage("Spec Server Thread Started");
   }
 
-  m_SpecServer =
-      QcepSpecServerPtr(
-        NEWPTR(QcepSpecServer("specServer")));
+  {
+    QcepSpecServerPtr srv =
+        QcepSpecServerPtr(
+          NEWPTR(QcepSpecServer("specServer")));
 
-  m_SpecServer -> initialize(sharedFromThis(),
-                             m_SpecServerSettings,
-                             m_ScriptEngine);
+    if (srv) {
+      srv -> initialize(sharedFromThis(),
+                        m_SpecServerSettings,
+                        m_ScriptEngine);
+    }
+
+    m_SpecServer = srv;
+  }
 
   int rc = exec();
 

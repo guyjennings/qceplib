@@ -175,7 +175,7 @@ private:
 
 private:
   QcepExperimentWPtr        m_Experiment;
-  QcepDatasetPtr            m_Dataset;
+  QcepDatasetWPtr           m_Dataset;
 };
 
 #endif // QCEPDATASETMODEL_H
