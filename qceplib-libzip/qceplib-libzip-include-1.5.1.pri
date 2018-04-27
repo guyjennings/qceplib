@@ -5,14 +5,17 @@ linux-g++-32:QMAKE_TARGET.arch = x86
 linux-g++-64:QMAKE_TARGET.arch = x86_64
 macx-*-32:QMAKE_TARGET.arch = x86
 
-LIBZIPBASE = $${PWD}/libzip-$${QCEPLIB_LIBZIP_VERSION}/lib/
 
 macx {
+  LIBZIPBASE = $${PWD}/libzip-$${QCEPLIB_LIBZIP_VERSION}/lib/
   LIBZIPCONF = $${PWD}/libzip-config-$${QCEPLIB_LIBZIP_VERSION}/macx/
+  INCLUDEPATH += $${LIBZIPBASE} $${LIBZIPCONF}
 } else:unix {
   LIBS += -lzip
 } else:win32 {
+  LIBZIPBASE = $${PWD}/libzip-$${QCEPLIB_LIBZIP_VERSION}/lib/
+  LIBZIPCONF = $${PWD}/libzip-config-$${QCEPLIB_LIBZIP_VERSION}/win64/
+  INCLUDEPATH += $${LIBZIPBASE} $${LIBZIPCONF}
 }
 
-INCLUDEPATH += $${LIBZIPBASE} $${LIBZIPCONF}
 

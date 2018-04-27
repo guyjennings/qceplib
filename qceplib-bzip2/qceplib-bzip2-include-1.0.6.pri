@@ -5,12 +5,12 @@ linux-g++-32:QMAKE_TARGET.arch = x86
 linux-g++-64:QMAKE_TARGET.arch = x86_64
 macx-*-32:QMAKE_TARGET.arch = x86
 
-BZIP2BASE = $${PWD}/bzip2-$${QCEPLIB_BZIP2_VERSION}/
 
-macx {
+macx|win32 {
+  BZIP2BASE = $${PWD}/bzip2-$${QCEPLIB_BZIP2_VERSION}/
+  INCLUDEPATH += $${BZIP2BASE}
 } else:unix {
-} else:win32 {
+  LIBS += -lbz2
 }
 
-INCLUDEPATH += $${BZIP2BASE} $${PWD}
-
+INCLUDEPATH += $${PWD}

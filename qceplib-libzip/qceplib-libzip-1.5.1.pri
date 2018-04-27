@@ -2,7 +2,7 @@ message(qceplib-libzip PWD = $${PWD} QCEPLIB_LIBZIP_VERSION = $${QCEPLIB_LIBZIP_
 
 include(qceplib-libzip-include-$${QCEPLIB_LIBZIP_VERSION}.pri)
 
-DEFINES +=
+macx {
 HEADERS += \
   $$LIBZIPBASE/zip.h \
   $$LIBZIPBASE/compat.h \
@@ -131,3 +131,4 @@ SOURCES += \
   $$LIBZIPBASE/zip_unchange_data.c \
   $$LIBZIPBASE/zip_utf-8.c \
 #  $$LIBZIPBASE/zip_winzip_aes.c
+}
