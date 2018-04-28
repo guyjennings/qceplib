@@ -4,7 +4,7 @@
 #include <QDesktopWidget>
 #include "qcepstartupwindowsettings.h"
 #include <QThread>
-#include "qcepapplication.h".h"
+#include "qcepapplication.h"
 
 QcepStartupWindow::QcepStartupWindow(QString name) :
   inherited(name)

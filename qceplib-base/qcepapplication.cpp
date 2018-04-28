@@ -68,8 +68,10 @@ void QcepApplication::initializeRoot()
           QcepStartupWindowSettingsPtr(
             NEWPTR(QcepStartupWindowSettings("startupWindowSettings")))));
 
-  if (m_StartupWindowSettings) {
-    m_StartupWindowSettings->initialize(sharedFromThis());
+  QcepStartupWindowSettingsPtr startup(m_StartupWindowSettings);
+
+  if (startup) {
+    startup->initialize(sharedFromThis());
   }
 
   m_CommandLineParser =
@@ -358,10 +360,12 @@ void QcepApplication::openStartupWindow()
 {
   GUI_THREAD_CHECK;
 
-  if (m_StartupWindowSettings) {
+  QcepStartupWindowSettingsPtr startup(m_StartupWindowSettings);
+
+  if (startup) {
     m_StartupWindow =
         qSharedPointerDynamicCast<QcepStartupWindow>(
-          m_StartupWindowSettings -> newWindow());
+          startup -> newWindow());
 
     m_StartupWindow -> initialize(sharedFromThis());
 
@@ -426,11 +430,11 @@ void QcepApplication::readSettings(QSettings *settings)
     settings->endGroup();
   }
 
-  if (m_StartupWindowSettings) {
-    settings->beginGroup("startupWindowSettings");
-    m_StartupWindowSettings->readSettings(settings);
-    settings->endGroup();
-  }
+//  if (m_StartupWindowSettings) {
+//    settings->beginGroup("startupWindowSettings");
+//    m_StartupWindowSettings->readSettings(settings);
+//    settings->endGroup();
+//  }
 }
 
 void QcepApplication::writeSettings(QSettings *settings)
@@ -443,11 +447,11 @@ void QcepApplication::writeSettings(QSettings *settings)
     settings->endGroup();
   }
 
-  if (m_StartupWindowSettings) {
-    settings->beginGroup("startupWindowSettings");
-    m_StartupWindowSettings->writeSettings(settings);
-    settings->endGroup();
-  }
+//  if (m_StartupWindowSettings) {
+//    settings->beginGroup("startupWindowSettings");
+//    m_StartupWindowSettings->writeSettings(settings);
+//    settings->endGroup();
+//  }
 }
 
 void QcepApplication::openObjectBrowserWindow(QcepObjectWPtr obj)

@@ -157,7 +157,7 @@ public:
 private:
   QVector<QCommandLineOption*>    m_CommandLineOptions;
   QcepAllocatorPtr                m_Allocator;
-  QcepStartupWindowSettingsPtr    m_StartupWindowSettings;
+  QcepStartupWindowSettingsWPtr   m_StartupWindowSettings;
   QcepStartupWindowPtr            m_StartupWindow;
 };
 

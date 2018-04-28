@@ -19,7 +19,7 @@ void QcepOutputFileFormatter::initialize(QcepObjectWPtr parent)
   inherited::initialize(parent);
 }
 
-void QcepOutputFileFormatter::saveImageData(QcepOutputFileFormatterSettingsPtr set,
+void QcepOutputFileFormatter::saveImageData(QcepOutputFileFormatterSettingsWPtr set,
                                             QString                            name,
                                             QcepImageDataBasePtr               img,
                                             QcepImageDataBasePtr               overflow,
