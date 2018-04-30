@@ -61,3 +61,16 @@ QcepSimpleServerWPtr QcepSimpleServerThread::simpleServer()
 
   return m_SimpleServer;
 }
+
+void QcepSimpleServerThread::haltSimpleServer()
+{
+  if (m_SimpleServer) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+    INVOKE_CHECK(
+          QMetaObject::invokeMethod(m_SimpleServer.data(), &QcepSimpleServer::haltSimpleServer))
+#else
+    INVOKE_CHECK(
+          QMetaObject::invokeMethod(m_SimpleServer.data(), "haltSimpleServer"))
+#endif
+  }
+}

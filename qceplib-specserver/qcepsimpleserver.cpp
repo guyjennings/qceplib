@@ -68,10 +68,10 @@ void QcepSimpleServer::serverPortChanged()
 
 void QcepSimpleServer::startServer(QHostAddress addr, int port)
 {
-  if (qcepDebug(DEBUG_SERVER)) {
+//  if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("Starting simple server on address %1, port %2")
                  .arg(addr.toString()).arg(port));
-  }
+//  }
 
   m_Server.setMaxPendingConnections(1);
 
@@ -82,6 +82,13 @@ void QcepSimpleServer::startServer(QHostAddress addr, int port)
   if (!m_Server.listen(addr, port)) {
     criticalMessage(tr("Failed to bind to address %1 port %2\nIs there another copy of qxrd running already?").arg(addr.toString()).arg(port));
   }
+}
+
+void QcepSimpleServer::haltSimpleServer()
+{
+  THREAD_CHECK;
+
+  stopServer();
 }
 
 void QcepSimpleServer::stopServer()

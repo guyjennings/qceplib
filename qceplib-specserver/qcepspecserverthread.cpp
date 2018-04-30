@@ -61,3 +61,16 @@ QcepSpecServerWPtr QcepSpecServerThread::specServer()
 
   return m_SpecServer;
 }
+
+void QcepSpecServerThread::haltSpecServer()
+{
+  if (m_SpecServer) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+    INVOKE_CHECK(
+          QMetaObject::invokeMethod(m_SpecServer.data(), &QcepSpecServer::haltSpecServer))
+#else
+    INVOKE_CHECK(
+          QMetaObject::invokeMethod(m_SpecServer.data(), "haltSpecServer"))
+#endif
+  }
+}

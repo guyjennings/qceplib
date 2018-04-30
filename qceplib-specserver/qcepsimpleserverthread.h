@@ -24,6 +24,8 @@ public:
 
   QcepSimpleServerWPtr simpleServer();
 
+  void haltSimpleServer();
+
 protected:
   void run();
 

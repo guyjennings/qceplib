@@ -28,6 +28,7 @@ public:
   void finishedCommand(QScriptValue result);
 
 public slots:
+  void haltSimpleServer();
   void runModeChanged();
   void serverPortChanged();
   void openNewConnection();

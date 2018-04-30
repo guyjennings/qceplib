@@ -14,6 +14,14 @@ QcepThread::QcepThread(QString name) :
 
   m_Thread -> setObjectName(name);
 
+  CONNECT_CHECK(
+        connect(m_Thread.data(), &QNewThread::started,
+                this,            &QcepThread::started));
+
+  CONNECT_CHECK(
+        connect(m_Thread.data(), &QNewThread::finished,
+                this,            &QcepThread::finished));
+
 //  CONNECT_CHECK(connect(m_Thread.data(),
 //          &QThread::started,
 //          this,
