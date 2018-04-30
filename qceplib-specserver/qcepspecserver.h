@@ -46,6 +46,7 @@ public:
   int  port();
 
 public slots:
+  void haltSpecServer();
   void openNewConnection();
   void connectionClosed();
   void clientRead();

@@ -38,6 +38,10 @@ public:
 
   void setObjectName(const QString &name);
 
+signals:
+  void started();
+  void finished();
+
 private:
   QcepObjectWPtr m_Parent;
   QNewThreadPtr  m_Thread;

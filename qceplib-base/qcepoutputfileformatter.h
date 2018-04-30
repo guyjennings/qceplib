@@ -21,13 +21,13 @@ public:
 
   void initialize(QcepObjectWPtr parent);
 
-  virtual void saveImageData(QcepOutputFileFormatterSettingsPtr set,
+  virtual void saveImageData(QcepOutputFileFormatterSettingsWPtr set,
                             QString                             name,
                             QcepImageDataBasePtr                img,
                             QcepImageDataBasePtr                overflow,
                             int                                 canOverwrite);
 
-  virtual void saveImageData(QcepOutputFileFormatterSettingsPtr set,
+  virtual void saveImageData(QcepOutputFileFormatterSettingsWPtr set,
                             QcepImageDataBasePtr                img,
                             QcepImageDataBasePtr                overflow) = 0;
 

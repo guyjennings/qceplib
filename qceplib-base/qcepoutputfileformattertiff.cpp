@@ -9,18 +9,21 @@ QcepOutputFileFormatterTIFF::QcepOutputFileFormatterTIFF(QString name)
 {
 }
 
-void QcepOutputFileFormatterTIFF::saveImageData(QcepOutputFileFormatterSettingsPtr set,
-                                                QcepImageDataBasePtr               img,
-                                                QcepImageDataBasePtr               overflow)
+void QcepOutputFileFormatterTIFF::saveImageData(QcepOutputFileFormatterSettingsWPtr settings,
+                                                QcepImageDataBasePtr                img,
+                                                QcepImageDataBasePtr                overflow)
 {
+  m_Settings = settings;
+
+  QcepOutputFileFormatterSettingsPtr set(m_Settings);
+
   if (img && set) {
     m_Tic.start();
-    m_Settings = set;
     m_Image = img;
     m_NRows = m_Image -> get_Height();
     m_NCols = m_Image -> get_Width();
-    m_Compression      = m_Settings -> get_CompressFormat();
-    m_CompressionLevel = m_Settings -> get_CompressLevel();
+    m_Compression      = set -> get_CompressFormat();
+    m_CompressionLevel = set -> get_CompressLevel();
 
     QcepDoubleImageDataPtr dimage = qSharedPointerDynamicCast<QcepDoubleImageData>(img);
 
@@ -41,18 +44,18 @@ void QcepOutputFileFormatterTIFF::saveImageData(QcepOutputFileFormatterSettingsP
         }
       }
     }
-  }
 
-  if (set) {
-    set -> decBacklog();
+    if (set) {
+      set -> decBacklog();
+    }
   }
 }
 
 #define TIFFCHECK(a) tiffCheck((a), __FILE__, __LINE__)
 
-void QcepOutputFileFormatterTIFF::saveDoubleData(QcepOutputFileFormatterSettingsPtr set,
-                                                 QcepDoubleImageDataPtr             dimg,
-                                                 QcepImageDataBasePtr               overflow)
+void QcepOutputFileFormatterTIFF::saveDoubleData(QcepOutputFileFormatterSettingsWPtr settings,
+                                                 QcepDoubleImageDataPtr              dimg,
+                                                 QcepImageDataBasePtr                overflow)
 {
   beginOutputData(32, SAMPLEFORMAT_IEEEFP);
 
@@ -70,9 +73,9 @@ void QcepOutputFileFormatterTIFF::saveDoubleData(QcepOutputFileFormatterSettings
   endOutputData();
 }
 
-void QcepOutputFileFormatterTIFF::saveInt16Data (QcepOutputFileFormatterSettingsPtr set,
-                                                 QcepUInt16ImageDataPtr             dimg,
-                                                 QcepImageDataBasePtr               overflow)
+void QcepOutputFileFormatterTIFF::saveInt16Data (QcepOutputFileFormatterSettingsWPtr settings,
+                                                 QcepUInt16ImageDataPtr              dimg,
+                                                 QcepImageDataBasePtr                overflow)
 {
   beginOutputData(16, SAMPLEFORMAT_UINT);
 
@@ -90,9 +93,9 @@ void QcepOutputFileFormatterTIFF::saveInt16Data (QcepOutputFileFormatterSettings
   endOutputData();
 }
 
-void QcepOutputFileFormatterTIFF::saveInt32Data (QcepOutputFileFormatterSettingsPtr set,
-                                                 QcepUInt32ImageDataPtr             dimg,
-                                                 QcepImageDataBasePtr               overflow)
+void QcepOutputFileFormatterTIFF::saveInt32Data (QcepOutputFileFormatterSettingsWPtr settings,
+                                                 QcepUInt32ImageDataPtr              dimg,
+                                                 QcepImageDataBasePtr                overflow)
 {
   beginOutputData(32, SAMPLEFORMAT_UINT);
 

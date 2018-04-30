@@ -6,7 +6,7 @@ QcepOutputFileFormatterHDF::QcepOutputFileFormatterHDF(QString name)
 
 }
 
-void QcepOutputFileFormatterHDF::saveImageData(QcepOutputFileFormatterSettingsPtr set,
+void QcepOutputFileFormatterHDF::saveImageData(QcepOutputFileFormatterSettingsWPtr set,
                                                QcepImageDataBasePtr               img,
                                                QcepImageDataBasePtr               overflow)
 {

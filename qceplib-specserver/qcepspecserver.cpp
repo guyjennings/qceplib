@@ -86,8 +86,7 @@ void QcepSpecServer::serverPortChanged()
   }
 }
 
-void
-QcepSpecServer::startServer(QHostAddress a, int pmin, int pmax)
+void QcepSpecServer::startServer(QHostAddress a, int pmin, int pmax)
 {
   m_Server.setMaxPendingConnections(1);
 
@@ -109,7 +108,7 @@ QcepSpecServer::startServer(QHostAddress a, int pmin, int pmax)
 
   for (int p=pmin; p<=pmax; p++) {
     if (m_Server.listen(a, p)) {
-      printMessage(tr("Started SPEC Server on address %1 port %2")
+      printMessage(tr("Starting SPEC Server on address %1 port %2")
                    .arg(a.toString()).arg(p));
 
       m_Address = a;
@@ -132,24 +131,31 @@ QcepSpecServer::startServer(QHostAddress a, int pmin, int pmax)
                    .arg(a.toString()).arg(pmin).arg(pmax));
     }
   }
+
+  printMessage(tr("Started SPEC Server on address %1 port %2")
+               .arg(a.toString()).arg(m_Port));
 }
 
-void
-QcepSpecServer::stopServer()
+void QcepSpecServer::haltSpecServer()
+{
+  THREAD_CHECK;
+
+  stopServer();
+}
+
+void QcepSpecServer::stopServer()
 {
   if (m_Server.isListening()) {
     m_Server.close();
   }
 }
 
-int
-QcepSpecServer::port()
+int QcepSpecServer::port()
 {
   return m_Port;
 }
 
-void
-QcepSpecServer::reportServerAddress()
+void QcepSpecServer::reportServerAddress()
 {
   if (m_Port >= 0) {
     QList<QNetworkInterface> interfaces = QNetworkInterface::allInterfaces();
@@ -164,11 +170,10 @@ QcepSpecServer::reportServerAddress()
         foreach (QNetworkAddressEntry address, addresses) {
           QString addr = address.ip().toString();
 
-          QHostInfo hinfo = QHostInfo::fromName(addr);
-
-          addr = hinfo.hostName();
-
           if (address.ip().protocol() == QAbstractSocket::IPv4Protocol) {
+            QHostInfo hinfo = QHostInfo::fromName(addr);
+            addr = hinfo.hostName();
+
             printMessage(tr("Access at \"%1:%2\" or \"%3:%4\"")
                               .arg(addr).arg(m_Port)
                               .arg(addr).arg(m_ServerName));
@@ -186,8 +191,7 @@ QcepSpecServer::reportServerAddress()
   open socket to improve the latency of the command stream
   */
 
-void
-QcepSpecServer::openNewConnection()
+void QcepSpecServer::openNewConnection()
 {
   m_Socket = m_Server.nextPendingConnection();
 
@@ -209,16 +213,14 @@ QcepSpecServer::openNewConnection()
   }
 }
 
-void
-QcepSpecServer::connectionClosed()
+void QcepSpecServer::connectionClosed()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage("Client closed connection");
   }
 }
 
-void
-QcepSpecServer::clientRead()
+void QcepSpecServer::clientRead()
 {
   if (m_ReplyHeadSent != 0) {
     printMessage(tr("QSpecServer::clientRead, m_ReplyHeadSent != 0"));
@@ -246,8 +248,7 @@ QcepSpecServer::clientRead()
   }
 }
 
-int
-QcepSpecServer::readPacketData()
+int QcepSpecServer::readPacketData()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("QSpecServer::readPacketData start"));
@@ -315,8 +316,7 @@ QcepSpecServer::readPacketData()
   Handle the various kinds of input packets
   */
 
-int
-QcepSpecServer::interpretPacket()
+int QcepSpecServer::interpretPacket()
 {
 
   if (qcepDebug(DEBUG_SERVER)) {
@@ -401,8 +401,7 @@ QcepSpecServer::interpretPacket()
   of the received packet
   */
 
-void
-QcepSpecServer::initReplyPacket()
+void QcepSpecServer::initReplyPacket()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("QSpecServer::initReplyPacket"));
@@ -442,8 +441,7 @@ QcepSpecServer::initReplyPacket()
 
 #define HEAD_SIZE sizeof(m_Reply.magic)
 
-void
-QcepSpecServer::sendReplyPacketHead()
+void QcepSpecServer::sendReplyPacketHead()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("QSpecServer::sendReplyPacketHead start"));
@@ -463,8 +461,7 @@ QcepSpecServer::sendReplyPacketHead()
   that have already been sent by sendReplyPacketHead
   */
 
-void
-QcepSpecServer::sendReplyPacketTail()
+void QcepSpecServer::sendReplyPacketTail()
 {
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("QSpecServer::sendReplyPacketTail start"));
@@ -485,8 +482,7 @@ QcepSpecServer::sendReplyPacketTail()
   Swap byte order
   */
 
-qint32
-QcepSpecServer::swapInt32(qint32 val)
+qint32 QcepSpecServer::swapInt32(qint32 val)
 {
   union {
     qint32 res;
@@ -503,8 +499,7 @@ QcepSpecServer::swapInt32(qint32 val)
   return res;
 }
 
-quint32
-QcepSpecServer::swapUInt32(quint32 val)
+quint32 QcepSpecServer::swapUInt32(quint32 val)
 {
   union {
     quint32 res;

@@ -2,8 +2,6 @@ message(qceplib-libzip PWD = $${PWD} QCEPLIB_LIBZIP_VERSION = $${QCEPLIB_LIBZIP_
 
 include(qceplib-libzip-include-$${QCEPLIB_LIBZIP_VERSION}.pri)
 
-DEFINES +=
-
 macx {
 HEADERS += \
   $$LIBZIPBASE/zip.h \

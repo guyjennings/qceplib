@@ -157,8 +157,8 @@ public:
 private:
   QVector<QCommandLineOption*>    m_CommandLineOptions;
   QcepAllocatorPtr                m_Allocator;
-  QcepStartupWindowSettingsPtr    m_StartupWindowSettings;
-  QcepStartupWindowPtr            m_StartupWindow;
+  QcepStartupWindowSettingsWPtr   m_StartupWindowSettings;
+  QcepStartupWindowWPtr           m_StartupWindow;
 };
 
 extern QCEP_EXPORT QcepApplication *g_Application;

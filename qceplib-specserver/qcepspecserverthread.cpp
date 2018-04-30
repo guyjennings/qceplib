@@ -10,6 +10,15 @@ QcepSpecServerThread::QcepSpecServerThread(QString name)
 
 QcepSpecServerThread::~QcepSpecServerThread()
 {
+#ifndef QT_NO_DEBUG
+  printf("Shutting down spec server thread\n");
+#endif
+
+  shutdown();
+
+#ifndef QT_NO_DEBUG
+  printf("Deleting spec server thread\n");
+#endif
 }
 
 void QcepSpecServerThread::initialize(QcepObjectWPtr             parent,
@@ -28,13 +37,19 @@ void QcepSpecServerThread::run()
     printMessage("Spec Server Thread Started");
   }
 
-  m_SpecServer =
-      QcepSpecServerPtr(
-        NEWPTR(QcepSpecServer("specServer")));
+  {
+    QcepSpecServerPtr srv =
+        QcepSpecServerPtr(
+          NEWPTR(QcepSpecServer("specServer")));
 
-  m_SpecServer -> initialize(sharedFromThis(),
-                             m_SpecServerSettings,
-                             m_ScriptEngine);
+    if (srv) {
+      srv -> initialize(sharedFromThis(),
+                        m_SpecServerSettings,
+                        m_ScriptEngine);
+    }
+
+    m_SpecServer = srv;
+  }
 
   int rc = exec();
 
@@ -54,4 +69,17 @@ QcepSpecServerWPtr QcepSpecServerThread::specServer()
   }
 
   return m_SpecServer;
+}
+
+void QcepSpecServerThread::haltSpecServer()
+{
+  if (m_SpecServer) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+    INVOKE_CHECK(
+          QMetaObject::invokeMethod(m_SpecServer.data(), &QcepSpecServer::haltSpecServer))
+#else
+    INVOKE_CHECK(
+          QMetaObject::invokeMethod(m_SpecServer.data(), "haltSpecServer"))
+#endif
+  }
 }

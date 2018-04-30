@@ -21,39 +21,39 @@ private:
 public:
   Q_INVOKABLE QcepOutputFileFormatterTIFF(QString name);
 
-  void saveImageData(QcepOutputFileFormatterSettingsPtr set,
-                     QcepImageDataBasePtr               img,
-                     QcepImageDataBasePtr               overflow);
+  void saveImageData(QcepOutputFileFormatterSettingsWPtr settings,
+                     QcepImageDataBasePtr                img,
+                     QcepImageDataBasePtr                overflow);
 
 private:
-  QTime                              m_Tic;
-  int                                m_Compression;
-  int                                m_CompressionLevel;
-  QcepOutputFileFormatterSettingsPtr m_Settings;
-  QString                            m_FileName;
-  std::ostringstream                 m_OutputStream;
-  const char*                        m_OutputBuffer;
-  int                                m_OutputCount;
-  TIFF*                              m_OutputTIFF;
-  QcepImageDataBasePtr               m_Image;
-  int                                m_NRows;
-  int                                m_NCols;
+  QTime                               m_Tic;
+  int                                 m_Compression;
+  int                                 m_CompressionLevel;
+  QcepOutputFileFormatterSettingsWPtr m_Settings;
+  QString                             m_FileName;
+  std::ostringstream                  m_OutputStream;
+  const char*                         m_OutputBuffer;
+  int                                 m_OutputCount;
+  TIFF*                               m_OutputTIFF;
+  QcepImageDataBasePtr                m_Image;
+  int                                 m_NRows;
+  int                                 m_NCols;
 
   void tiffCheck(int stat, const char* file, int line);
 
   void beginOutputData(int nBits, int pixFormat);
 
-  void saveDoubleData(QcepOutputFileFormatterSettingsPtr set,
-                      QcepDoubleImageDataPtr             dimg,
-                      QcepImageDataBasePtr               overflow);
+  void saveDoubleData(QcepOutputFileFormatterSettingsWPtr settings,
+                      QcepDoubleImageDataPtr              dimg,
+                      QcepImageDataBasePtr                overflow);
 
-  void saveInt32Data (QcepOutputFileFormatterSettingsPtr set,
-                      QcepUInt32ImageDataPtr             i32img,
-                      QcepImageDataBasePtr               overflow);
+  void saveInt32Data (QcepOutputFileFormatterSettingsWPtr settings,
+                      QcepUInt32ImageDataPtr              i32img,
+                      QcepImageDataBasePtr                overflow);
 
-  void saveInt16Data (QcepOutputFileFormatterSettingsPtr set,
-                      QcepUInt16ImageDataPtr             i16img,
-                      QcepImageDataBasePtr               overflow);
+  void saveInt16Data (QcepOutputFileFormatterSettingsWPtr settings,
+                      QcepUInt16ImageDataPtr              i16img,
+                      QcepImageDataBasePtr                overflow);
 
   void endOutputData();
 

@@ -19,7 +19,7 @@ private:
 public:
   Q_INVOKABLE QcepOutputFileFormatterHDF(QString name);
 
-  void saveImageData(QcepOutputFileFormatterSettingsPtr set,
+  void saveImageData(QcepOutputFileFormatterSettingsWPtr set,
                      QcepImageDataBasePtr               img,
                      QcepImageDataBasePtr               overflow);
 };

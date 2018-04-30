@@ -515,18 +515,10 @@ void QcepObject::printLine(QString line) const
   checkObjectInitialization();
 #endif
 
-  QcepObjectPtr p(m_Parent);
-
-  if (p) {
-    p->printLine(line);
+  if (g_Application) {
+    g_Application -> printLine(line);
   } else {
-    QcepObject *p = qobject_cast<QcepObject*>(parent());
-
-    if (p) {
-      p->printLine(line);
-    } else {
-      printf("%s\n", qPrintable(line));
-    }
+    printf("%s\n", qPrintable(line));
   }
 }
 
@@ -536,19 +528,11 @@ void QcepObject::printMessage(QString msg, QDateTime dt) const
   checkObjectInitialization();
 #endif
 
-  QcepObjectPtr p(m_Parent);
-
-  if (p) {
-    p->printMessage(msg, dt);
+  if (g_Application) {
+    g_Application -> printMessage(msg, dt);
   } else {
-    QcepObject *p = qobject_cast<QcepObject*>(parent());
-
-    if (p) {
-      p->printMessage(msg, dt);
-    } else {
-      printf("MESSAGE: %s %s\n",
-             qPrintable(dt.toString("hh:mm:ss")), qPrintable(msg));
-    }
+    printf("MESSAGE: %s %s\n",
+           qPrintable(dt.toString("hh:mm:ss")), qPrintable(msg));
   }
 }
 
@@ -558,19 +542,11 @@ void QcepObject::criticalMessage(QString msg, QDateTime dt) const
   checkObjectInitialization();
 #endif
 
-  QcepObjectPtr p(m_Parent);
-
-  if (p) {
-    p->criticalMessage(msg, dt);
+  if (g_Application) {
+    g_Application -> criticalMessage(msg, dt);
   } else {
-    QcepObject *p = qobject_cast<QcepObject*>(parent());
-
-    if (p) {
-      p->criticalMessage(msg, dt);
-    } else {
-      printf("CRITICAL: %s %s\n",
-             qPrintable(dt.toString("hh:mm:ss")), qPrintable(msg));
-    }
+    printf("CRITICAL: %s %s\n",
+           qPrintable(dt.toString("hh:mm:ss")), qPrintable(msg));
   }
 }
 
@@ -580,19 +556,11 @@ void QcepObject::statusMessage(QString msg, QDateTime dt) const
   checkObjectInitialization();
 #endif
 
-  QcepObjectPtr p(m_Parent);
-
-  if (p) {
-    p->statusMessage(msg, dt);
+  if (g_Application) {
+    g_Application -> statusMessage(msg, dt);
   } else {
-    QcepObject *p = qobject_cast<QcepObject*>(parent());
-
-    if (p) {
-      p->statusMessage(msg, dt);
-    } else {
-      printf("STATUS: %s %s\n",
-             qPrintable(dt.toString("hh:mm:ss")), qPrintable(msg));
-    }
+    printf("STATUS: %s %s\n",
+           qPrintable(dt.toString("hh:mm:ss")), qPrintable(msg));
   }
 }
 
@@ -602,19 +570,11 @@ void QcepObject::splashMessage(QString msg, QDateTime dt)
   checkObjectInitialization();
 #endif
 
-  QcepObjectPtr p(m_Parent);
-
-  if (p) {
-    p->splashMessage(msg, dt);
+  if (g_Application) {
+    g_Application -> splashMessage(msg, dt);
   } else {
-    QcepObject *p = qobject_cast<QcepObject*>(parent());
-
-    if (p) {
-      p->splashMessage(msg, dt);
-    } else {
-      printf("SPLASH: %s %s\n",
-             qPrintable(dt.toString("hh:mm:ss")), qPrintable(msg));
-    }
+    printf("SPLASH: %s %s\n",
+           qPrintable(dt.toString("hh:mm:ss")), qPrintable(msg));
   }
 }
 
@@ -924,13 +884,18 @@ int QcepObject::methodCount()
 void QcepObject::dumpObjectTreePtr(int level)
 {
   const QMetaObject* metaObject = this->metaObject();
-  QcepObjectPtr p(m_Parent);
 
-  printLine(tr("%1// %2: %3 constrs, parent %4")
-            .arg("", level)
-            .arg(metaObject->className())
-            .arg(metaObject->constructorCount())
-            .arg(p ? p->get_Type() : "NULL"));
+  {
+    QcepObjectPtr p(m_Parent);
+
+    printLine(tr("%1// %2: %3 constrs, parent %4")
+              .arg("", level)
+              .arg(metaObject->className())
+              .arg(metaObject->constructorCount())
+              .arg(p ? p->get_Type() : "NULL"));
+  }
+
+  dumpObjectReferenceCounts();
 
   int nDumped = 0;
 
@@ -967,23 +932,31 @@ void QcepObject::dumpObjectTreePtr(int level)
   int nDumpedChildren = 0;
 
   for (int i=0; i<childCount(); i++) {
-    QcepObjectPtr obj = childPtr(i);
+    QcepObject* objp = NULL;
 
-    if (obj) {
-      if (nDumped == 0) {
-        printLine(tr("%1%2 {")
-                  .arg("",level)
-                  .arg(get_Type()));
+    {
+      QcepObjectPtr obj = childPtr(i);
+
+      if (obj) {
+        if (nDumped == 0) {
+          printLine(tr("%1%2 {")
+                    .arg("",level)
+                    .arg(get_Type()));
+        }
+
+        if (nDumpedChildren == 0) {
+          printLine(tr("%1children{").arg("",level+1));
+        }
+
+        nDumped++;
+        nDumpedChildren++;
+
+        objp = obj.data();
       }
+    }
 
-      if (nDumpedChildren == 0) {
-        printLine(tr("%1children{").arg("",level+1));
-      }
-
-      nDumped++;
-      nDumpedChildren++;
-
-      obj->dumpObjectTreePtr(level+2);
+    if (objp) {
+      objp->dumpObjectTreePtr(level+2);
     }
   }
 
@@ -998,6 +971,18 @@ void QcepObject::dumpObjectTreePtr(int level)
   }
 }
 
+void QcepObject::dumpAllocatedObjects()
+{
+#ifndef QT_NO_DEBUG
+  foreach (QcepObject* obj, s_Allocated) {
+    if (obj) {
+      obj->dumpObjectReferenceCounts();
+    }
+  }
+#else
+  printMessage("dumpAllocatedObjects only works for debug builds");
+#endif
+}
 //TODO: remove
 QcepObjectPtr QcepObject::readDataObject(QcepFileFormatterPtr fmt)
 {

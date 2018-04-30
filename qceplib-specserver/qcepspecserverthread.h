@@ -24,6 +24,8 @@ public:
 
   QcepSpecServerWPtr specServer();
 
+  void haltSpecServer();
+
 protected:
   void run();
 

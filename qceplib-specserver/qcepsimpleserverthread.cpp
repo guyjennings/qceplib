@@ -10,6 +10,15 @@ QcepSimpleServerThread::QcepSimpleServerThread(QString name)
 
 QcepSimpleServerThread::~QcepSimpleServerThread()
 {
+#ifndef QT_NO_DEBUG
+  printf("Shutting down simple server thread\n");
+#endif
+
+  shutdown();
+
+#ifndef QT_NO_DEBUG
+  printf("Deleting simple server thread\n");
+#endif
 }
 
 void QcepSimpleServerThread::initialize(QcepObjectWPtr               parent,
@@ -28,13 +37,19 @@ void QcepSimpleServerThread::run()
     printMessage("Simple Server Thread Started");
   }
 
-  m_SimpleServer =
-      QcepSimpleServerPtr(
-        NEWPTR(QcepSimpleServer("simpleServer")));
+  {
+    QcepSimpleServerPtr srv =
+        QcepSimpleServerPtr(
+          NEWPTR(QcepSimpleServer("simpleServer")));
 
-  m_SimpleServer -> initialize(sharedFromThis(),
-                               m_SimpleServerSettings,
-                               m_ScriptEngine);
+    if (srv) {
+      srv -> initialize(sharedFromThis(),
+                        m_SimpleServerSettings,
+                        m_ScriptEngine);
+    }
+
+    m_SimpleServer = srv;
+  }
 
   int rc = exec();
 
@@ -54,4 +69,17 @@ QcepSimpleServerWPtr QcepSimpleServerThread::simpleServer()
   }
 
   return m_SimpleServer;
+}
+
+void QcepSimpleServerThread::haltSimpleServer()
+{
+  if (m_SimpleServer) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+    INVOKE_CHECK(
+          QMetaObject::invokeMethod(m_SimpleServer.data(), &QcepSimpleServer::haltSimpleServer))
+#else
+    INVOKE_CHECK(
+          QMetaObject::invokeMethod(m_SimpleServer.data(), "haltSimpleServer"))
+#endif
+  }
 }
