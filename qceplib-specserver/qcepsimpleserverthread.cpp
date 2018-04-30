@@ -10,6 +10,15 @@ QcepSimpleServerThread::QcepSimpleServerThread(QString name)
 
 QcepSimpleServerThread::~QcepSimpleServerThread()
 {
+#ifndef QT_NO_DEBUG
+  printf("Shutting down simple server thread\n");
+#endif
+
+  shutdown();
+
+#ifndef QT_NO_DEBUG
+  printf("Deleting simple server thread\n");
+#endif
 }
 
 void QcepSimpleServerThread::initialize(QcepObjectWPtr               parent,

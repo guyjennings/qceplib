@@ -10,6 +10,15 @@ QcepSpecServerThread::QcepSpecServerThread(QString name)
 
 QcepSpecServerThread::~QcepSpecServerThread()
 {
+#ifndef QT_NO_DEBUG
+  printf("Shutting down spec server thread\n");
+#endif
+
+  shutdown();
+
+#ifndef QT_NO_DEBUG
+  printf("Deleting spec server thread\n");
+#endif
 }
 
 void QcepSpecServerThread::initialize(QcepObjectWPtr             parent,

@@ -367,19 +367,23 @@ void QcepApplication::openStartupWindow()
         qSharedPointerDynamicCast<QcepStartupWindow>(
           startup -> newWindow());
 
-    m_StartupWindow -> initialize(sharedFromThis());
+    QcepStartupWindowPtr win(m_StartupWindow);
 
-    m_StartupWindow -> setApplicationIcon(applicationIcon());
-    m_StartupWindow -> setApplicationDescription(
-          applicationDescription()+"\n"
-          "Guy Jennings\n"
-          "Version " + applicationVersion() + "\n"
-          "Build : " __DATE__ " : " __TIME__);
+    if (win) {
+      win -> initialize(sharedFromThis());
 
-    m_StartupWindow -> setWindowTitle(applicationDescription());
-    m_StartupWindow -> setWindowIcon(applicationIcon());
-    m_StartupWindow -> show();
-    m_StartupWindow -> raise();
+      win -> setApplicationIcon(applicationIcon());
+      win -> setApplicationDescription(
+            applicationDescription()+"\n"
+                                     "Guy Jennings\n"
+                                     "Version " + applicationVersion() + "\n"
+                                                                         "Build : " __DATE__ " : " __TIME__);
+
+      win -> setWindowTitle(applicationDescription());
+      win -> setWindowIcon(applicationIcon());
+      win -> show();
+      win -> raise();
+    }
   }
 }
 
@@ -387,8 +391,10 @@ void QcepApplication::closeStartupWindow()
 {
   GUI_THREAD_CHECK;
 
-  if (m_StartupWindow) {
-    m_StartupWindow -> hide();
+  QcepStartupWindowPtr win(m_StartupWindow);
+
+  if (win) {
+    win -> hide();
   }
 }
 
