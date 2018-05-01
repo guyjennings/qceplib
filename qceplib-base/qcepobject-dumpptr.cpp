@@ -46,27 +46,3 @@ int QcepObject::weakReferenceCount()
 
   return res;
 }
-
-void QcepObject::dumpObjectReferenceCounts(int lev)
-{
-  int weakRef   = weakReferenceCount();
-  int strongRef = strongReferenceCount();
-
-  if (strongRef >= lev) {
-    const QMetaObject* metaObject = this->metaObject();
-
-    if (strongRef > 1) {
-      printLine(tr("<span style=\"color:red\">%1 : %2 : weakRefs : %3; strongRefs : %4</span>")
-                .arg(objectName())
-                .arg(metaObject->className())
-                .arg(weakRef)
-                .arg(strongRef));
-    } else {
-      printLine(tr("%1 : %2 : weakRefs : %3; strongRefs : %4")
-                .arg(objectName())
-                .arg(metaObject->className())
-                .arg(weakRef)
-                .arg(strongRef));
-    }
-  }
-}
