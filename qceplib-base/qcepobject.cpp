@@ -983,6 +983,20 @@ void QcepObject::dumpAllocatedObjects()
   printMessage("dumpAllocatedObjects only works for debug builds");
 #endif
 }
+
+void QcepObject::dumpMultiAllocatedObjects()
+{
+#ifndef QT_NO_DEBUG
+  foreach (QcepObject* obj, s_Allocated) {
+    if (obj) {
+      obj->dumpObjectReferenceCounts(2);
+    }
+  }
+#else
+  printMessage("dumpMultiAllocatedObjects only works for debug builds");
+#endif
+}
+
 //TODO: remove
 QcepObjectPtr QcepObject::readDataObject(QcepFileFormatterPtr fmt)
 {

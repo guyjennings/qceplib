@@ -55,6 +55,9 @@ signals:
   void propertyWasChanged(QcepProperty *prop);
 
 public slots:
+  int strongReferenceCount();
+  int weakReferenceCount();
+
   virtual void printLine(QString line) const;
   virtual void printMessage(QString msg, QDateTime dt=QDateTime::currentDateTime()) const;
   virtual void criticalMessage(QString msg, QDateTime ts=QDateTime::currentDateTime()) const;
@@ -83,6 +86,7 @@ public slots:
 
   void dumpObjectTreePtr(int level=0);
   void dumpAllocatedObjects();
+  void dumpMultiAllocatedObjects();
   void dumpParentage();
 
   void openObjectBrowser();
@@ -132,7 +136,7 @@ public:
 
 private:
   void addChildImpl(QcepObjectWPtr child);
-  void dumpObjectReferenceCounts();
+  void dumpObjectReferenceCounts(int lev=0);
 
 private:
   QcepObjectNamer                     m_ObjectNamer;
