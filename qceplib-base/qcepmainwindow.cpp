@@ -19,6 +19,8 @@
 #include "qcepmainwindow-ptr.h"
 #include "qcepmainwindowsettings.h"
 #include "qcepallocator.h"
+#include "qcepeventfiltertextedit.h"
+#include "qcepeventfilterlineedit.h"
 
 QcepMainWindow::QcepMainWindow(QString name)
   : QMainWindow(),
@@ -265,6 +267,22 @@ void QcepMainWindow::setupMenus(QMenu *file, QMenu *edit, QMenu *window)
     m_ActionSelectAll->setObjectName(QStringLiteral("m_ActionSelectAll"));
     m_ActionSelectAll->setText(QApplication::translate("QxrdWindow", "Select All", Q_NULLPTR));
 
+    m_ActionFind = new QAction(this);
+    m_ActionFind->setObjectName(QStringLiteral("m_ActionFind"));
+    m_ActionFind->setText(QApplication::translate("QxrdWindow", "Find...", Q_NULLPTR));
+
+    m_ActionFindSelected = new QAction(this);
+    m_ActionFindSelected->setObjectName(QStringLiteral("m_ActionFindSelected"));
+    m_ActionFindSelected->setText(QApplication::translate("QxrdWindow", "Find Selected", Q_NULLPTR));
+
+    m_ActionFindNext = new QAction(this);
+    m_ActionFindNext->setObjectName(QStringLiteral("m_ActionFindNext"));
+    m_ActionFindNext->setText(QApplication::translate("QxrdWindow", "Find Next", Q_NULLPTR));
+
+    m_ActionFindPrevious = new QAction(this);
+    m_ActionFindPrevious->setObjectName(QStringLiteral("m_ActionFindPrevious"));
+    m_ActionFindPrevious->setText(QApplication::translate("QxrdWindow", "Find Previous", Q_NULLPTR));
+
     CONNECT_CHECK(connect(m_ActionUndo, &QAction::triggered, this, &QcepMainWindow::doUndo));
     CONNECT_CHECK(connect(m_ActionRedo, &QAction::triggered, this, &QcepMainWindow::doRedo));
     CONNECT_CHECK(connect(m_ActionCut, &QAction::triggered, this, &QcepMainWindow::doCut));
@@ -272,6 +290,10 @@ void QcepMainWindow::setupMenus(QMenu *file, QMenu *edit, QMenu *window)
     CONNECT_CHECK(connect(m_ActionPaste, &QAction::triggered, this, &QcepMainWindow::doPaste));
     CONNECT_CHECK(connect(m_ActionDelete, &QAction::triggered, this, &QcepMainWindow::doDelete));
     CONNECT_CHECK(connect(m_ActionSelectAll, &QAction::triggered, this, &QcepMainWindow::doSelectAll));
+    CONNECT_CHECK(connect(m_ActionFind, &QAction::triggered, this, &QcepMainWindow::doFind));
+    CONNECT_CHECK(connect(m_ActionFindSelected, &QAction::triggered, this, &QcepMainWindow::doFindSelected));
+    CONNECT_CHECK(connect(m_ActionFindNext, &QAction::triggered, this, &QcepMainWindow::doFindNext));
+    CONNECT_CHECK(connect(m_ActionFindPrevious, &QAction::triggered, this, &QcepMainWindow::doFindPrevious));
   }
 
   if (m_WindowMenuP) {
@@ -279,6 +301,8 @@ void QcepMainWindow::setupMenus(QMenu *file, QMenu *edit, QMenu *window)
           connect(m_WindowMenuP,  &QMenu::aboutToShow,
                   this, &QcepMainWindow::populateWindowsMenu));
   }
+
+  setupContextMenus();
 }
 
 void QcepMainWindow::populateEditMenu()
@@ -327,6 +351,13 @@ void QcepMainWindow::populateEditMenu()
   m_EditMenuP->addAction(m_ActionCopy);
   m_EditMenuP->addAction(m_ActionPaste);
   m_EditMenuP->addAction(m_ActionDelete);
+
+  m_EditMenuP->addSeparator();
+
+  m_EditMenuP->addAction(m_ActionFind);
+  m_EditMenuP->addAction(m_ActionFindSelected);
+  m_EditMenuP->addAction(m_ActionFindNext);
+  m_EditMenuP->addAction(m_ActionFindPrevious);
 
   m_EditMenuP->addSeparator();
 
@@ -708,6 +739,168 @@ void QcepMainWindow::doSelectAll()
     } else if (cbox) {
     } else if (itmv) {
       itmv->selectAll();
+    }
+  }
+}
+
+void QcepMainWindow::doFind()
+{
+  INIT_CHECK;
+
+  QWidget* focusWidget = QApplication::focusWidget();
+
+  if (focusWidget) {
+//    printMessage(tr("focusWidget = %1").arg(focusWidget->objectName()));
+
+    QTextEdit *txed = qobject_cast<QTextEdit*>(focusWidget);
+    QLineEdit *lned = qobject_cast<QLineEdit*>(focusWidget);
+    QSpinBox  *ispn = qobject_cast<QSpinBox*>(focusWidget);
+    QDoubleSpinBox *dspn = qobject_cast<QDoubleSpinBox*>(focusWidget);
+    QComboBox *cbox = qobject_cast<QComboBox*>(focusWidget);
+
+    if (txed) {
+      findTextEdit(txed);
+    } else if (lned) {
+      findLineEdit(lned);
+    } else if (ispn) {
+    } else if (dspn) {
+    } else if (cbox) {
+    }
+  }
+}
+
+void QcepMainWindow::doFindSelected()
+{
+  INIT_CHECK;
+
+  QWidget* focusWidget = QApplication::focusWidget();
+
+  if (focusWidget) {
+//    printMessage(tr("focusWidget = %1").arg(focusWidget->objectName()));
+
+    QTextEdit *txed = qobject_cast<QTextEdit*>(focusWidget);
+    QLineEdit *lned = qobject_cast<QLineEdit*>(focusWidget);
+    QSpinBox  *ispn = qobject_cast<QSpinBox*>(focusWidget);
+    QDoubleSpinBox *dspn = qobject_cast<QDoubleSpinBox*>(focusWidget);
+    QComboBox *cbox = qobject_cast<QComboBox*>(focusWidget);
+
+    if (txed) {
+      findSelectedTextEdit(txed);
+    } else if (lned) {
+      findSelectedLineEdit(lned);
+    } else if (ispn) {
+    } else if (dspn) {
+    } else if (cbox) {
+    }
+  }
+}
+
+void QcepMainWindow::doFindNext()
+{
+  INIT_CHECK;
+
+  QWidget* focusWidget = QApplication::focusWidget();
+
+  if (focusWidget) {
+//    printMessage(tr("focusWidget = %1").arg(focusWidget->objectName()));
+
+    QTextEdit *txed = qobject_cast<QTextEdit*>(focusWidget);
+    QLineEdit *lned = qobject_cast<QLineEdit*>(focusWidget);
+    QSpinBox  *ispn = qobject_cast<QSpinBox*>(focusWidget);
+    QDoubleSpinBox *dspn = qobject_cast<QDoubleSpinBox*>(focusWidget);
+    QComboBox *cbox = qobject_cast<QComboBox*>(focusWidget);
+
+    if (txed) {
+      findNextTextEdit(txed);
+    } else if (lned) {
+      findNextLineEdit(lned);
+    } else if (ispn) {
+    } else if (dspn) {
+    } else if (cbox) {
+    }
+  }
+}
+
+void QcepMainWindow::doFindPrevious()
+{
+  INIT_CHECK;
+
+  QWidget* focusWidget = QApplication::focusWidget();
+
+  if (focusWidget) {
+//    printMessage(tr("focusWidget = %1").arg(focusWidget->objectName()));
+
+    QTextEdit *txed = qobject_cast<QTextEdit*>(focusWidget);
+    QLineEdit *lned = qobject_cast<QLineEdit*>(focusWidget);
+    QSpinBox  *ispn = qobject_cast<QSpinBox*>(focusWidget);
+    QDoubleSpinBox *dspn = qobject_cast<QDoubleSpinBox*>(focusWidget);
+    QComboBox *cbox = qobject_cast<QComboBox*>(focusWidget);
+
+    if (txed) {
+      findPreviousTextEdit(txed);
+    } else if (lned) {
+      findPreviousLineEdit(lned);
+    } else if (ispn) {
+    } else if (dspn) {
+    } else if (cbox) {
+    }
+  }
+}
+
+void QcepMainWindow::getFindText()
+{
+}
+
+void QcepMainWindow::findTextEdit(QTextEdit *te)
+{
+  getFindText();
+
+  findNextTextEdit(te);
+}
+
+void QcepMainWindow::findLineEdit(QLineEdit *le)
+{
+  getFindText();
+
+  findNextLineEdit(le);
+}
+
+void QcepMainWindow::findSelectedTextEdit(QTextEdit *te)
+{
+}
+
+void QcepMainWindow::findSelectedLineEdit(QLineEdit *le)
+{
+}
+
+void QcepMainWindow::findNextTextEdit(QTextEdit *te)
+{
+}
+
+void QcepMainWindow::findNextLineEdit(QLineEdit *le)
+{
+}
+
+void QcepMainWindow::findPreviousTextEdit(QTextEdit *te)
+{
+}
+
+void QcepMainWindow::findPreviousLineEdit(QLineEdit *le)
+{
+}
+
+void QcepMainWindow::setupContextMenus()
+{
+  QList<QWidget*> widgets = findChildren<QWidget*>();
+
+  foreach (QWidget* w, widgets) {
+    QTextEdit *txed = qobject_cast<QTextEdit*>(w);
+    QLineEdit *lned = qobject_cast<QLineEdit*>(w);
+
+    if (txed) {
+      txed -> installEventFilter(new QcepEventFilterTextEdit(txed, this));
+    } else if (lned) {
+      lned -> installEventFilter(new QcepEventFilterLineEdit(lned, this));
     }
   }
 }

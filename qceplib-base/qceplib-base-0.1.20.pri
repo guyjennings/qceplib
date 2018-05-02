@@ -214,7 +214,10 @@ SOURCES += \
     $$PWD/qcepoutputfileformattertext.cpp \
     $$PWD/qcepoutputfileformatter-bzip2.cpp \
     $$PWD/qcepoutputfileformatter-gzip.cpp \
-    $$PWD/qcepoutputfileformatter-zip.cpp
+    $$PWD/qcepoutputfileformatter-zip.cpp \
+    $$PWD/qcepeventfiltertextedit.cpp \
+    $$PWD/qcepeventfilterlineedit.cpp \
+    $$PWD/qcepeventfilter.cpp
 
 contains (DEFINES, HAVE_DATAVIS) {
  SOURCES += \
@@ -525,7 +528,10 @@ HEADERS += \
     $$PWD/qcepoutputfileformattersettings-ptr.h \
     $$PWD/qcepoutputfileformatter-ptr.h \
     $$PWD/qcepspreadsheetmodel-ptr.h \
-    $$PWD/qcepoutputfileformattertext.h
+    $$PWD/qcepoutputfileformattertext.h \
+    $$PWD/qcepeventfiltertextedit.h \
+    $$PWD/qcepeventfilterlineedit.h \
+    $$PWD/qcepeventfilter.h
 
 contains (DEFINES, HAVE_DATAVIS) {
  HEADERS += \

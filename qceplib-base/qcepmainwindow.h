@@ -11,6 +11,8 @@
 #include "qcepmainwindowsettings-ptr.h"
 #include "qcepexperiment-ptr.h"
 #include "qcepapplication-ptr.h"
+#include <QTextEdit>
+#include <QLineEdit>
 
 class QCEP_EXPORT QcepMainWindow : public QMainWindow
 {
@@ -81,6 +83,7 @@ private:
 
   void populateEditMenu();
   void populateRecentExperimentsMenu();
+  void setupContextMenus();
 
   void doUndo();
   void doRedo();
@@ -89,6 +92,20 @@ private:
   void doPaste();
   void doDelete();
   void doSelectAll();
+  void doFind();
+  void doFindSelected();
+  void doFindNext();
+  void doFindPrevious();
+
+  void getFindText();
+  void findTextEdit(QTextEdit *te);
+  void findLineEdit(QLineEdit *le);
+  void findSelectedTextEdit(QTextEdit *te);
+  void findSelectedLineEdit(QLineEdit *le);
+  void findNextTextEdit(QTextEdit *te);
+  void findNextLineEdit(QLineEdit *le);
+  void findPreviousTextEdit(QTextEdit *te);
+  void findPreviousLineEdit(QLineEdit *le);
 
 protected:
   bool                m_Initialized;
@@ -126,6 +143,13 @@ protected:
   QAction            *m_ActionPaste;
   QAction            *m_ActionDelete;
   QAction            *m_ActionSelectAll;
+
+  QAction            *m_ActionFind;
+  QAction            *m_ActionFindSelected;
+  QAction            *m_ActionFindNext;
+  QAction            *m_ActionFindPrevious;
+
+  QString             m_FindString;
 };
 
 #endif // QCEPMAINWINDOW_H
