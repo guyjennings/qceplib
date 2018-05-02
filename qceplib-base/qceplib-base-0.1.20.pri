@@ -217,7 +217,8 @@ SOURCES += \
     $$PWD/qcepoutputfileformatter-zip.cpp \
     $$PWD/qcepeventfiltertextedit.cpp \
     $$PWD/qcepeventfilterlineedit.cpp \
-    $$PWD/qcepeventfilter.cpp
+    $$PWD/qcepeventfilter.cpp \
+    $$PWD/qcepfinddialog.cpp
 
 contains (DEFINES, HAVE_DATAVIS) {
  SOURCES += \
@@ -531,7 +532,8 @@ HEADERS += \
     $$PWD/qcepoutputfileformattertext.h \
     $$PWD/qcepeventfiltertextedit.h \
     $$PWD/qcepeventfilterlineedit.h \
-    $$PWD/qcepeventfilter.h
+    $$PWD/qcepeventfilter.h \
+    $$PWD/qcepfinddialog.h
 
 contains (DEFINES, HAVE_DATAVIS) {
  HEADERS += \
@@ -586,7 +588,8 @@ FORMS += \
   $$PWD/qcepplotwidgetdialog.ui \
   $$PWD/qcepimageplotwidgetdialog.ui \
   $$PWD/qceproieditordialog.ui \
-    $$PWD/qcepstartupwindow.ui
+    $$PWD/qcepstartupwindow.ui \
+    $$PWD/qcepfinddialog.ui
 
 contains(DEFINES, HAVE_QWT) {
  FORMS += \

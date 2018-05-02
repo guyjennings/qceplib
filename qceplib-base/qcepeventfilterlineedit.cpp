@@ -3,6 +3,7 @@
 #include <QLineEdit>
 #include <QContextMenuEvent>
 #include <QMenu>
+#include "qcepmainwindow.h"
 
 QcepEventFilterLineEdit::QcepEventFilterLineEdit(QObject *parent,
                                                  QcepMainWindow *win)
@@ -18,6 +19,8 @@ bool QcepEventFilterLineEdit::eventFilter(QObject *watched, QEvent *event)
     QContextMenuEvent *ctxev = static_cast<QContextMenuEvent*>(event);
 
     QMenu* menu = lned->createStandardContextMenu();
+
+    m_MainWindow -> lineEditContextMenu(lned, menu);
 
     menu->exec(ctxev->globalPos());
 

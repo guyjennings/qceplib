@@ -42,6 +42,9 @@ public:
 
   void closeEvent(QCloseEvent *event);
 
+  void textEditContextMenu(QTextEdit* te, QMenu *menu);
+  void lineEditContextMenu(QLineEdit* te, QMenu *menu);
+
 signals:
 
 public slots:

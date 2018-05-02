@@ -3,6 +3,7 @@
 #include <QEvent>
 #include <QContextMenuEvent>
 #include <QMenu>
+#include "qcepmainwindow.h"
 
 QcepEventFilterTextEdit::QcepEventFilterTextEdit(QObject *parent, QcepMainWindow *win)
   : inherited(parent, win)
@@ -17,6 +18,8 @@ bool QcepEventFilterTextEdit::eventFilter(QObject *watched, QEvent *event)
     QContextMenuEvent *ctxev = static_cast<QContextMenuEvent*>(event);
 
     QMenu* menu = txed -> createStandardContextMenu();
+
+    m_MainWindow -> textEditContextMenu(txed, menu);
 
     menu->exec(ctxev->globalPos());
 

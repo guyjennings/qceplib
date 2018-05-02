@@ -21,6 +21,7 @@
 #include "qcepallocator.h"
 #include "qcepeventfiltertextedit.h"
 #include "qcepeventfilterlineedit.h"
+#include "qcepfinddialog.h"
 
 QcepMainWindow::QcepMainWindow(QString name)
   : QMainWindow(),
@@ -849,6 +850,9 @@ void QcepMainWindow::doFindPrevious()
 
 void QcepMainWindow::getFindText()
 {
+  QcepFindDialog dlog(this);
+
+  dlog.exec();
 }
 
 void QcepMainWindow::findTextEdit(QTextEdit *te)
@@ -903,6 +907,22 @@ void QcepMainWindow::setupContextMenus()
       lned -> installEventFilter(new QcepEventFilterLineEdit(lned, this));
     }
   }
+}
+
+void QcepMainWindow::textEditContextMenu(QTextEdit *te, QMenu *menu)
+{
+  menu -> addAction(m_ActionFind);
+  menu -> addAction(m_ActionFindSelected);
+  menu -> addAction(m_ActionFindNext);
+  menu -> addAction(m_ActionFindPrevious);
+}
+
+void QcepMainWindow::lineEditContextMenu(QLineEdit *le, QMenu *menu)
+{
+  menu -> addAction(m_ActionFind);
+  menu -> addAction(m_ActionFindSelected);
+  menu -> addAction(m_ActionFindNext);
+  menu -> addAction(m_ActionFindPrevious);
 }
 
 void QcepMainWindow::possiblyClose()
