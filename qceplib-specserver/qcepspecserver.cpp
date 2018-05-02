@@ -12,6 +12,7 @@
 #include "qcepexperiment.h"
 #include "qcepobject.h"
 #include "qcepspecserversettings.h"
+#include "qcepapplication.h"
 
 QcepSpecServer::QcepSpecServer(QString name)
   : inherited(name),
@@ -28,6 +29,8 @@ QcepSpecServer::QcepSpecServer(QString name)
 
   connect(&m_Server, &QTcpServer::newConnection,
           this, &QcepSpecServer::openNewConnection);
+
+  m_ServerName = g_Application->applicationMnemonic();
 }
 
 void QcepSpecServer::initialize(QcepObjectWPtr             parent,
@@ -54,6 +57,11 @@ void QcepSpecServer::initialize(QcepObjectWPtr             parent,
 QcepSpecServer::~QcepSpecServer()
 {
 //  stopServer();
+}
+
+void QcepSpecServer::registerMetaTypes()
+{
+  qRegisterMetaType<QcepDoubleVector>("QcepDoubleVector");
 }
 
 void QcepSpecServer::runModeChanged()
@@ -523,20 +531,20 @@ quint32 QcepSpecServer::swapUInt32(quint32 val)
 
 qint32 QcepSpecServer::condSwapInt32(qint32 val)
 {
-  if (m_SwapBytes) {
-    return swapInt32(val);
-  } else {
+//  if (m_SwapBytes) {
+//    return swapInt32(val);
+//  } else {
     return val;
-  }
+//  }
 }
 
 quint32 QcepSpecServer::condSwapUInt32(quint32 val)
 {
-  if (m_SwapBytes) {
-    return swapUInt32(val);
-  } else {
+//  if (m_SwapBytes) {
+//    return swapUInt32(val);
+//  } else {
     return val;
-  }
+//  }
 }
 
 void QcepSpecServer::handle_abort()
@@ -637,6 +645,73 @@ void QcepSpecServer::handle_send()
   if (qcepDebug(DEBUG_SERVER)) {
     printMessage(tr("SV_CHAN_SEND: %1").arg(m_Packet.name));
   }
+
+  QString propName = m_Packet.name;
+  QVariant propVal;
+
+  switch(m_Packet.type) {
+  case SV_DOUBLE:
+    propVal.setValue(doubleValue());
+    break;
+
+  case SV_STRING:
+    propVal.setValue(stringValue());
+    break;
+
+  case SV_ERROR:
+    propVal.setValue(errorValue());
+    break;
+
+  case SV_ASSOC:
+    propVal.setValue(assocValue());
+    break;
+
+  case SV_ARR_DOUBLE:
+    propVal.setValue(doubleArrayValue());
+    break;
+
+  case SV_ARR_FLOAT:
+    propVal.setValue(floatArrayValue());
+    break;
+
+  case SV_ARR_LONG:
+    propVal.setValue(longArrayValue());
+    break;
+
+  case SV_ARR_ULONG:
+    propVal.setValue(uLongArrayValue());
+    break;
+
+  case SV_ARR_SHORT:
+    propVal.setValue(shortArrayValue());
+    break;
+
+  case SV_ARR_USHORT:
+    propVal.setValue(uShortArrayValue());
+    break;
+
+  case SV_ARR_CHAR:
+    propVal.setValue(charArrayValue());
+    break;
+
+  case SV_ARR_UCHAR:
+    propVal.setValue(uCharArrayValue());
+    break;
+
+  case SV_ARR_STRING:
+    propVal.setValue(stringArrayValue());
+    break;
+
+  case SV_ARR_LONG64:
+    propVal.setValue(long64ArrayValue());
+    break;
+
+  case SV_ARR_ULONG64:
+    propVal.setValue(uLong64ArrayValue());
+    break;
+  }
+
+  printMessage(tr("set %1 to %2").arg(propName).arg(propVal.toString()));
 }
 
 void QcepSpecServer::handle_hello()
@@ -855,4 +930,183 @@ void QcepSpecServer::init_svr_head(svr_head *h)
     h->flags = 0;
     strncpy(h->name, "", 2);
   }
+}
+
+double QcepSpecServer::doubleValue()
+{
+  double res;
+
+  res = condSwapItem<double>(0);
+
+  return res;
+}
+
+QString QcepSpecServer::stringValue()
+{
+  QString res;
+
+  res = QByteArray(m_Data);
+
+  return res;
+}
+
+int QcepSpecServer::errorValue()
+{
+  return -1;
+}
+
+QMap<QString,QVariant> QcepSpecServer::assocValue()
+{
+  QMap<QString,QVariant> res;
+
+  //TODO: write this...
+
+  return res;
+}
+
+QcepDoubleVector QcepSpecServer::doubleArrayValue()
+{
+  QVector<double> res;
+
+  int n = (m_Data.size()/sizeof(double));
+
+  for (int i = 0; i<n; i++) {
+    res.append(condSwapItem<double>(i));
+  }
+
+  return res;
+}
+
+QVector<float> QcepSpecServer::floatArrayValue()
+{
+  QVector<float> res;
+
+  int n = (m_Data.size()/sizeof(float));
+
+  for (int i = 0; i<n; i++) {
+    res.append(condSwapItem<float>(i));
+  }
+
+  return res;
+}
+
+QVector<long> QcepSpecServer::longArrayValue()
+{
+  QVector<long> res;
+
+  int n = (m_Data.size()/sizeof(long));
+
+  for (int i = 0; i<n; i++) {
+    res.append(condSwapItem<long>(i));
+  }
+
+  return res;
+}
+
+QVector<unsigned long> QcepSpecServer::uLongArrayValue()
+{
+  QVector<unsigned long> res;
+
+  int n = (m_Data.size()/sizeof(unsigned long));
+
+  for (int i = 0; i<n; i++) {
+    res.append(condSwapItem<unsigned long>(i));
+  }
+
+  return res;
+}
+
+QVector<short> QcepSpecServer::shortArrayValue()
+{
+  QVector<short> res;
+
+  int n = (m_Data.size()/sizeof(short));
+
+  for (int i = 0; i<n; i++) {
+    res.append(condSwapItem<short>(i));
+  }
+
+  return res;
+}
+
+QVector<unsigned short> QcepSpecServer::uShortArrayValue()
+{
+  QVector<unsigned short> res;
+
+  int n = (m_Data.size()/sizeof(unsigned short));
+
+  for (int i = 0; i<n; i++) {
+    res.append(condSwapItem<unsigned short>(i));
+  }
+
+  return res;
+}
+
+QString QcepSpecServer::charArrayValue()
+{
+  return stringValue();
+}
+
+QString QcepSpecServer::uCharArrayValue()
+{
+  return stringValue();
+}
+
+QStringList QcepSpecServer::stringArrayValue()
+{
+  QStringList res;
+
+  //TODO: Implement
+
+  return res;
+}
+
+QVector<qint64> QcepSpecServer::long64ArrayValue()
+{
+  QVector<qint64> res;
+
+  int n = (m_Data.size()/sizeof(qint64));
+
+  for (int i = 0; i<n; i++) {
+    res.append(condSwapItem<qint64>(i));
+  }
+
+  return res;
+}
+
+QVector<quint64> QcepSpecServer::uLong64ArrayValue()
+{
+  QVector<quint64> res;
+
+  int n = (m_Data.size()/sizeof(quint64));
+
+  quint64 *p = (quint64*) m_Data.data();
+
+  for (int i = 0; i<n; i++) {
+    res.append(condSwapItem<quint64>(i));
+  }
+
+  return res;
+}
+
+template <typename T>
+T QcepSpecServer::condSwapItem(int i)
+{
+  T res;
+  int n = sizeof(T);
+
+  if (m_SwapBytes) {
+    char buf[sizeof(T)];
+    char *dat = m_Data.data()+i*n;
+
+    for (int i=0; i<n; i++) {
+      buf[n-i-1] = dat[i];
+    }
+
+    memcpy(&res, buf, n);
+  } else {
+    memcpy(&res, m_Data.data()+i*n, n);
+  }
+
+  return res;
 }

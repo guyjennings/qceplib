@@ -19,6 +19,7 @@
 #include "qcepobject-ptr.h"
 #include "qcepspecserversettings-ptr.h"
 #include "qcepscriptengine-ptr.h"
+#include "qcepproperty.h"
 
 /**
   QSpecServer implements a remote control interface to the
@@ -39,6 +40,8 @@ public:
                   QcepScriptEngineWPtr       scriptEngine);
 
   virtual ~QcepSpecServer();
+
+  static void registerMetaTypes();
 
 public:
   void startServer(QHostAddress a, int pmin=-1, int pmax=-1);
@@ -67,6 +70,25 @@ private:
   qint32 condSwapInt32(qint32 val);
   quint32 condSwapUInt32(quint32 val);
   void init_svr_head(struct svr_head *h);
+
+  template <typename T>
+  T condSwapItem(int i);
+
+  double doubleValue();
+  QString stringValue();
+  int     errorValue();
+  QMap<QString, QVariant> assocValue();
+  QcepDoubleVector doubleArrayValue();
+  QVector<float>   floatArrayValue();
+  QVector<long>    longArrayValue();
+  QVector<unsigned long> uLongArrayValue();
+  QVector<short>   shortArrayValue();
+  QVector<unsigned short> uShortArrayValue();
+  QString          charArrayValue();
+  QString          uCharArrayValue();
+  QStringList      stringArrayValue();
+  QVector<qint64>  long64ArrayValue();
+  QVector<quint64> uLong64ArrayValue();
 
 protected:
   virtual QVariant readProperty(QString name);
@@ -106,5 +128,6 @@ private:
 };
 
 Q_DECLARE_METATYPE(QcepSpecServer*)
+Q_DECLARE_METATYPE(QVector<float>)
 
 #endif

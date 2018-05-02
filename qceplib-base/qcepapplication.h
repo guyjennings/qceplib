@@ -54,6 +54,7 @@ public:
   void writeSettings(QSettings *settings);
 
   virtual QString applicationName() = 0;
+  virtual QString applicationMnemonic() = 0;
   virtual QString applicationVersion() = 0;
   virtual QString applicationDescription() = 0;
   virtual QIcon   applicationIcon() = 0;
