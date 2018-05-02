@@ -1,9 +1,9 @@
-#include "qcepoutputfileformattertiff.h"
+#include "qcepoutputfileformatter.h"
 #include "qcepimagedata.h"
 #include "qcepoutputfileformattersettings.h"
 #include "qcepbzlib.h"
 
-void QcepOutputFileFormatterTIFF::compressOutputDataBzip2()
+void QcepOutputFileFormatter::compressOutputDataBzip2()
 {
   int bzerror;
   unsigned int nbytes_in, nbytes_out;

@@ -1,9 +1,9 @@
-#include "qcepoutputfileformattertiff.h"
+#include "qcepoutputfileformatter.h"
 #include "qcepimagedata.h"
 #include "qcepoutputfileformattersettings.h"
 #include "zlib.h"
 
-void QcepOutputFileFormatterTIFF::compressOutputDataGzip()
+void QcepOutputFileFormatter::compressOutputDataGzip()
 {
   gzFile gzf = gzopen(qPrintable(m_FileName), "w");
 

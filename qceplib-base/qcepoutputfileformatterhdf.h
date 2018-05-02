@@ -22,6 +22,9 @@ public:
   void saveImageData(QcepOutputFileFormatterSettingsWPtr set,
                      QcepImageDataBasePtr               img,
                      QcepImageDataBasePtr               overflow);
+
+private:
+  QString fileExtension();
 };
 
 #endif // QCEPOUTPUTFILEFORMATTERHDF_H

@@ -9,7 +9,6 @@
 #include "qcepoutputfileformattersettings-ptr.h"
 #include "qcepoutputfileformatter.h"
 #include "tiffio.h"
-#include <sstream>
 
 class QCEP_EXPORT QcepOutputFileFormatterTIFF : public QcepOutputFileFormatter
 {
@@ -26,18 +25,7 @@ public:
                      QcepImageDataBasePtr                overflow);
 
 private:
-  QTime                               m_Tic;
-  int                                 m_Compression;
-  int                                 m_CompressionLevel;
-  QcepOutputFileFormatterSettingsWPtr m_Settings;
-  QString                             m_FileName;
-  std::ostringstream                  m_OutputStream;
-  const char*                         m_OutputBuffer;
-  int                                 m_OutputCount;
-  TIFF*                               m_OutputTIFF;
-  QcepImageDataBasePtr                m_Image;
-  int                                 m_NRows;
-  int                                 m_NCols;
+  TIFF*              m_OutputTIFF;
 
   void tiffCheck(int stat, const char* file, int line);
 
@@ -57,10 +45,7 @@ private:
 
   void endOutputData();
 
-  void compressOutputData();
-  void compressOutputDataBzip2();
-  void compressOutputDataGzip();
-  void compressOutputDataZip();
+  QString fileExtension();
 };
 
 #endif // QCEPOUTPUTFILEFORMATTERTIFF_H

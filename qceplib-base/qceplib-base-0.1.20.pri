@@ -210,10 +210,11 @@ SOURCES += \
     $$PWD/qcepoutputfileformatterhdf.cpp \
     $$PWD/qcepoutputfileformattersettings.cpp \
     $$PWD/qcepoutputfileformattertiff.cpp \
-    $$PWD/qcepoutputfileformattertiff-bzip2.cpp \
-    $$PWD/qcepoutputfileformattertiff-zip.cpp \
-    $$PWD/qcepoutputfileformattertiff-gzip.cpp \
-    $$PWD/qcepobject-dumpptr.cpp
+    $$PWD/qcepobject-dumpptr.cpp \
+    $$PWD/qcepoutputfileformattertext.cpp \
+    $$PWD/qcepoutputfileformatter-bzip2.cpp \
+    $$PWD/qcepoutputfileformatter-gzip.cpp \
+    $$PWD/qcepoutputfileformatter-zip.cpp
 
 contains (DEFINES, HAVE_DATAVIS) {
  SOURCES += \
@@ -523,7 +524,8 @@ HEADERS += \
     $$PWD/qcepoutputfileformattertiff.h \
     $$PWD/qcepoutputfileformattersettings-ptr.h \
     $$PWD/qcepoutputfileformatter-ptr.h \
-    $$PWD/qcepspreadsheetmodel-ptr.h
+    $$PWD/qcepspreadsheetmodel-ptr.h \
+    $$PWD/qcepoutputfileformattertext.h
 
 contains (DEFINES, HAVE_DATAVIS) {
  HEADERS += \

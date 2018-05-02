@@ -10,4 +10,14 @@ void QcepOutputFileFormatterHDF::saveImageData(QcepOutputFileFormatterSettingsWP
                                                QcepImageDataBasePtr               img,
                                                QcepImageDataBasePtr               overflow)
 {
+  beginSaveImageData(set, img, overflow);
+
+  printMessage("QcepOutputFileFormatterHDF::saveImageData not yet written");
+
+  compressOutputData();
+}
+
+QString QcepOutputFileFormatterHDF::fileExtension()
+{
+  return ".h5";
 }

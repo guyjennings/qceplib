@@ -19,13 +19,13 @@ void QcepOutputFileFormatter::initialize(QcepObjectWPtr parent)
   inherited::initialize(parent);
 }
 
-void QcepOutputFileFormatter::saveImageData(QcepOutputFileFormatterSettingsWPtr set,
-                                            QString                            name,
-                                            QcepImageDataBasePtr               img,
-                                            QcepImageDataBasePtr               overflow,
-                                            int                                canOverwrite)
-{
-}
+//void QcepOutputFileFormatter::saveImageData(QcepOutputFileFormatterSettingsWPtr set,
+//                                            QString                            name,
+//                                            QcepImageDataBasePtr               img,
+//                                            QcepImageDataBasePtr               overflow,
+//                                            int                                canOverwrite)
+//{
+//}
 
 void QcepOutputFileFormatter::mkPath(QString filePath)
 {
@@ -77,4 +77,66 @@ QString QcepOutputFileFormatter::uniqueFileName(QcepImageDataBasePtr data)
   }
 
   return res;
+}
+
+void QcepOutputFileFormatter::beginSaveImageData(QcepOutputFileFormatterSettingsWPtr settings,
+                                                 QcepImageDataBasePtr                img,
+                                                 QcepImageDataBasePtr                overflow)
+{
+  m_Settings = settings;
+
+  QcepOutputFileFormatterSettingsPtr set(m_Settings);
+
+  if (img && set) {
+    m_Tic.start();
+    m_Image = img;
+    m_NRows = m_Image -> get_Height();
+    m_NCols = m_Image -> get_Width();
+    m_Compression      = set -> get_CompressFormat();
+    m_CompressionLevel = set -> get_CompressLevel();
+
+    switch(m_Compression) {
+    case QcepOutputFileFormatterSettings::OutputCompressionNone:
+      m_Image -> set_FileExtension(fileExtension());
+      break;
+
+    case QcepOutputFileFormatterSettings::OutputCompressionBZIP2:
+      m_Image -> set_FileExtension(fileExtension()+".bz2");
+      break;
+
+    case QcepOutputFileFormatterSettings::OutputCompressionGZIP:
+      m_Image -> set_FileExtension(fileExtension()+".gz");
+      break;
+
+    case QcepOutputFileFormatterSettings::OutputCompressionZIP:
+      m_Image -> set_FileExtension(fileExtension()+".zip");
+      break;
+    }
+
+    m_FileName = uniqueFileName(m_Image);
+
+    mkPath(m_FileName);
+
+    printMessage(tr("Starting to save data in file \"%1\"").arg(m_FileName));
+  }
+}
+
+void QcepOutputFileFormatter::compressOutputData()
+{
+  switch (m_Compression) {
+  case QcepOutputFileFormatterSettings::OutputCompressionNone:
+    break;
+
+  case QcepOutputFileFormatterSettings::OutputCompressionBZIP2:
+    compressOutputDataBzip2();
+    break;
+
+  case QcepOutputFileFormatterSettings::OutputCompressionGZIP:
+    compressOutputDataGzip();
+    break;
+
+  case QcepOutputFileFormatterSettings::OutputCompressionZIP:
+    compressOutputDataZip();
+    break;
+  }
 }

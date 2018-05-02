@@ -9,22 +9,20 @@ QcepOutputFileFormatterTIFF::QcepOutputFileFormatterTIFF(QString name)
 {
 }
 
+QString QcepOutputFileFormatterTIFF::fileExtension()
+{
+  return ".tif";
+}
+
 void QcepOutputFileFormatterTIFF::saveImageData(QcepOutputFileFormatterSettingsWPtr settings,
                                                 QcepImageDataBasePtr                img,
                                                 QcepImageDataBasePtr                overflow)
 {
-  m_Settings = settings;
+  beginSaveImageData(settings, img, overflow);
 
   QcepOutputFileFormatterSettingsPtr set(m_Settings);
 
-  if (img && set) {
-    m_Tic.start();
-    m_Image = img;
-    m_NRows = m_Image -> get_Height();
-    m_NCols = m_Image -> get_Width();
-    m_Compression      = set -> get_CompressFormat();
-    m_CompressionLevel = set -> get_CompressLevel();
-
+  if (set) {
     QcepDoubleImageDataPtr dimage = qSharedPointerDynamicCast<QcepDoubleImageData>(img);
 
     if (dimage) {
@@ -45,9 +43,7 @@ void QcepOutputFileFormatterTIFF::saveImageData(QcepOutputFileFormatterSettingsW
       }
     }
 
-    if (set) {
-      set -> decBacklog();
-    }
+    set -> decBacklog();
   }
 }
 
@@ -122,30 +118,6 @@ void QcepOutputFileFormatterTIFF::tiffCheck(int stat, const char *file, int line
 
 void QcepOutputFileFormatterTIFF::beginOutputData(int nBits, int pixFormat)
 {
-  switch(m_Compression) {
-  case QcepOutputFileFormatterSettings::OutputCompressionNone:
-    m_Image -> set_FileExtension(".tif");
-    break;
-
-  case QcepOutputFileFormatterSettings::OutputCompressionBZIP2:
-    m_Image -> set_FileExtension(".tif.bz2");
-    break;
-
-  case QcepOutputFileFormatterSettings::OutputCompressionGZIP:
-    m_Image -> set_FileExtension(".tif.gz");
-    break;
-
-  case QcepOutputFileFormatterSettings::OutputCompressionZIP:
-    m_Image -> set_FileExtension(".tif.zip");
-    break;
-  }
-
-  m_FileName = uniqueFileName(m_Image);
-
-  mkPath(m_FileName);
-
-  printMessage(tr("Starting to save data in file \"%1\"").arg(m_FileName));
-
   if (m_Compression == 0) {
     m_OutputTIFF = qcepTIFFOpen(qPrintable(m_FileName), "w");
   } else {
@@ -191,24 +163,4 @@ void QcepOutputFileFormatterTIFF::endOutputData()
 
   printMessage(tr("Saved data in file \"%1\" after %2 msec")
                .arg(m_FileName).arg(m_Tic.elapsed()));
-}
-
-void QcepOutputFileFormatterTIFF::compressOutputData()
-{
-  switch (m_Compression) {
-  case QcepOutputFileFormatterSettings::OutputCompressionNone:
-    break;
-
-  case QcepOutputFileFormatterSettings::OutputCompressionBZIP2:
-    compressOutputDataBzip2();
-    break;
-
-  case QcepOutputFileFormatterSettings::OutputCompressionGZIP:
-    compressOutputDataGzip();
-    break;
-
-  case QcepOutputFileFormatterSettings::OutputCompressionZIP:
-    compressOutputDataZip();
-    break;
-  }
 }

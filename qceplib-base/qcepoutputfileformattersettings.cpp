@@ -5,6 +5,7 @@
 #include "qcepimagedata.h"
 #include "qcepoutputfileformatterhdf.h"
 #include "qcepoutputfileformattertiff.h"
+#include "qcepoutputfileformattertext.h"
 
 QcepOutputFileFormatterSettings::QcepOutputFileFormatterSettings(QString name)
   : inherited(name),
@@ -23,20 +24,20 @@ void QcepOutputFileFormatterSettings::initialize(QcepObjectWPtr parent)
   inherited::initialize(parent);
 }
 
-void QcepOutputFileFormatterSettings::saveImageData(QString              name,
-                                                    QcepImageDataBasePtr img,
-                                                    QcepImageDataBasePtr overflow,
-                                                    int                  canOverwrite)
-{
-  QcepOutputFileFormatterSettingsPtr set =
-      qSharedPointerDynamicCast<QcepOutputFileFormatterSettings>(sharedFromThis());
+//void QcepOutputFileFormatterSettings::saveImageData(QString              name,
+//                                                    QcepImageDataBasePtr img,
+//                                                    QcepImageDataBasePtr overflow,
+//                                                    int                  canOverwrite)
+//{
+//  QcepOutputFileFormatterSettingsPtr set =
+//      qSharedPointerDynamicCast<QcepOutputFileFormatterSettings>(sharedFromThis());
 
-  QcepOutputFileFormatterPtr fmt = newOutputFormatter("formatter");
+//  QcepOutputFileFormatterPtr fmt = newOutputFormatter("formatter");
 
-  incBacklog();
+//  incBacklog();
 
-  QtConcurrent::run([=]() { fmt -> saveImageData(set, name, img, overflow, canOverwrite); } );
-}
+//  QtConcurrent::run([=]() { fmt -> saveImageData(set, name, img, overflow, canOverwrite); } );
+//}
 
 void QcepOutputFileFormatterSettings::saveImageData(QcepImageDataBasePtr img,
                                                     QcepImageDataBasePtr overflow)
@@ -64,6 +65,11 @@ QcepOutputFileFormatterPtr QcepOutputFileFormatterSettings::newOutputFormatter(Q
   case OutputFormatHDF:
     res = QcepOutputFileFormatterPtr(
           NEWPT2(QcepOutputFileFormatterHDF(name)));
+    break;
+
+  case OutputFormatTEXT:
+    res = QcepOutputFileFormatterPtr(
+          NEWPT2(QcepOutputFileFormatterTEXT(name)));
     break;
   }
 

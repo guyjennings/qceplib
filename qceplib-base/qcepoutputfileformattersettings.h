@@ -20,10 +20,10 @@ public:
 
   void initialize(QcepObjectWPtr parent);
 
-  void saveImageData(QString              name,
-                     QcepImageDataBasePtr img,
-                     QcepImageDataBasePtr overflow,
-                     int                  canOverwrite);
+//  void saveImageData(QString              name,
+//                     QcepImageDataBasePtr img,
+//                     QcepImageDataBasePtr overflow,
+//                     int                  canOverwrite);
 
   void saveImageData(QcepImageDataBasePtr img,
                      QcepImageDataBasePtr overflow);
@@ -37,7 +37,8 @@ private:
 public:
   enum {
     OutputFormatTIFF,
-    OutputFormatHDF
+    OutputFormatHDF,
+    OutputFormatTEXT
   };
 
   enum {
