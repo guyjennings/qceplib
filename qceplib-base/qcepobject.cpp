@@ -580,6 +580,8 @@ void QcepObject::splashMessage(QString msg, QDateTime dt)
 
 void QcepObject::writeSettings(QSettings *settings)
 {
+  THREAD_CHECK;
+
 #ifndef QT_NO_DEBUG
   checkObjectInitialization();
 #endif
@@ -612,6 +614,8 @@ void QcepObject::writeSettings(QSettings *settings)
 
 void QcepObject::readSettings(QSettings *settings)
 {
+  THREAD_CHECK;
+
 //#ifndef QT_NO_DEBUG
 //  checkObjectInitialization();
 //#endif
