@@ -2,12 +2,9 @@
 #define QCEPFINDDIALOG_H
 
 #include <QDialog>
+#include "ui_qcepfinddialog.h"
 
-namespace Ui {
-class QcepFindDialog;
-}
-
-class QcepFindDialog : public QDialog
+class QcepFindDialog : public QDialog, public Ui::QcepFindDialog
 {
   Q_OBJECT
 
@@ -16,7 +13,6 @@ public:
   ~QcepFindDialog();
 
 private:
-  Ui::QcepFindDialog *ui;
 };
 
 #endif // QCEPFINDDIALOG_H

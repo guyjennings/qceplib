@@ -903,6 +903,8 @@ void QcepMainWindow::setupContextMenus()
 
     if (txed) {
       txed -> installEventFilter(new QcepEventFilterTextEdit(txed, this));
+      auto policy = txed -> contextMenuPolicy();
+      txed -> setContextMenuPolicy(Qt::DefaultContextMenu);
     } else if (lned) {
       lned -> installEventFilter(new QcepEventFilterLineEdit(lned, this));
     }

@@ -32,7 +32,8 @@ QcepApplication::QcepApplication(int &argc, char **argv) :
   m_CmdList(this, "cmdList", QStringList(), "Commands to Execute"),
   m_FileList(this, "fileList", QStringList(), "Files to Process"),
   m_OpenNew(this,"openNew", 0, "Open a new experiment"),
-  m_FreshStart(this,"freshStart", 0, "Do a Fresh Start")
+  m_FreshStart(this,"freshStart", 0, "Do a Fresh Start"),
+  m_FindString(this, "findString", "", "Search String")
 {
   g_Application = this;
 

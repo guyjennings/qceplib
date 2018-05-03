@@ -14,18 +14,26 @@ bool QcepEventFilterTextEdit::eventFilter(QObject *watched, QEvent *event)
 {
   QTextEdit *txed = qobject_cast<QTextEdit*>(watched);
 
-  if (txed && event -> type() == QEvent::ContextMenu) {
-    QContextMenuEvent *ctxev = static_cast<QContextMenuEvent*>(event);
+  if (txed) {
+    QList<QWidget*> widgets = txed->findChildren<QWidget*>();
 
-    QMenu* menu = txed -> createStandardContextMenu();
+    int nWidgets = widgets.count();
 
-    m_MainWindow -> textEditContextMenu(txed, menu);
+    auto evType = event -> type();
 
-    menu->exec(ctxev->globalPos());
+    if (evType == QEvent::ContextMenu) {
+      QContextMenuEvent *ctxev = static_cast<QContextMenuEvent*>(event);
 
-    delete menu;
+      QMenu* menu = txed -> createStandardContextMenu();
 
-    return true;
+      m_MainWindow -> textEditContextMenu(txed, menu);
+
+      menu->exec(ctxev->globalPos());
+
+      delete menu;
+
+      return true;
+    }
   }
 
   return false;

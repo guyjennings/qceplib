@@ -155,6 +155,9 @@ public:
   Q_PROPERTY(int    freshStart         READ get_FreshStart WRITE set_FreshStart STORED false)
   QCEP_INTEGER_PROPERTY(FreshStart)
 
+  Q_PROPERTY(QString findString READ get_FindString WRITE set_FindString)
+  QCEP_STRING_PROPERTY(FindString)
+
 private:
   QVector<QCommandLineOption*>    m_CommandLineOptions;
   QcepAllocatorPtr                m_Allocator;

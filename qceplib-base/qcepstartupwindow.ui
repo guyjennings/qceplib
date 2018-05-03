@@ -35,7 +35,7 @@
      </widget>
     </item>
     <item row="1" column="0" colspan="3">
-     <widget class="QTextBrowser" name="m_Messages">
+     <widget class="QcepTextBrowser" name="m_Messages">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>1</horstretch>
@@ -116,6 +116,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QcepTextBrowser</class>
+   <extends>QTextBrowser</extends>
+   <header>qceptextbrowser.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

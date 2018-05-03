@@ -13,6 +13,7 @@
 #include "qcepapplication-ptr.h"
 #include <QTextEdit>
 #include <QLineEdit>
+#include "qcepproperty.h"
 
 class QCEP_EXPORT QcepMainWindow : public QMainWindow
 {
@@ -63,6 +64,18 @@ public slots:
   void resizeEvent(QResizeEvent *event);
   void moveEvent(QMoveEvent *event);
 
+  void doUndo();
+  void doRedo();
+  void doCut();
+  void doCopy();
+  void doPaste();
+  void doDelete();
+  void doSelectAll();
+  void doFind();
+  void doFindSelected();
+  void doFindNext();
+  void doFindPrevious();
+
 protected:
 //  void shrinkDockWidget(QDockWidget *dockWidget, int fontSize, int spacing);
 //  void shrinkObject(QObject *obj, int fontSize, int spacing);
@@ -88,17 +101,6 @@ private:
   void populateRecentExperimentsMenu();
   void setupContextMenus();
 
-  void doUndo();
-  void doRedo();
-  void doCut();
-  void doCopy();
-  void doPaste();
-  void doDelete();
-  void doSelectAll();
-  void doFind();
-  void doFindSelected();
-  void doFindNext();
-  void doFindPrevious();
 
   void getFindText();
   void findTextEdit(QTextEdit *te);
@@ -147,12 +149,11 @@ protected:
   QAction            *m_ActionDelete;
   QAction            *m_ActionSelectAll;
 
+public:
   QAction            *m_ActionFind;
   QAction            *m_ActionFindSelected;
   QAction            *m_ActionFindNext;
   QAction            *m_ActionFindPrevious;
-
-  QString             m_FindString;
 };
 
 #endif // QCEPMAINWINDOW_H

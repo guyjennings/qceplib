@@ -218,7 +218,9 @@ SOURCES += \
     $$PWD/qcepeventfiltertextedit.cpp \
     $$PWD/qcepeventfilterlineedit.cpp \
     $$PWD/qcepeventfilter.cpp \
-    $$PWD/qcepfinddialog.cpp
+    $$PWD/qcepfinddialog.cpp \
+    $$PWD/qceptextedit.cpp \
+    $$PWD/qceptextbrowser.cpp
 
 contains (DEFINES, HAVE_DATAVIS) {
  SOURCES += \
@@ -533,7 +535,9 @@ HEADERS += \
     $$PWD/qcepeventfiltertextedit.h \
     $$PWD/qcepeventfilterlineedit.h \
     $$PWD/qcepeventfilter.h \
-    $$PWD/qcepfinddialog.h
+    $$PWD/qcepfinddialog.h \
+    $$PWD/qceptextedit.h \
+    $$PWD/qceptextbrowser.h
 
 contains (DEFINES, HAVE_DATAVIS) {
  HEADERS += \
