@@ -271,18 +271,22 @@ void QcepMainWindow::setupMenus(QMenu *file, QMenu *edit, QMenu *window)
     m_ActionFind = new QAction(this);
     m_ActionFind->setObjectName(QStringLiteral("m_ActionFind"));
     m_ActionFind->setText(QApplication::translate("QxrdWindow", "Find...", Q_NULLPTR));
+    m_ActionFind->setShortcut(Qt::CTRL+Qt::Key_F);
 
     m_ActionFindSelected = new QAction(this);
     m_ActionFindSelected->setObjectName(QStringLiteral("m_ActionFindSelected"));
     m_ActionFindSelected->setText(QApplication::translate("QxrdWindow", "Find Selected", Q_NULLPTR));
+    m_ActionFindSelected->setShortcut(Qt::CTRL+Qt::SHIFT+Qt::Key_F);
 
     m_ActionFindNext = new QAction(this);
     m_ActionFindNext->setObjectName(QStringLiteral("m_ActionFindNext"));
     m_ActionFindNext->setText(QApplication::translate("QxrdWindow", "Find Next", Q_NULLPTR));
+    m_ActionFindNext->setShortcut(Qt::CTRL+Qt::Key_G);
 
     m_ActionFindPrevious = new QAction(this);
     m_ActionFindPrevious->setObjectName(QStringLiteral("m_ActionFindPrevious"));
     m_ActionFindPrevious->setText(QApplication::translate("QxrdWindow", "Find Previous", Q_NULLPTR));
+    m_ActionFindPrevious->setShortcut(Qt::CTRL+Qt::SHIFT+Qt::Key_G);
 
     CONNECT_CHECK(connect(m_ActionUndo, &QAction::triggered, this, &QcepMainWindow::doUndo));
     CONNECT_CHECK(connect(m_ActionRedo, &QAction::triggered, this, &QcepMainWindow::doRedo));
@@ -879,6 +883,16 @@ void QcepMainWindow::findSelectedLineEdit(QLineEdit *le)
 
 void QcepMainWindow::findNextTextEdit(QTextEdit *te)
 {
+  if (te) {
+    QTextCursor   tc   = te->textCursor();
+    QTextDocument *doc = te->document();
+
+    if (doc) {
+      tc = doc->find(g_Application->get_FindString(), tc);
+
+      te->setTextCursor(tc);
+    }
+  }
 }
 
 void QcepMainWindow::findNextLineEdit(QLineEdit *le)
@@ -887,6 +901,17 @@ void QcepMainWindow::findNextLineEdit(QLineEdit *le)
 
 void QcepMainWindow::findPreviousTextEdit(QTextEdit *te)
 {
+  if (te) {
+    QTextCursor   tc   = te->textCursor();
+    QTextDocument *doc = te->document();
+
+    if (doc) {
+      tc = doc->find(g_Application->get_FindString(),
+                     tc, QTextDocument::FindBackward);
+
+      te->setTextCursor(tc);
+    }
+  }
 }
 
 void QcepMainWindow::findPreviousLineEdit(QLineEdit *le)
