@@ -852,7 +852,7 @@ void QcepMainWindow::doFindPrevious()
   }
 }
 
-void QcepMainWindow::getFindText()
+void QcepMainWindow::openFindDialog()
 {
   QcepFindDialog dlog(this);
 
@@ -861,20 +861,28 @@ void QcepMainWindow::getFindText()
 
 void QcepMainWindow::findTextEdit(QTextEdit *te)
 {
-  getFindText();
-
-  findNextTextEdit(te);
+  openFindDialog();
 }
 
 void QcepMainWindow::findLineEdit(QLineEdit *le)
 {
-  getFindText();
-
-  findNextLineEdit(le);
+  openFindDialog();
 }
 
 void QcepMainWindow::findSelectedTextEdit(QTextEdit *te)
 {
+  if (te) {
+    QTextCursor    tc  = te->textCursor();
+    QTextDocument *doc = te->document();
+
+    QString findString = tc.selectedText();
+
+    if (findString.length() >= 0) {
+      g_Application -> set_FindString(findString);
+
+      findNextTextEdit(te);
+    }
+  }
 }
 
 void QcepMainWindow::findSelectedLineEdit(QLineEdit *le)
@@ -884,7 +892,7 @@ void QcepMainWindow::findSelectedLineEdit(QLineEdit *le)
 void QcepMainWindow::findNextTextEdit(QTextEdit *te)
 {
   if (te) {
-    QTextCursor   tc   = te->textCursor();
+    QTextCursor    tc  = te->textCursor();
     QTextDocument *doc = te->document();
 
     if (doc) {
@@ -902,7 +910,7 @@ void QcepMainWindow::findNextLineEdit(QLineEdit *le)
 void QcepMainWindow::findPreviousTextEdit(QTextEdit *te)
 {
   if (te) {
-    QTextCursor   tc   = te->textCursor();
+    QTextCursor    tc  = te->textCursor();
     QTextDocument *doc = te->document();
 
     if (doc) {

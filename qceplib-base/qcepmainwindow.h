@@ -102,7 +102,7 @@ private:
   void setupContextMenus();
 
 
-  void getFindText();
+  void openFindDialog();
   void findTextEdit(QTextEdit *te);
   void findLineEdit(QLineEdit *le);
   void findSelectedTextEdit(QTextEdit *te);
