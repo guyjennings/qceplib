@@ -43,9 +43,6 @@ public:
 
   void closeEvent(QCloseEvent *event);
 
-  void textEditContextMenu(QTextEdit* te, QMenu *menu);
-  void lineEditContextMenu(QLineEdit* te, QMenu *menu);
-
 signals:
 
 public slots:
@@ -75,6 +72,14 @@ public slots:
   void doFindSelected();
   void doFindNext();
   void doFindPrevious();
+  void doFindTextEdit(QTextEdit *te);
+  void doFindLineEdit(QLineEdit *le);
+  void doFindSelectedTextEdit(QTextEdit *te);
+  void doFindSelectedLineEdit(QLineEdit *le);
+  void doFindNextTextEdit(QTextEdit *te);
+  void doFindNextLineEdit(QLineEdit *le);
+  void doFindPreviousTextEdit(QTextEdit *te);
+  void doFindPreviousLineEdit(QLineEdit *le);
 
 protected:
 //  void shrinkDockWidget(QDockWidget *dockWidget, int fontSize, int spacing);
@@ -99,18 +104,9 @@ private:
 
   void populateEditMenu();
   void populateRecentExperimentsMenu();
-  void setupContextMenus();
 
-
-  void openFindDialog();
-  void findTextEdit(QTextEdit *te);
-  void findLineEdit(QLineEdit *le);
-  void findSelectedTextEdit(QTextEdit *te);
-  void findSelectedLineEdit(QLineEdit *le);
-  void findNextTextEdit(QTextEdit *te);
-  void findNextLineEdit(QLineEdit *le);
-  void findPreviousTextEdit(QTextEdit *te);
-  void findPreviousLineEdit(QLineEdit *le);
+  void openFindDialogTextEdit(QTextEdit *te);
+  void openFindDialogLineEdit(QLineEdit *te);
 
 protected:
   bool                m_Initialized;

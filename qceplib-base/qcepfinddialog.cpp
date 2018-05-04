@@ -3,14 +3,29 @@
 #include "qcepapplication.h"
 #include "qcepmainwindow.h"
 
-QcepFindDialog::QcepFindDialog(QcepMainWindow *parent) :
-  QDialog(parent)
+QcepFindDialog::QcepFindDialog(QcepMainWindow *parent, QTextEdit *te) :
+  QDialog(parent),
+  m_MainWindow(parent),
+  m_TextEdit(te),
+  m_LineEdit(nullptr)
+{
+  initialize();
+}
+
+QcepFindDialog::QcepFindDialog(QcepMainWindow *parent, QLineEdit *le) :
+  QDialog(parent),
+  m_MainWindow(parent),
+  m_TextEdit(nullptr),
+  m_LineEdit(le)
+{
+  initialize();
+}
+
+void QcepFindDialog::initialize()
 {
   setupUi(this);
 
   g_Application -> prop_FindString() -> linkTo(m_FindString);
-
-  m_MainWindow = parent;
 
   if (m_MainWindow) {
     connect(m_FindButton,         &QPushButton::clicked,
@@ -33,17 +48,29 @@ QcepFindDialog::~QcepFindDialog()
 
 void QcepFindDialog::doFind()
 {
-  m_MainWindow -> doFind();
+  if (m_TextEdit) {
+    m_MainWindow -> doFindNextTextEdit(m_TextEdit);
+  } else if (m_LineEdit) {
+    m_MainWindow -> doFindNextLineEdit(m_LineEdit);
+  }
 }
 
 void QcepFindDialog::doFindNext()
 {
-  m_MainWindow -> doFindNext();
+  if (m_TextEdit) {
+    m_MainWindow -> doFindNextTextEdit(m_TextEdit);
+  } else if (m_LineEdit) {
+    m_MainWindow -> doFindNextLineEdit(m_LineEdit);
+  }
 }
 
 void QcepFindDialog::doFindPrevious()
 {
-  m_MainWindow -> doFindPrevious();
+  if (m_TextEdit) {
+    m_MainWindow -> doFindPreviousTextEdit(m_TextEdit);
+  } else if (m_LineEdit) {
+    m_MainWindow -> doFindPreviousLineEdit(m_LineEdit);
+  }
 }
 
 void QcepFindDialog::doCancel()

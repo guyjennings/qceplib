@@ -215,9 +215,6 @@ SOURCES += \
     $$PWD/qcepoutputfileformatter-bzip2.cpp \
     $$PWD/qcepoutputfileformatter-gzip.cpp \
     $$PWD/qcepoutputfileformatter-zip.cpp \
-    $$PWD/qcepeventfiltertextedit.cpp \
-    $$PWD/qcepeventfilterlineedit.cpp \
-    $$PWD/qcepeventfilter.cpp \
     $$PWD/qcepfinddialog.cpp \
     $$PWD/qceptextedit.cpp \
     $$PWD/qceptextbrowser.cpp
@@ -532,9 +529,6 @@ HEADERS += \
     $$PWD/qcepoutputfileformatter-ptr.h \
     $$PWD/qcepspreadsheetmodel-ptr.h \
     $$PWD/qcepoutputfileformattertext.h \
-    $$PWD/qcepeventfiltertextedit.h \
-    $$PWD/qcepeventfilterlineedit.h \
-    $$PWD/qcepeventfilter.h \
     $$PWD/qcepfinddialog.h \
     $$PWD/qceptextedit.h \
     $$PWD/qceptextbrowser.h
