@@ -1,4 +1,4 @@
-message(qceplib-tiff PWD = $${PWD} QCEPLIB_TIFF_VERSION = $${QCEPLIB_TIFF_VERSION})
+#message(qceplib-tiff PWD = $${PWD} QCEPLIB_TIFF_VERSION = $${QCEPLIB_TIFF_VERSION})
 
 include(qceplib-tiff-include-$${QCEPLIB_TIFF_VERSION})
 

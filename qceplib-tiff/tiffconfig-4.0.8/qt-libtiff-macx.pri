@@ -1,4 +1,4 @@
-message(libtiff PWD = $${PWD})
+#message(libtiff PWD = $${PWD})
 
 include(qt-libtiff-macx-include.pri)
 

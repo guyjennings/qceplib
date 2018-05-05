@@ -1,4 +1,4 @@
-message(qceplib-specserver PWD = $${PWD} QCEPLIB_SPECSERVER_VERSION = $${QCEPLIB_SPECSERVER_VERSION})
+#message(qceplib-specserver PWD = $${PWD} QCEPLIB_SPECSERVER_VERSION = $${QCEPLIB_SPECSERVER_VERSION})
 
 include(qceplib-specserver-include-$${QCEPLIB_SPECSERVER_VERSION}.pri)
 

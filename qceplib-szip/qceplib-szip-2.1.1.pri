@@ -1,4 +1,4 @@
-message(qceplib-szip PWD = $${PWD} QCEPLIB_SZIP_VERSION = $${QCEPLIB_SZIP_VERSION})
+#message(qceplib-szip PWD = $${PWD} QCEPLIB_SZIP_VERSION = $${QCEPLIB_SZIP_VERSION})
 
 include(qceplib-szip-include-$${QCEPLIB_SZIP_VERSION}.pri)
 

@@ -1,4 +1,4 @@
-message(qceplib-hdf5 PWD = $${PWD} QCEPLIB_HDF5_VERSION = $${QCEPLIB_HDF5_VERSION})
+#message(qceplib-hdf5 PWD = $${PWD} QCEPLIB_HDF5_VERSION = $${QCEPLIB_HDF5_VERSION})
 
 include(qceplib-hdf5-include-$${QCEPLIB_HDF5_VERSION}.pri)
 

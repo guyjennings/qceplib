@@ -1,4 +1,4 @@
-message("qceplib-base PWD = $${PWD} QCEPLIB_VERSION = $${QCEPLIB_VERSION}")
+#message("qceplib-base PWD = $${PWD} QCEPLIB_VERSION = $${QCEPLIB_VERSION}")
 
 greaterThan(QT_MAJOR_VERSION,4) {
   QT += widgets concurrent
@@ -11,10 +11,10 @@ QT += script
 include(qceplib-base-include-$${CEPLIB_VERSION}.pri)
 
 contains (DEFINES,HAVE_QWT) {
- message(qceplib-base wants qwt)
+# message(qceplib-base wants qwt)
  include(../qceplib-qwt-include.pri)
 } else {
- message(qceplib-base no qwt)
+# message(qceplib-base no qwt)
 }
 
 include(../qceplib-tiff-include.pri)

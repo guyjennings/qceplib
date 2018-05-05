@@ -1,4 +1,4 @@
-message(qceplib-mar345 PWD = $${PWD} QCEPLIB_MAR345_VERSION = $${QCEPLIB_MAR345_VERSION})
+#message(qceplib-mar345 PWD = $${PWD} QCEPLIB_MAR345_VERSION = $${QCEPLIB_MAR345_VERSION})
 
 include(qceplib-mar345-include-$${QCEPLIB_MAR345_VERSION}.pri)
 

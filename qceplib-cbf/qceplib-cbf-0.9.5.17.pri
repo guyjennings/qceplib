@@ -1,4 +1,4 @@
-message(qceplib-cbf PWD = $${PWD} QCEPLIB_CBF_VERSION = $${QCEPLIB_CBF_VERSION})
+#message(qceplib-cbf PWD = $${PWD} QCEPLIB_CBF_VERSION = $${QCEPLIB_CBF_VERSION})
 
 include(qceplib-cbf-include-$${QCEPLIB_CBF_VERSION}.pri)
 

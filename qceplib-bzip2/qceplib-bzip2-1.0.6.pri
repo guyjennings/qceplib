@@ -1,4 +1,4 @@
-message(qceplib-bzip2 PWD = $${PWD} QCEPLIB_BZIP2_VERSION = $${QCEPLIB_BZIP2_VERSION})
+#message(qceplib-bzip2 PWD = $${PWD} QCEPLIB_BZIP2_VERSION = $${QCEPLIB_BZIP2_VERSION})
 
 include(qceplib-bzip2-include-$${QCEPLIB_BZIP2_VERSION}.pri)
 

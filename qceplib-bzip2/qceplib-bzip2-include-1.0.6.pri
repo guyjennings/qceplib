@@ -1,5 +1,3 @@
-message(qceplib-bzip2-include PWD = $${PWD} QCEPLIB_BZIP2_VERSION = $${QCEPLIB_BZIP2_VERSION})
-
 linux-g++:QMAKE_TARGET.arch = $$QMAKE_HOST.arch
 linux-g++-32:QMAKE_TARGET.arch = x86
 linux-g++-64:QMAKE_TARGET.arch = x86_64

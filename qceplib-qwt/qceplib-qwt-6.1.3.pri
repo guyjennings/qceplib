@@ -1,4 +1,4 @@
-message(qceplib-qwt PWD = $${PWD} QCEPLIB_QWT_VERSION = $${QCEPLIB_QWT_VERSION})
+#message(qceplib-qwt PWD = $${PWD} QCEPLIB_QWT_VERSION = $${QCEPLIB_QWT_VERSION})
 
 include(qceplib-qwt-include-$${QCEPLIB_QWT_VERSION}.pri)
 
