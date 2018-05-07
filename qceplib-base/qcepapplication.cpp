@@ -4,6 +4,7 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <QCommandLineParser>
+#include <QDir>
 #include "qcepdataobject.h"
 #include "qceppowderpoint.h"
 #include "qcepcalibrantdspacing.h"
@@ -21,6 +22,8 @@ QcepApplication::QcepApplication(int &argc, char **argv) :
   m_Argv(this, "argv", makeStringListFromArgs(argc, argv), "Command Line Arguments"),
   m_GuiWanted(this, "guiWanted", 1, "GUI Wanted?"),
   m_Debug(this,"debug", 0, "Debug Level"),
+  m_PluginList(this, "pluginList", QStringList(), "Plugin directories"),
+  m_LoadPlugins(this, "loadPlugins", 1, "Load plugins"),
   m_CurrentExperiment(this, "currentExperiment", "", "Current Experiment"),
   m_RecentExperiments(this, "recentExperiments", QStringList(), "Recent Experiments"),
   m_RecentExperimentsSize(this,"recentExperimentsSize", 8, "Number of Recent Experiments to Remember"),
@@ -188,6 +191,11 @@ void QcepApplication::appendFile(QString file)
   prop_FileList()->appendValue(file);
 }
 
+void QcepApplication::appendPlugin(QString dir)
+{
+  prop_PluginList()->appendValue(dir);
+}
+
 void QcepApplication::addCommandLineOption(QCommandLineOption *opt)
 {
   m_CommandLineOptions.append(opt);
@@ -240,6 +248,15 @@ void QcepApplication::parseCommandLine()
 
   QCommandLineOption scriptOption({"s", "script"}, "Read script file (may be repeated)", "scriptfile");
   m_CommandLineParser -> addOption(scriptOption);
+
+  QCommandLineOption pluginOption("p", "Special plugin load");
+  m_CommandLineParser -> addOption(pluginOption);
+
+  QCommandLineOption pluginDirOption({"P", "plugin"}, "Extra Plugin Search Directory (may be repeated)", "dir");
+  m_CommandLineParser -> addOption(pluginDirOption);
+
+  QCommandLineOption noPluginOption("noplugins", "Don't load plugins");
+  m_CommandLineParser -> addOption(noPluginOption);
 
   int nOpts = m_CommandLineOptions.count();
 
@@ -337,6 +354,28 @@ void QcepApplication::parseCommandLine()
         }
       }
     }
+  }
+
+  if (m_CommandLineParser -> isSet(pluginOption)) {
+    QDir appDir(qApp->applicationDirPath());
+
+    appDir.cd("plugins");
+
+    appendPlugin(appDir.absolutePath());
+  }
+
+  if (m_CommandLineParser -> isSet(pluginDirOption)) {
+    QStringList plugins(m_CommandLineParser -> values(pluginDirOption));
+
+    foreach(QString ds, plugins) {
+      QDir d(ds);
+
+      appendPlugin(d.absolutePath());
+    }
+  }
+
+  if (m_CommandLineParser -> isSet(noPluginOption)) {
+    set_LoadPlugins(false);
   }
 
   QStringList files(m_CommandLineParser -> positionalArguments());

@@ -43,6 +43,7 @@ public:
   void appendCommand(QString cmd);
   void appendScript(QString script);
   void appendFile(QString file);
+  void appendPlugin(QString dir);
 
   void addCommandLineOption(QCommandLineOption *opt);
   virtual void parseCommandLine();
@@ -118,6 +119,12 @@ public:
 
   Q_PROPERTY(qint64    debug         READ get_Debug WRITE set_Debug)
   QCEP_INTEGER64_PROPERTY(Debug)
+
+  Q_PROPERTY(QStringList pluginList READ get_PluginList WRITE set_PluginList STORED false)
+  QCEP_STRING_LIST_PROPERTY(PluginList)
+
+  Q_PROPERTY(int    loadPlugins    READ get_LoadPlugins WRITE set_LoadPlugins STORED false)
+  QCEP_INTEGER_PROPERTY(LoadPlugins)
 
   Q_PROPERTY(QString currentExperiment READ get_CurrentExperiment WRITE set_CurrentExperiment)
   QCEP_STRING_PROPERTY(CurrentExperiment)
